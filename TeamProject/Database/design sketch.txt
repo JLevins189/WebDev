@@ -1,0 +1,38 @@
+user (for login) -- Table
+name
+email (PK)
+contact no.
+password
+confirm password (in form for validation)
+Profile
+
+Movies  -- Table
+Name (PK)
+Runtime
+Description
+Rating
+Picture/Poster
+Release Year
+
+Ticket -- 
+email (PK, FK) - for customer info
+movie_name(FK)
+price
+type (adult/child)
+time and date
+
+Watchlist
+email (PK,FK)
+Movie_name (FK)
+
+
+use for database
+ticket ordering - create booking, view bookings,change, cancel
+display movies by rating
+display movies by runtime
+my profile section - change password, forgotten 
+log out - destroys all variables for login
+login section
+search for movies based on title, runtime, description
+
+**avoid sql injection**
