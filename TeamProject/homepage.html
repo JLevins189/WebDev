@@ -12,28 +12,80 @@
   crossorigin="anonymous"></script>
 </head>
 
-<body>
-<!--This is our logo to be placed in every webpage-->
-<div class="header">
-  <a href="homepage.html"><img src="pictures/logo.png" alt="JE Cinema Logo" width="170" height="150"></a>
-</div>  <!--End of div-->
+<style>
+
+
+/*sets the width and height for the images in the website*/
+img {
+    
+    width: 120px;
+    height: 100px;
+}
+
+/*sets the colour of the navigaton bar*/
+    div.navbar {
+        background-color: black;
+        overflow: hidden;
+    }
+
+
+    /*sets the layouts of the links in the navigation bar. It sets them to white and tells them to float left*/   
+    div.navbar a {
+        float: left;
+        text-align: center;
+        text-decoration: none;
+        color: white;  
+        background-color: black;
+        overflow: hidden;
+     
+    }
+    
+
+    div.navbar a {
+        float: left;
+        text-align: center;
+        text-decoration: none;
+        color: white;   
+        padding: 16px;        
+        padding-top: 66px; 
+      
+      
+    }
+
+    div.navbar a:hover {
+        color: rgb(228, 165, 29);
+    }          
+    
+   
+    
+
+    div.logo a {
+      float: left;
+      text-align: center;
+      text-decoration: none;
+      color: white;  
+      background-color: black;
+      overflow: hidden;
+   }
+
+
+</style>
 
 <!--This is my navigation bar to be placed in every webpage-->
+<div class="logo">
+  <a href="homepage.html"><img src="pictures/je-logo2.png" align="left" alt="JE Cinema Logo"></a>
+</div>
 <div class="navbar">
-<ul>
-  <li><a class="navbar" href="homepage.html">Home</a></li>
-  <li><a href="create-booking.html">Make Booking</a></li>
-  <li><a href="manage-booking.html">Manage / Cancel Booking</a></li>  
-  <li><a href="contact.html">Contact</a></li>
-  <li><a href="about.html">About Us</a></li>
-  <li><a href="my_profile.html">My Profile</a></li>
-  <li><a href="signin.html">Sign In/Sign Up</a></li>
-  <li><a href="logout.html">Logout</a></li>
-</ul>  <!--End of list-->
+  <a href="create-booking.html">Make Booking</a>
+  <a href="manage-booking.html">Manage / Cancel Booking</a>
+  <a  href="contact.html">Contact</a>
+  <a  href="about.html">About Us</a>
+  <a  href="my_profile.html">My Profile</a>
+  <a  href="signin.htm">Sign In/Sign Up</a>
+  <a  href="logout.html">Logout</a>
 </div>  <!--End of div-->
 
 
-<p>Hello</p>
 </body>
 
 </html>
