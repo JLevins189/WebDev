@@ -26,12 +26,73 @@
   <li><a href="manage-booking.html">Manage / Cancel Booking</a></li>  
   <li><a href="contact.html">Contact</a></li>
   <li><a href="about.html">About Us</a></li>
-  <li><a href="my_profile.html">My Profile</a></li>
+  <li><a href="my-profile.html">My Profile</a></li>
   <li><a href="signin.html">Sign In/Sign Up</a></li>
   <li><a href="logout.html">Logout</a></li>
 </ul>  <!--End of list-->
 </div>  <!--End of div-->
 
+<h1>My Profile</h1>
+<h3>Welcome (name.getfromdatabase)</h3>
+
+<div id="sidebar">
+  <a href="#MyDetails">My Details</a>
+  <a href="#MyBookings">My Bookings</a>
+  <a href="#MyWatchlist">My Watchlist</a>
+</div>
 </body>
 
+<div id="MyDetails">
+  <h1>My Details</h1>
+  <p>Make changes</p>
+<form method="post"> 
+  <label for="fname">First name:</label><br>
+  <input type="text" id="fname" name="fname" value="getfromdatabase" ><br><br>
+  
+  <label for="lname">Last name:</label><br>
+  <input type="text" id="lname" name="lname" value="getfromdatabase" ><br><br>
+  
+  <label for="Contact Number">Contact Number</label><br>
+  <input type="number" id="phone" name="phone" value="getfromdatabase" ><br><br>  
+  
+  <label for="email">Email</label><br>
+  <input type="email" id="email" name="email" value="getfromdatabase" ><br><br>
+  
+  <label for="password">Password:</label><br>
+  <input type="password" id="password" name="password" value="getfromdatabase" ><br><br>
+  
+  <label for="confpassword">Confirm Password:</label><br>
+  <input type="password" id="confpassword" name="confpassword" value="getfromdatabase" ><br><br> 
+  
+  <br>
+  <input type="submit" name="SaveButton" value="Save Changes">
+  
+</div>
+
+<br><hr>
+
+<div id="MyBookings">
+  <h1>My Bookings</h1>
+  <p>Manage Bookings</p>
+  
+  <!--pull booking from db-->
+  <!--if more than 0 display-->
+  <!--else display "No bookings made yet...
+   book here button-->
+</div>
+
+<br><hr>
+
+<div id="MyWatchlist">
+  <h1>My Watchlist</h1>  
+  <!--pull booking from db-->
+  <!--if more than 0 display-->
+  <!--else display "Nothing in watchlist yet...
+   whats on button-->
+</div>
+
+<br><hr>
+
+
+</body>
 </html>
