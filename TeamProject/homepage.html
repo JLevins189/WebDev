@@ -1,90 +1,101 @@
-<!DOCTYPE html>
 <html>
-
 <head>
-<meta charset="UTF-8">
-<title>JE Cinema | Home</title>
-<link id="stylesheet" rel="stylesheet" href="jecinema.css">
-<script type="text/javascript" src="jecinema.js"></script>
-<script
-  src="https://code.jquery.com/jquery-3.6.0.min.js"
-  integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-  crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <style>
+    .navbar-brand img {
+        height: 50px;
+        width: 50px;
+    }
+
+    body {
+      background-color: black;
+    }
+  </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="#"><img src="pictures/je-logo2.png"></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="homepage.html">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="contact.html">Contact</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Booking
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="#">Make booking</a>
+          <a class="dropdown-item" href="#">Manage/Cancel Booking</a>
+        </div>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Profile
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="#">Sign in/Sign up</a>
+          <a class="dropdown-item" href="#">My Profile</a>
+        </div>
+      </li>
+    </ul>
+    <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-warning my-2 my-sm-0" type="submit">Search</button>
+    </form>
+  </div>
+</nav>
 
 <style>
+  /* Make the image fully responsive */
+  .carousel-inner img {
+    width: 100%;
+    height: 80%;
+  }
+  </style>
+</head>
+<body>
 
+<div id="demo" class="carousel slide" data-ride="carousel">
 
-/*sets the width and height for the images in the website*/
-img {
-    
-    width: 120px;
-    height: 100px;
-}
-
-/*sets the colour of the navigaton bar*/
-    div.navbar {
-        background-color: black;
-        overflow: hidden;
-    }
-
-
-    /*sets the layouts of the links in the navigation bar. It sets them to white and tells them to float left*/   
-    div.navbar a {
-        float: left;
-        text-align: center;
-        text-decoration: none;
-        color: white;  
-        background-color: black;
-        overflow: hidden;
-     
-    }
-    
-
-    div.navbar a {
-        float: left;
-        text-align: center;
-        text-decoration: none;
-        color: white;   
-        padding: 16px;        
-        padding-top: 66px; 
-      
-      
-    }
-
-    div.navbar a:hover {
-        color: rgb(228, 165, 29);
-    }          
-    
-   
-    
-
-    div.logo a {
-      float: left;
-      text-align: center;
-      text-decoration: none;
-      color: white;  
-      background-color: black;
-      overflow: hidden;
-   }
-
-
-</style>
-
-<!--This is my navigation bar to be placed in every webpage-->
-<div class="logo">
-  <a href="homepage.html"><img src="pictures/je-logo2.png" align="left" alt="JE Cinema Logo"></a>
+  <!-- Indicators -->
+  <ul class="carousel-indicators">
+    <li data-target="#demo" data-slide-to="0" class="active"></li>
+    <li data-target="#demo" data-slide-to="1"></li>
+    <li data-target="#demo" data-slide-to="2"></li>
+  </ul>
+  
+  <!-- The slideshow -->
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="pictures/notimetodie.jpg" alt="Los Angeles" width="1100" height="500">
+    </div>
+    <div class="carousel-item">
+      <img src="chicago.jpg" alt="Chicago" width="1100" height="500">
+    </div>
+    <div class="carousel-item">
+      <img src="ny.jpg" alt="New York" width="1100" height="500">
+    </div>
+  </div>
+  
+  <!-- Left and right controls -->
+  <a class="carousel-control-prev" href="#demo" data-slide="prev">
+    <span class="carousel-control-prev-icon"></span>
+  </a>
+  <a class="carousel-control-next" href="#demo" data-slide="next">
+    <span class="carousel-control-next-icon"></span>
+  </a>
 </div>
-<div class="navbar">
-  <a href="create-booking.html">Make Booking</a>
-  <a href="manage-booking.html">Manage / Cancel Booking</a>
-  <a  href="contact.html">Contact</a>
-  <a  href="about.html">About Us</a>
-  <a  href="my_profile.html">My Profile</a>
-  <a  href="signin.htm">Sign In/Sign Up</a>
-  <a  href="logout.html">Logout</a>
-</div>  <!--End of div-->
-
 
 </body>
-
 </html>
