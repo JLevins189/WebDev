@@ -3,7 +3,7 @@
 
 <head>
 <meta charset="UTF-8">
-<title>JE Cinema | Login</title>
+<title>JE Cinema | Home</title>
 <link id="stylesheet" rel="stylesheet" href="jecinema.css">
 <script type="text/javascript" src="jecinema.js"></script>
 <script
@@ -26,7 +26,7 @@
   <li><a href="manage-booking.html">Manage / Cancel Booking</a></li>  
   <li><a href="contact.html">Contact</a></li>
   <li><a href="about.html">About Us</a></li>
-  <li><a href="my-profile.html">My Profile</a></li>
+  <li><a href="my_profile.html">My Profile</a></li>
   <li><a href="signin.html">Sign In/Sign Up</a></li>
   <li><a href="logout.html">Logout</a></li>
 </ul>  <!--End of list-->
@@ -34,30 +34,41 @@
 
 <!--This is my Sign Up form to take data and sign up a user using a database-->
 <div class="signup">  
-<h1> Sign In </h1>
-<p>Sign in for the full experience. Enter your login details below.</p>
+<h1> Sign Up </h1>
+<p>New? Sign up for the full experience. Fill in your details below to sign up.</p>
 <form method="post"> 
+  <label for="fname">First name:</label>
+  <label style="color:red">*</label><br>  <!--Show that it is a required field-->
+  <input type="text" id="fname" name="fname" required><br><br>
+  
+  <label for="lname">Last name:</label>
+  <label style="color:red">*</label><br>  <!--Show that it is a required field-->
+  <input type="text" id="lname" name="lname" required><br><br>
+  
+  <label for="Contact Number">Contact Number</label>
+  <label style="color:red">*</label><br>  <!--Show that it is a required field-->
+  <input type="number" id="phone" name="phone" required><br><br>  
+  
   <label for="email">Email</label>
   <label style="color:red">*</label><br>  <!--Show that it is a required field-->
   <input type="email" id="email" name="email" required><br><br>
   
   <label for="password">Password:</label>
   <label style="color:red">*</label><br>  <!--Show that it is a required field-->
-  <input type="password" id="password" name="password" required><br>
+  <input type="password" id="password" name="password" required><br><br>
   
-  <p><a href="forgotten-password">Forgotten Password?</a></p><br>
+  <label for="confpassword">Confirm Password:</label>
+  <label style="color:red">*</label><br>  <!--Show that it is a required field-->
+  <input type="confpassword" id="confpassword" name="confpassword" required><br><br>
   
-  <input type="submit" name="SignInButton" value="Sign In">
+  <input type="checkbox" id="tandcs" name="tandcs" required>
+  <label for="tandcs">By becoming a JE Cinema member, I agree to JE Cinema's terms & conditions, and privacy policy.</label> 
+  <label style="color:red">*</label> <!--Show that it is a required field-->  
+  
+  <br><br><br>
+  <input type="submit" name="SignUpButton" value="Sign Up">
 </div>  <!--End of div-->
 </form>  <!--End of form-->
-
-
-<form method="none">
-  <br>
-  <p>Not a member?</p>
-  <input type="button" id="b1" onclick="location.href='http://www.example.com'" value="Join Us →"></input>
-</form>  <!--End of form-->
-
 
 
 </body>
