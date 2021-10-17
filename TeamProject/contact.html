@@ -1,74 +1,71 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-<meta charset="UTF-8">
-<title>JE Cinema | Contact</title>
-<link id="stylesheet" rel="stylesheet" href="jecinema.css">
-<script type="text/javascript" src="jecinema.js"></script>
-<script
-  src="https://code.jquery.com/jquery-3.6.0.min.js"
-  integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-  crossorigin="anonymous"></script>
-</head>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <style>
+    .navbar-brand img {
+        height: 50px;
+        width: 50px;
+    }
 
+    body {
+      background-color: black;
+    }
+ 
+    .profile {
+      vertical-align: middle;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      
+    }
+
+  </style>
 <body>
-<!--This is our logo to be placed in every webpage-->
-<div class="header">
-  <a href="homepage.html"><img src="pictures/logo.png" alt="JE Cinema Logo" width="170" height="150"></a>
-</div>  <!--End of div-->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="#"><img src="pictures/je-logo3.png"></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
 
-<!--This is my navigation bar to be placed in every webpage-->
-<div class="navbar">
-<ul>
-  <li><a class="navbar" href="homepage.html">Home</a></li>
-  <li><a href="create-booking.html">Make Booking</a></li>
-  <li><a href="manage-booking.html">Manage / Cancel Booking</a></li>  
-  <li><a href="contact.html">Contact</a></li>
-  <li><a href="about.html">About Us</a></li>
-  <li><a href="my_profile.html">My Profile</a></li>
-  <li><a href="signin.html">Sign In/Sign Up</a></li>
-  <li><a href="logout.html">Logout</a></li>
-</ul>  <!--End of list-->
-</div>  <!--End of div-->
-
-<!--Contact Information with symbols-->
-<div class="contact">
-<h1>Contact Us Now</h1>
-  <p>Get in touch with any enquires relating to any issues with our website or cinema with the details below or come visit us!</p>
-  <a href="tel: 01 1111 222" style="color:orange"> <img src="pictures/phone.webp" alt="Phone Us" width="10" height="10">	01 1111 222</a><br><br>
-  <a href="tel: 086 123 4567" style="color:orange"> <img src="pictures/phone.webp" alt="Phone Us" width="10" height="10">	086 123 4567</a><br><br>
-  <a href="tel: 087 765 4321" style="color:orange"> <img src="pictures/phone.webp" alt="Phone Us" width="10" height="10">	087 765 4321</a><br><br>
-  <a href="mailto: info@jecinema.ie" style="color:orange"><img src="pictures/mail.png" alt="E-Mail Us" width="10" height="10">	info@jecinema.ie</a><br><br><br>
-  <a href="https://goo.gl/maps/ZZ5qMEstJMaN7Zow7" style="color:navy"> <img src="pictures/location.webp" alt="Location" width="10" height="10">	JE Cinema, Grafton St, Dublin 2, Ireland</a><br><br>
-  <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2382.090129970957!2d-6.262373784161724!3d53.341642779978045!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48670e9b8c8edbf1%3A0x90afb1bb108edcdd!2sGrafton%20Street%2C%20Dublin!5e0!3m2!1sen!2sie!4v1634056140537!5m2!1sen!2sie" width="350" height="300" style="border:20;" allowfullscreen="" loading="lazy"></iframe><br>
-  <br>
-</div>  <!--End of div-->
-
-<!--Contact Form to be stored in database for admin-->
-<div class="form">
-<h1>Contact Form</h1>
-	<form method="post"> 
-		<label for="name">Your Name:<br></label>
-		<input type="text" size="30" id="name" name="name" placeholder="Please enter your name here" required>
-		<label style="color:red">*</label>  <!--Show that it is a required field-->
-	<br><br>	
-		<label for="email">Your E-mail:<br></label>
-		<input type="email" size="30" id="email" name="email" placeholder="Please enter your email address here" required>
-		<label style="color:red">*</label>  <!--Show that it is a required field-->
-	<br><br>	
-		<label for="website">Subject:<br></label>
-		<input type="text" size="30" id="subject" name="subject" placeholder="Enter the subject here" required>
-		<label style="color:red">*</label>  <!--Show that it is a required field-->
-	<br><br>	
-		<label for="comment">Your Message:<br></label>
-		<input type="text" cols="50" rows="4" id="subject" name="message" placeholder="Enter your message here" required>
-		<label style="color:red">*</label>  <!--Show that it is a required field-->		
-	<br><br>
-		<input type="submit" value="Send">
-	</form>  <!--End of form-->
-</div>  <!--End of div-->
-
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="homepage.html">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="contact.html">Contact</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Booking
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="#">Make booking</a>
+          <a class="dropdown-item" href="#">Manage/Cancel Booking</a>
+        </div>
+      </li>
+    </ul>
+      <ul class="navbar-nav ml-auto">
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle ml-auto" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <img src="pictures/profilepic.jpg" width="35px" height="35px" class="profile">
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="#">Sign in/Sign up</a>
+          <a class="dropdown-item" href="#">My Profile</a>
+        </div>
+      </li>
+    </ul>
+    </ul>
+    <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-warning my-2 my-sm-0" type="submit">Search</button>
+    </form>
+  </div>
+</nav>
 </body>
-
 </html>

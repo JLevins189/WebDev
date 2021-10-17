@@ -1,98 +1,71 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-<meta charset="UTF-8">
-<title>JE Cinema | My Profile</title>
-<link id="stylesheet" rel="stylesheet" href="jecinema.css">
-<script type="text/javascript" src="jecinema.js"></script>
-<script
-  src="https://code.jquery.com/jquery-3.6.0.min.js"
-  integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-  crossorigin="anonymous"></script>
-</head>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <style>
+    .navbar-brand img {
+        height: 50px;
+        width: 50px;
+    }
 
+    body {
+      background-color: black;
+    }
+ 
+    .profile {
+      vertical-align: middle;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      
+    }
+
+  </style>
 <body>
-<!--This is our logo to be placed in every webpage-->
-<div class="header">
-  <a href="homepage.html"><img src="pictures/logo.png" alt="JE Cinema Logo" width="170" height="150"></a>
-</div>  <!--End of div-->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="#"><img src="pictures/je-logo3.png"></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
 
-<!--This is my navigation bar to be placed in every webpage-->
-<div class="navbar">
-<ul>
-  <li><a class="navbar" href="homepage.html">Home</a></li>
-  <li><a href="create-booking.html">Make Booking</a></li>
-  <li><a href="manage-booking.html">Manage / Cancel Booking</a></li>  
-  <li><a href="contact.html">Contact</a></li>
-  <li><a href="about.html">About Us</a></li>
-  <li><a href="my-profile.html">My Profile</a></li>
-  <li><a href="signin.html">Sign In/Sign Up</a></li>
-  <li><a href="logout.html">Logout</a></li>
-</ul>  <!--End of list-->
-</div>  <!--End of div-->
-
-<h1>My Profile</h1>
-<h3>Welcome (name.getfromdatabase)</h3>
-
-<div id="sidebar">
-  <a href="#MyDetails">My Details</a>
-  <a href="#MyBookings">My Bookings</a>
-  <a href="#MyWatchlist">My Watchlist</a>
-</div>
-</body>
-
-<div id="MyDetails">
-  <h1>My Details</h1>
-  <p>Make changes</p>
-<form method="post"> 
-  <label for="fname">First name:</label><br>
-  <input type="text" id="fname" name="fname" value="getfromdatabase" ><br><br>
-  
-  <label for="lname">Last name:</label><br>
-  <input type="text" id="lname" name="lname" value="getfromdatabase" ><br><br>
-  
-  <label for="Contact Number">Contact Number</label><br>
-  <input type="number" id="phone" name="phone" value="getfromdatabase" ><br><br>  
-  
-  <label for="email">Email</label><br>
-  <input type="email" id="email" name="email" value="getfromdatabase" ><br><br>
-  
-  <label for="password">Password:</label><br>
-  <input type="password" id="password" name="password" value="getfromdatabase" ><br><br>
-  
-  <label for="confpassword">Confirm Password:</label><br>
-  <input type="password" id="confpassword" name="confpassword" value="getfromdatabase" ><br><br> 
-  
-  <br>
-  <input type="submit" name="SaveButton" value="Save Changes">
-  
-</div>
-
-<br><hr>
-
-<div id="MyBookings">
-  <h1>My Bookings</h1>
-  <p>Manage Bookings</p>
-  
-  <!--pull booking from db-->
-  <!--if more than 0 display-->
-  <!--else display "No bookings made yet...
-   book here button-->
-</div>
-
-<br><hr>
-
-<div id="MyWatchlist">
-  <h1>My Watchlist</h1>  
-  <!--pull booking from db-->
-  <!--if more than 0 display-->
-  <!--else display "Nothing in watchlist yet...
-   whats on button-->
-</div>
-
-<br><hr>
-
-
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="homepage.html">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="contact.html">Contact</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Booking
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="#">Make booking</a>
+          <a class="dropdown-item" href="#">Manage/Cancel Booking</a>
+        </div>
+      </li>
+    </ul>
+      <ul class="navbar-nav ml-auto">
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle ml-auto" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <img src="pictures/profilepic.jpg" width="35px" height="35px" class="profile">
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="#">Sign in/Sign up</a>
+          <a class="dropdown-item" href="#">My Profile</a>
+        </div>
+      </li>
+    </ul>
+    </ul>
+    <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-warning my-2 my-sm-0" type="submit">Search</button>
+    </form>
+  </div>
+</nav>
 </body>
 </html>
