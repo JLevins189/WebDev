@@ -2,61 +2,92 @@
 <html>
 
 <head>
-<meta charset="UTF-8">
-<title>JE Cinema | Login</title>
-<link id="stylesheet" rel="stylesheet" href="jecinema.css">
-<script type="text/javascript" src="jecinema.js"></script>
-<script
-  src="https://code.jquery.com/jquery-3.6.0.min.js"
-  integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-  crossorigin="anonymous"></script>
-</head>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <style>
 
-<body>
-<!--This is our logo to be placed in every webpage-->
-<div class="header">
-  <a href="homepage.html"><img src="pictures/logo.png" alt="JE Cinema Logo" width="170" height="150"></a>
-</div>  <!--End of div-->
+  .navbar-brand img {
+        height: 50px;
+        width: 50px;
+    }
 
-<!--This is my navigation bar to be placed in every webpage-->
-<div class="navbar">
-<ul>
-  <li><a class="navbar" href="homepage.html">Home</a></li>
-  <li><a href="create-booking.html">Make Booking</a></li>
-  <li><a href="manage-booking.html">Manage / Cancel Booking</a></li>  
-  <li><a href="contact.html">Contact</a></li>
-  <li><a href="about.html">About Us</a></li>
-  <li><a href="my-profile.html">My Profile</a></li>
-  <li><a href="signin.html">Sign In/Sign Up</a></li>
-  <li><a href="logout.html">Logout</a></li>
-</ul>  <!--End of list-->
-</div>  <!--End of div-->
+    body {
+      background-color: black;
+    }
 
-<!--This is my Sign Up form to take data and sign up a user using a database-->
-<div class="signup">  
-<h1> Sign In </h1>
-<p>Sign in for the full experience. Enter your login details below.</p>
-<form method="post"> 
-  <label for="email">Email</label>
-  <label style="color:red">*</label><br>  <!--Show that it is a required field-->
-  <input type="email" id="email" name="email" required><br><br>
+    .profile {
+      vertical-align: middle;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      
+    }
+
+
+    .login {
+      background-color: darkgray;
+      box-shadow: 5px 5px 5px white;
+      width: 300px;
+      border-radius: 5px;
+      padding: 50px;
+      position: relative;
+      left: 39%;
+      top: 260px;
+    }
+  </style>
+   
+
+   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#"><img src="pictures/je-logo3.png"></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
   
-  <label for="password">Password:</label>
-  <label style="color:red">*</label><br>  <!--Show that it is a required field-->
-  <input type="password" id="password" name="password" required><br>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="homepage.html">Home <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="contact.html">Contact</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Booking
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="#">Make booking</a>
+            <a class="dropdown-item" href="#">Manage/Cancel Booking</a>
+          </div>
+        </li>
+      </ul>
+        <ul class="navbar-nav ml-auto">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle ml-auto" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <img src="pictures/profilepic.jpg" width="35px" height="35px" class="profile">
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="#">Sign in/Sign up</a>
+            <a class="dropdown-item" href="#">My Profile</a>
+          </div>
+        </li>
+      </ul>
+      </ul>
+      <form class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-warning my-2 my-sm-0" type="submit">Search</button>
+      </form>
+    </div>
+  </nav>
   
-  <p><a href="forgotten-password">Forgotten Password?</a></p><br>
-  
-  <input type="submit" name="SignInButton" value="Sign In">
-</div>  <!--End of div-->
-</form>  <!--End of form-->
 
+    <div class="login">
+    </div>
 
-<form method="none">
-  <br>
-  <p>Not a member?</p>
-  <input type="button" id="b1" onclick="location.href='http://www.example.com'" value="Join Us →"></input>
-</form>  <!--End of form-->
+  </div>
+
 
 
 
