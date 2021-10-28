@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -40,13 +40,20 @@
     }
 
     .container {
-      padding: 130px 16px;
+      padding: 10px 16px;
       text-align: center
     }
+
+    .blank_space  {
+      margin-top: 250px;
+      vertical-align: middle;
+    }
+
+
   </style>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <a class="navbar-brand" href="#"><img src="pictures/je-logo3.png"></a>
+  <a class="navbar-brand" href="#"><img src="pictures/je-logo3.png" alt="logo"></a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -72,7 +79,7 @@
       <ul class="navbar-nav ml-auto">
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle ml-auto" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <img src="pictures/profilepic.jpg" width="35px" height="35px" class="profile">
+          <img src="pictures/profilepic.jpg" width="35px" height="35px" class="profile" alt="profile_image">
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="#">Sign in/Sign up</a>
@@ -91,12 +98,17 @@
 
 <div class="card">
   <div class="container">
+    <img class="navbar-brand" src="pictures/je-logo3.png" height="50px" width="50px" alt="logo">
     <h4 style="color:silver"><b>Login</b></h4> 
-    <input type="email" style="border-radius: 5px;" placeholder="Username"><br><br>
+    <input type="email" style="border-radius: 5px;" placeholder="Email"><br><br>
     <input type="password" style="border-radius: 5px;" placeholder="Password"><br><br>
     <button class="btn btn-outline-warning" type="submit">Login</button><br><br>
 	<p style="color:silver">Not registered? <a href="register.html">Register here</a></p>
   </div>
+</div>
+
+<div class="blank_space">
+  <br>
 </div>
 
 </body>

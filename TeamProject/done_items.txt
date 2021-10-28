@@ -1,0 +1,12 @@
+login (done till DB)
+about (by today)
+register (form) - same as login
+homepage (nearly finished by today)
+
+
+
+
+
+
+my profile (when DB ready)
+searchpage(last)
