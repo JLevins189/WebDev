@@ -1,68 +1,158 @@
 $(document).ready(function() 
 {
     $(function () {
-		$("#button-movie1").click(function() 
+		checkLogin(); //set as logged in/guest
+		$(".poster1").click(function() 
 		{
 			whatsOnMovie1();
 			
 		});
 
 
-		$("#button-movie2").click(function ()
+		$(".poster2").click(function ()
 		{
 			whatsOnMovie2();
 		});
 
 
-		$("#button-movie3").click(function() 
+		$(".poster3").click(function() 
 		{
 			whatsOnMovie3();
 		});
-			});
+
+		$(".poster4").click(function() 
+		{
+			whatsOnMovie4();
 		});
 
+		$(".poster5").click(function() 
+		{
+			whatsOnMovie5();
+		});
+
+		$(".poster3").click(function() 
+		{
+			whatsOnMovie6();
+		});
+		$("#logout_button").click(function()
+		{
+			logout();
+		});
+
+	});
+});
 
 
+
+/*  Get movie name from the click of their poster in the what's on page
+	Bring the user to the booking page with that movie pre selected	*/
 
 function whatsOnMovie1()
 {
 	let movie1 = $("#movie1").text();
 	sessionStorage.setItem("movie-selected", movie1);
-	//let data = sessionStorage.getItem('movie-selected');
-	//console.log(data);
-	//var movie2 = "The Godfather";
-	
 	window.location.href = "create-booking.html";	
-	let data = sessionStorage.getItem("movie-selected");
-	console.log(data);
-	//Get form row (movie name) by id
-	//place var movie name into it 
-
 }	
+
 
 function whatsOnMovie2()
 {
-	
 	let movie2 = $("#movie2").text();
-	sessionStorage.setItem('movie-selected', movie2);
-	//let data = sessionStorage.getItem('movie-selected');
-	//console.log(data);
-	//var movie2 = "The Godfather";
-	
-	window.location.href = "create-booking.html";
-	let data = sessionStorage.getItem('movie-selected');
-	console.log(data);
-	//Get form row (movie name) by id
-	//place var movie name into it 
-
+	sessionStorage.setItem("movie-selected", movie2);
+	window.location.href = "create-booking.html";	
 }	
+
 
 function whatsOnMovie3()
 {
-	
-	var movie3 = "Paw Patrol";
-	window.location.href = "create-booking.html";
-	//Get form row (movie name) by id
-	//place var movie name into it 
-
+	let movie3 = $("#movie3").text();
+	sessionStorage.setItem("movie-selected", movie3);
+	window.location.href = "create-booking.html";	
 }	
+
+
+function whatsOnMovie4()
+{
+	let movie3 = $("#movie4").text();
+	sessionStorage.setItem("movie-selected", movie4);
+	window.location.href = "create-booking.html";	
+}	
+
+
+function whatsOnMovie5()
+{
+	let movie3 = $("#movie5").text();
+	sessionStorage.setItem("movie-selected", movie5);
+	window.location.href = "create-booking.html";	
+}	
+
+
+function whatsOnMovie6()
+{
+	let movie3 = $("#movie6").text();
+	sessionStorage.setItem("movie-selected", movie6);
+	window.location.href = "create-booking.html";	
+}	
+
+
+function checkLogin()
+{
+	if(sessionStorage.getItem("user-email") !== null)  //if user logged in
+	{
+		//Change Login Option to Log out
+		$("#sign-in").text("Log Out").attr("href", "javascript:void(0);").attr("id","logout_button"); //javascript void prevents redirect on link press (handled in function instead ) 
+
+		//Change Register Option to My profile
+		$("#register").text("My Profile").attr("id","my_profile").attr("href", "my-profile.html");
+		
+		//Set Profile Picture if logged in
+		setProfilePhoto();
+	}
+	else  //if user is not logged in
+	{
+		//Reverse changes to options above  if needed
+		if( $("#logout_button").text() === "" || $("#logout_button").text() === null)  //revert to guest view
+		{
+			//Change Log out to Login
+			$("#logout-button").text("Sign In").attr("id", "sign-in").attr("href", "login.html");
+
+			//Change My Profile Option to Register
+			$("#my-profile").text("Register").attr("id", "register").attr("href", "register.html");
+					
+			//Set Profile Picture to default
+			setProfilePhoto();
+		}
+
+	}
+}
+
+function setProfilePhoto()
+{
+	if(sessionStorage.getItem("user-picture") !== null)
+	{
+		//Set Picture to user's profile picture 
+		let profilePicture = sessionStorage.getItem("user-picture");
+		$("#user-picture").attr("src",profilePicture);
+	}
+	else
+	{
+		$("#user-picture").attr("src", "pictures/profilepic.jpg");  //Revert to default image
+	}
+
+}
+
+
+function logout()
+{
+	if(sessionStorage.getItem('user-email') === null)  //if not logged in - impossible case unless jquery function fails to changed from logged in to guest
+	{
+		//Give feedback operation not allowed
+		alert("You must be signed in to logout");
+	}
+	else
+	{
+		sessionStorage.clear();
+		window.location.href = "homepage.html";  //redirect to home / refresh page
+	}  
+}
+

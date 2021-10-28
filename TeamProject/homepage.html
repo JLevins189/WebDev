@@ -103,109 +103,122 @@
 
 
   </style>
+</head>
 <body>
-<nav id="navbar navbar-expand-lg navbar-dark bg-dark">
-  <a id="navbar-brand" href="#"><img src="pictures/je-logo3.png"></a>
-  <button id="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span id="navbar-toggler-icon"></span>
+  </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="#"><img src="pictures/je-logo3.png"></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
   </button>
 
-  <div id="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul id="navbar-nav mr-auto">
-      <li id="nav-item active">
-        <a id="nav-link" href="homepage.html">Home <span id="sr-only">(current)</span></a>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="homepage.html">Home <span class="sr-only">(current)</span></a>
       </li>
-      <li id="nav-item">
-        <a id="nav-link" href="contact.html">Contact</a>
+      <li class="nav-item">
+        <a class="nav-link" href="about.html">About</a>
       </li>
-      <li id="nav-item dropdown">
-        <a id="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Booking
         </a>
-        <div id="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a id="dropdown-item" href="#">Make booking</a>
-          <a id="dropdown-item" href="#">Manage/Cancel Booking</a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="create-booking.html">Make booking</a>
+          <a class="dropdown-item" href="manage-booking.html">Manage/Cancel Booking</a>
         </div>
       </li>
     </ul>
-      <ul id="navbar-nav ml-auto">
-      <li id="nav-item dropdown">
-        <a id="nav-link dropdown-toggle ml-auto" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <img src="pictures/profilepic.jpg" width="35px" height="35px" id="profile">
+      <ul class="navbar-nav ml-auto">
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle ml-auto" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <img id="user-picture" src="pictures/profilepic.jpg" width="35px" height="35px" class="profile">
         </a>
-        <div id="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a id="dropdown-item" href="#">Sign in/Sign up</a>
-          <a id="dropdown-item" href="#">My Profile</a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" id="sign-in" href="login.html">Sign in</a>
+          <a class="dropdown-item" id="register" href="register.html">Register</a>
         </div>
       </li>
     </ul>
     </ul>
-    <form id="form-inline my-2 my-lg-0">
-      <input id="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-      <button id="btn btn-outline-warning my-2 my-sm-0" type="submit">Search</button>
+    <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-warning my-2 my-sm-0" type="submit">Search</button>
     </form>
   </div>
 </nav>
 
-<div id="demo" id="carousel slide" data-ride="carousel">
+<div id="demo" class="carousel slide" data-ride="carousel">
 
   <!-- Indicators -->
-  <ul id="carousel-indicators">
-    <li data-target="#demo" data-slide-to="0" id="active"></li>
+  <ul class="carousel-indicators">
+    <li data-target="#demo" data-slide-to="0" class="active"></li>
     <li data-target="#demo" data-slide-to="1"></li>
     <li data-target="#demo" data-slide-to="2"></li>
   </ul>
   
   <!-- The slideshow -->
-  <div id="carousel-inner">
-    <div id="carousel-item active">
-      <img src="pictures/notimetodie.jpg" alt="Los Angeles" width="1100" height = "500">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="pictures/notimetodie.jpg" alt="007 No Time to Die" width="1100" height = "600">
     </div>
-    <div id="carousel-item">
-      <img src="chicago.jpg" alt="Chicago" width="1100" height="500">
+    <div class="carousel-item">
+      <img src="pictures/savingprivateryan.jpg" alt="Saving Private Ryan" width="1100" height="600">
     </div>
-    <div id="carousel-item">
-      <img src="ny.jpg" alt="New York" width="1100" height="500">
+    <div class="carousel-item">
+      <img src="pictures/thelionking.jpeg" alt="The Lion King" width="1100" height="600">
     </div>
   </div>
   
   <!-- Left and right controls -->
-  <a id="carousel-control-prev" href="#demo" data-slide="prev">
-    <span id="carousel-control-prev-icon"></span>
+  <a class="carousel-control-prev" href="#demo" data-slide="prev">
+    <span class="carousel-control-prev-icon"></span>
   </a>
-  <a id="carousel-control-next" href="#demo" data-slide="next">
-    <span id="carousel-control-next-icon"></span>
+  <a class="carousel-control-next" href="#demo" data-slide="next">
+    <span class="carousel-control-next-icon"></span>
   </a>
 </div>
 
 
 
 
-<div id="movies">
+<div class="movies">
 <br><br>
 <h2>What's On</h2>
 <hr>
 <br>
 
-<div id="movie1">
-<!--Add an onclick on each image that sets a variable and brings them to a booking page and fills out the movie in the make booking form it brings them to-->
-
-<button id="button-movie1"><img id="poster1" src="pictures/savingprivateryan_poster.jpg" width="120" height="200"><h3>Saving Private Ryan</h3></button>
-<!--<img id="poster1" src="pictures/savingprivateryan_poster.jpg" width="120" height="200"><h3>Saving Private Ryan</h3>-->
+<div class="movie1">
+  <img class="poster1" src="pictures/savingprivateryan_poster.jpg" width="120" height="200"><h3 id="movie1">Saving Private Ryan</h3>
 </div>
 
-<div id="movie2">
-<img id="poster2" src="pictures/thegodfather_poster.jpg" width="120" height="200"><h3>The Godfather</h3>
+<div class="movie2">
+  <img class="poster2" src="pictures/thegodfather_poster.jpg" width="120" height="200"><h3 id="movie2">The Godfather</h3>
 </div>
 
-<div id="movie3">
-  <img id="poster3" src="pictures/pawpatrol_poster.jpg" width="120" height="200"><h3>Paw Patrol</h3>
+<div class="movie3">
+  <img class="poster3" src="pictures/pawpatrol_poster.jpg" width="120" height="200"><h3 id="movie3">Paw Patrol</h3>
+</div>
+
+<div class="movie4">
+  <img class="poster4" src="pictures/lionking_poster.jpg" width="120" height="200"><h3 id="movie4">The Lion King</h3>
+</div>
+
+<div class="movie5">
+  <img class="poster5" src="pictures/notimetodie_poster.jpg" width="120" height="200"><h3 id="movie5">007: No Time to Die</h3>
+</div>
+
+<div class="movie6">
+  <img class="poster6" src="pictures/deadlycuts_poster.jpg" width="120" height="200"><h3 id="movie6">Deadly Cuts</h3>
 </div>
 
 </div>
 
 
+<script type="text/javascript" src="scripts/jecinema-homepage_js.js"></script>
 
-<script src="scripts/jecinema-homepage_js.js"></script>
 </body>
 </html>
