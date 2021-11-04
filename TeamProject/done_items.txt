@@ -1,7 +1,9 @@
 login (done till DB)
  - include proper authentication
-about (done (swap sides)   )
-register (form) - same as login
+about (done)
+register (done till db)
+
+
 homepage (nearly finished by today)
 
 
