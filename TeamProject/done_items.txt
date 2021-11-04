@@ -1,12 +1,33 @@
 login (done till DB)
-about (by today)
+ - include proper authentication
+about (done (swap sides)   )
 register (form) - same as login
 homepage (nearly finished by today)
 
 
+- Express set up with getters etc.
+- Proper error messages
+- Avoid SQL Injection
+
+-readme.txt
+
+CRUD
+C - Register
+R - Login
+U - Change Password or anything on my profile
+D - Deactivate account 
 
 
+Watchlist
+ - must be logged in
 
 
-my profile (when DB ready)
+my profile (when DB ready - has to be dynamic)
+ - Change password option
+ - delete/deactivate profile
+ - Profile pic management
+
 searchpage(last)
+ - view
+ - filter
+ - no need for log in
