@@ -100,12 +100,15 @@
   <div class="container">
     <img class="navbar-brand" src="pictures/je-logo3.png" height="50px" width="50px" alt="logo">
     <h4 style="color:silver"><b>Register</b></h4> 
-    <input type="text" style="border-radius: 5px;" placeholder="Full Name"><br><br>
-    <input type="email" style="border-radius: 5px;" placeholder="Email"><br><br>
-    <input type="password" style="border-radius: 5px;" placeholder="Password"><br><br>
-    <input type="email" style="border-radius: 5px;" placeholder="Confirm Email"><br><br>
-    <input type="password" style="border-radius: 5px;" placeholder="Confirm Password"><br><br>>
-    <button class="btn btn-outline-warning" type="submit">Register</button><br><br>
+    
+	<input type="text" id="cust_name" style="border-radius: 5px;" placeholder="Full Name" required><br><br>
+    <input type="email" id="cust_email" style="border-radius: 5px;" placeholder="Email" required><br><br>
+	<input type="email" id="cust_confemail" style="border-radius: 5px;" placeholder="Confirm Email" required><br><br>
+    <input type="password" id="cust_password" style="border-radius: 5px;" placeholder="Password" required><br><br>
+	<input type="password" id="cust_confpassword" style="border-radius: 5px;" placeholder="Confirm Password" required><br><br>
+    <input type="text" id="cust_contactphone" style="border-radius: 5px;" placeholder="Phone Number" required><br><br>
+	<button class="btn btn-outline-warning" id="RegisterBttn" type="submit">Register</button><br><br>
+	
 	<p style="color:silver">Already have an account? <a href="login.html">Login here</a></p>
   </div>
 </div>

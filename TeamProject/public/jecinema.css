@@ -21,3 +21,19 @@
 .navbar li {
   float: left;
 }
+
+body {
+	background-color: black;
+}
+
+.profile {
+  vertical-align: middle;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
+
+.navbar-brand img {
+  height: 50px;
+  width: 50px;
+}

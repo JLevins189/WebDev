@@ -20,6 +20,34 @@ app.get("/", function(req, res) {
     res.sendFile(__dirname + "/homepage.html");
 });
 
+app.get("/homepage.html", function(req, res) {
+    res.sendFile(__dirname + "/homepage.html");
+});
+
+app.get("/about.html", function(req, res) {
+    res.sendFile(__dirname + "/about.html");
+});
+
+app.get("/create-booking.html", function(req, res) {
+    res.sendFile(__dirname + "/create-booking.html");
+});
+
+app.get("/manage-booking.html", function(req, res) {
+    res.sendFile(__dirname + "/manage-booking.html");
+});
+
+app.get("/login.html", function(req, res) {
+    res.sendFile(__dirname + "/login.html");
+});
+
+app.get("/register.html", function(req, res) {
+    res.sendFile(__dirname + "/register.html");
+});
+
+app.get("/my-profile.html", function(req, res) {
+    res.sendFile(__dirname + "/my-profile.html");
+});
+
 
 //Example Below of post
 app.post("/sum", function(req, res) {
@@ -35,7 +63,7 @@ app.post("/sum", function(req, res) {
 });
 
 
-
+/*
 //Make Connection to SQL
 con.connect(function(err) {
   if (err) throw err;
@@ -47,3 +75,4 @@ con.connect(function(err) {
   });
 });
 
+*/
