@@ -6,9 +6,9 @@ const app = express();
 
 const con = mysql.createConnection({
   host: "localhost",
-  user: "yourusername",
-  password: "yourpassword",
-  database: "mydb"
+  user: "SYS",
+  password: "Sxyp8554?",
+  database: "jecinema"
 });
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname + "/public"));
@@ -20,31 +20,31 @@ app.get("/", function(req, res) {
     res.sendFile(__dirname + "/homepage.html");
 });
 
-app.get("/homepage.html", function(req, res) {
+app.get("/home", function(req, res) {
     res.sendFile(__dirname + "/homepage.html");
 });
 
-app.get("/about.html", function(req, res) {
+app.get("/about", function(req, res) {
     res.sendFile(__dirname + "/about.html");
 });
 
-app.get("/create-booking.html", function(req, res) {
+app.get("/create-booking", function(req, res) {
     res.sendFile(__dirname + "/create-booking.html");
 });
 
-app.get("/manage-booking.html", function(req, res) {
+app.get("/manage-booking", function(req, res) {
     res.sendFile(__dirname + "/manage-booking.html");
 });
 
-app.get("/login.html", function(req, res) {
+app.get("/login", function(req, res) {
     res.sendFile(__dirname + "/login.html");
 });
 
-app.get("/register.html", function(req, res) {
+app.get("/register", function(req, res) {
     res.sendFile(__dirname + "/register.html");
 });
 
-app.get("/my-profile.html", function(req, res) {
+app.get("/my-profile", function(req, res) {
     res.sendFile(__dirname + "/my-profile.html");
 });
 
