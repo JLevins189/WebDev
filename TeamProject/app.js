@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mysql = require('mysql');
+const { body, validationResult } = require('express-validator');
 
 const app = express();
 
@@ -46,6 +47,73 @@ app.get("/register", function(req, res) {
 
 app.get("/my-profile", function(req, res) {
     res.sendFile(__dirname + "/my-profile.html");
+});
+
+app.get("/select-seat", function(req, res) {
+    res.sendFile(__dirname + "/select-seat.html");
+});
+
+/*
+app.post('/newuser',function(req,res)
+{
+    console.log(req);
+});
+*/
+
+
+app.post('/newuser', [
+    body('customer_name')
+    .isLength({ min: 4, max: 50 })
+    .trim()
+    .escape(),
+    
+    body('customer_email')
+        .isLength({ min: 5, max: 50 })
+        .isEmail()
+        .normalizeEmail(),
+    
+    body('customer_password')
+        .isLength({ min: 5, max: 50 }),
+
+    body('customer_contactphone')
+        .isLength({ min: 6, max: 14 })
+        .isMobilePhone()
+],
+function(req, res) {
+    const validErrors = validationResult(req);
+
+    if (!validErrors.isEmpty()) {
+        console.log(validErrors);
+        return res.status(400).json({ errors: validErrors.array() });
+    } else {
+        const customerName = req.body.customer_name;
+        const customerEmail = req.body.customer_email;
+        const customerPassword = req.body.customer_password;
+        const customerPhone = req.body.customer_contactphone;
+        console.log(req.body.customerEmail);
+        console.log(`${customerName} ${customerEmail}, ${customerPassword}, ${customerPhone}`);
+        const insert = db.prepare('INSERT INTO users (customerName, customerEmail, customerPassword, CustomerPhone) VALUES ($1, $2, $3,$4);');
+        insert.run(customerName, customerEmail, customerPassword, customerPhone);
+        insert.finalize();
+
+        //const query = db.prepare('SELECT id, fName, lName, email FROM subscribers ORDER BY id DESC LIMIT 5;');
+        // query.all - will return all rows, expects at least 1 or more
+        // query.any - will return all rows, expects 0 or more
+        // query.get - will return the first row only, expects a single row
+        
+        //Check if user already exists
+        query.any(function(error, rows) {
+            if (error) {
+                console.log(error);
+                res.status(400).json(error);
+            } else {
+                console.log(rows);
+                res.status(200).json(rows);
+            }
+        });*/
+    }
+
+    //res.json(`${customerName} ${customerEmail}, ${customerPassword}, ${customerPhone}`);
 });
 
 

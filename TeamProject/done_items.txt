@@ -7,7 +7,7 @@ register (done till db)
 homepage (nearly finished by today)
 
 
-- Express set up with getters etc.
+- Express set up with getters etc. (done)
 - Proper error messages
 - Avoid SQL Injection
 

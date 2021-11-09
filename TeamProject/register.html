@@ -5,24 +5,9 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+  <link rel="stylesheet" href="css/jecinema.css">  
   <style>
-    .navbar-brand img {
-        height: 50px;
-        width: 50px;
-    }
-
-    body {
-      background-color: black;
-    }
- 
-    .profile {
-      vertical-align: middle;
-      width: 30px;
-      height: 30px;
-      border-radius: 50%;
-      
-    }
-
     .card {
       box-shadow: 0 4px 8px 0 rgba(240, 166, 7, 0.2);
       transition: 0.3s;
@@ -51,9 +36,10 @@
 
 
   </style>
+  
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <a class="navbar-brand" href="#"><img src="pictures/je-logo3.png" alt="logo"></a>
+  <a class="navbar-brand" href="/"><img src="pictures/je-logo3.png"></a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -61,29 +47,29 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" href="homepage.html">Home <span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="contact.html">Contact</a>
+        <a class="nav-link" href="about">About</a>
       </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Booking
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">Make booking</a>
-          <a class="dropdown-item" href="#">Manage/Cancel Booking</a>
+          <a class="dropdown-item" href="create-booking">Make booking</a>
+          <a class="dropdown-item" href="manage-booking">Manage/Cancel Booking</a>
         </div>
       </li>
     </ul>
       <ul class="navbar-nav ml-auto">
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle ml-auto" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <img src="pictures/profilepic.jpg" width="35px" height="35px" class="profile" alt="profile_image">
+          <img id="user-picture" src="pictures/profilepic.jpg" width="35px" height="35px" class="profile">
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">Sign in/Sign up</a>
-          <a class="dropdown-item" href="#">My Profile</a>
+          <a class="dropdown-item" id="sign-in" href="login">Sign in</a>
+          <a class="dropdown-item" id="register" href="register">Register</a>
         </div>
       </li>
     </ul>
@@ -99,16 +85,17 @@
 <div class="card">
   <div class="container">
     <img class="navbar-brand" src="pictures/je-logo3.png" height="50px" width="50px" alt="logo">
-    <h4 style="color:silver"><b>Register</b></h4> 
-    
-	<input type="text" id="cust_name" style="border-radius: 5px;" placeholder="Full Name" required><br><br>
-    <input type="email" id="cust_email" style="border-radius: 5px;" placeholder="Email" required><br><br>
-	<input type="email" id="cust_confemail" style="border-radius: 5px;" placeholder="Confirm Email" required><br><br>
-    <input type="password" id="cust_password" style="border-radius: 5px;" placeholder="Password" required><br><br>
-	<input type="password" id="cust_confpassword" style="border-radius: 5px;" placeholder="Confirm Password" required><br><br>
-    <input type="text" id="cust_contactphone" style="border-radius: 5px;" placeholder="Phone Number" required><br><br>
-	<button class="btn btn-outline-warning" id="RegisterBttn" type="submit">Register</button><br><br>
-	
+    <form id="register-form" method="post" action="/newuser">
+      <h4 style="color:silver"><b>Register</b></h4><br><br> 
+	    <input type="text" id="customer_name" name="customer_name" style="border-radius: 5px;" placeholder="Full Name"><br><br>
+      <input type="email" id="customer_email" name="customer_email" style="border-radius: 5px;" placeholder="Email"><br><br>
+	    <input type="email" id="customer_confemail" name="customer_confemail" style="border-radius: 5px;" placeholder="Confirm Email"><br><br>
+      <input type="password" id="customer_password" name="customer_password" style="border-radius: 5px;" placeholder="Password"><br><br>
+	    <input type="password" id="customer_confpassword" name="customer_confpassword" style="border-radius: 5px;" placeholder="Confirm Password"><br><br>
+      <input type="text" id="customer_contactphone" name="customer_contactphone" style="border-radius: 5px;" placeholder="Phone Number"><br><br>
+	    <button class="btn btn-outline-warning" id="RegisterBttn" type="submit">Register</button><br><br>
+
+	  </form>
 	<p style="color:silver">Already have an account? <a href="login.html">Login here</a></p>
   </div>
 </div>
@@ -116,6 +103,6 @@
 <div class="blank_space">
   <br>
 </div>
-
+<script type="text/javascript" src="scripts/jecinema-register_js.js"></script>
 </body>
 </html>

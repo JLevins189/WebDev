@@ -7,8 +7,6 @@ $(document).ready(function()
 			whatsOnMovie1();
 			
 		});
-
-
 		$(".poster2").click(function ()
 		{
 			whatsOnMovie2();
@@ -30,7 +28,7 @@ $(document).ready(function()
 			whatsOnMovie5();
 		});
 
-		$(".poster3").click(function() 
+		$(".poster6").click(function() 
 		{
 			whatsOnMovie6();
 		});
@@ -51,7 +49,7 @@ function whatsOnMovie1()
 {
 	let movie1 = $("#movie1").text();
 	sessionStorage.setItem("movie-selected", movie1);
-	window.location.href = "create-booking.html";	
+	window.location.href = "create-booking";	
 }	
 
 
@@ -59,7 +57,7 @@ function whatsOnMovie2()
 {
 	let movie2 = $("#movie2").text();
 	sessionStorage.setItem("movie-selected", movie2);
-	window.location.href = "create-booking.html";	
+	window.location.href = "create-booking";	
 }	
 
 
@@ -67,31 +65,31 @@ function whatsOnMovie3()
 {
 	let movie3 = $("#movie3").text();
 	sessionStorage.setItem("movie-selected", movie3);
-	window.location.href = "create-booking.html";	
+	window.location.href = "create-booking";	
 }	
 
 
 function whatsOnMovie4()
 {
-	let movie3 = $("#movie4").text();
+	let movie4 = $("#movie4").text();
 	sessionStorage.setItem("movie-selected", movie4);
-	window.location.href = "create-booking.html";	
+	window.location.href = "create-booking";	
 }	
 
 
 function whatsOnMovie5()
 {
-	let movie3 = $("#movie5").text();
+	let movie5 = $("#movie5").text();
 	sessionStorage.setItem("movie-selected", movie5);
-	window.location.href = "create-booking.html";	
+	window.location.href = "create-booking";	
 }	
 
 
 function whatsOnMovie6()
 {
-	let movie3 = $("#movie6").text();
+	let movie6 = $("#movie6").text();
 	sessionStorage.setItem("movie-selected", movie6);
-	window.location.href = "create-booking.html";	
+	window.location.href = "create-booking";	
 }	
 
 
@@ -103,7 +101,7 @@ function checkLogin()
 		$("#sign-in").text("Log Out").attr("href", "javascript:void(0);").attr("id","logout_button"); //javascript void prevents redirect on link press (handled in function instead ) 
 
 		//Change Register Option to My profile
-		$("#register").text("My Profile").attr("id","my_profile").attr("href", "my-profile.html");
+		$("#register").text("My Profile").attr("id","my_profile").attr("href", "my-profile");
 		
 		//Set Profile Picture if logged in
 		setProfilePhoto();
@@ -114,10 +112,10 @@ function checkLogin()
 		if( $("#logout_button").text() === "" || $("#logout_button").text() === null)  //revert to guest view
 		{
 			//Change Log out to Login
-			$("#logout-button").text("Sign In").attr("id", "sign-in").attr("href", "login.html");
+			$("#logout-button").text("Sign In").attr("id", "sign-in").attr("href", "login");
 
 			//Change My Profile Option to Register
-			$("#my-profile").text("Register").attr("id", "register").attr("href", "register.html");
+			$("#my-profile").text("Register").attr("id", "register").attr("href", "register");
 					
 			//Set Profile Picture to default
 			setProfilePhoto();
@@ -152,7 +150,7 @@ function logout()
 	else
 	{
 		sessionStorage.clear();
-		window.location.href = "homepage.html";  //redirect to home / refresh page
+		window.location.href = "homepage";  //redirect to home / refresh page
 	}  
 }
 
