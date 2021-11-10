@@ -4,7 +4,9 @@
     .profilepic {
       border-radius: 60px;
       margin-top: 40px;
-      margin-left: 40px;
+      margin-left: 230px;
+      width: 30%;
+      height: 30%;
     }
   </style>
 <head>
@@ -61,14 +63,14 @@
 <div class="row">
   <div class="col no-gutters">
    <div class="leftside">
-    <h1 style="text-align: left; padding-top:5vh;">Profile</h1>
-    <img class="profilepic"src="pictures/profilepic.jpg">
+    <h1 style="text-align: left; padding-top:5vh; color: white;">Profile</h1>
+    <img class="profilepic" src="pictures/profilepic.jpg">
     <br>
     <br>
-    <br>
+    <p style="margin-left: 280px; color: white">Change Image</p>
     <form>
-      <input type="file" id="profile" name="profilepic" accept="image/*"><br>
-      <input value="button" type="submit">
+      <input class="btn btn-outline-warning" style="margin-left: 200px; " type="file" id="profile" name="profilepic" accept="image/*"><br>
+      <input class="btn btn-outline-warning" style="margin-left: 280px;" value="Choose Image" type="submit">
     </form>
   </div>
   </div>
