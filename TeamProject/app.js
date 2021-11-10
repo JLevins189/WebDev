@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mysql = require('mysql');
-const { body, validationResult } = require('express-validator');
+const { body, validationResult, header } = require('express-validator');
 
 const app = express();
 
@@ -33,25 +33,25 @@ app.get("/create-booking", function(req, res) {
     res.sendFile(__dirname + "/create-booking.html");
 });
 
-app.get("/manage-booking", function(req, res) {
+app.get("/manage-booking", function(req, res) {	
     res.sendFile(__dirname + "/manage-booking.html");
 });
 
-app.get("/login", function(req, res) {
+app.get("/login", function(req, res) {	//make conditional to login
     res.sendFile(__dirname + "/login.html");
 });
 
-app.get("/register", function(req, res) {
+app.get("/register", function(req, res) {	//make conditional to login
     res.sendFile(__dirname + "/register.html");
 });
 
-app.get("/my-profile", function(req, res) {
+app.get("/my-profile", function(req, res) {	//make conditional to login
     res.sendFile(__dirname + "/my-profile.html");
 });
 
-app.get("/select-seat", function(req, res) {
-    res.sendFile(__dirname + "/select-seat.html");
-});
+/*app.get("/select-seat", function(req, res) {	//make conditional to post booking
+    
+});*/
 
 /*
 app.post('/newuser',function(req,res)
@@ -61,6 +61,7 @@ app.post('/newuser',function(req,res)
 */
 
 
+//Booking to next step
 app.post('/newuser', [
     body('customer_name')
     .isLength({ min: 4, max: 50 })
@@ -85,16 +86,26 @@ function(req, res) {
     if (!validErrors.isEmpty()) {
         console.log(validErrors);
         return res.status(400).json({ errors: validErrors.array() });
-    } else {
+    } 
+    else 
+    {
         const customerName = req.body.customer_name;
         const customerEmail = req.body.customer_email;
         const customerPassword = req.body.customer_password;
         const customerPhone = req.body.customer_contactphone;
+		
+        sessionStorage.setItem("customer-name", customerName);
+        sessionStorage.setItem("customer-email", customerEmail);
+        sessionStorage.setItem("customer-password", customerPassword);
+        sessionStorage.setItem("customer-phone", customerPhone);
+		res.sendFile(__dirname + "/select-seat.html");  //only access seat selection after first step
+
+
         console.log(req.body.customerEmail);
         console.log(`${customerName} ${customerEmail}, ${customerPassword}, ${customerPhone}`);
-        const insert = db.prepare('INSERT INTO users (customerName, customerEmail, customerPassword, CustomerPhone) VALUES ($1, $2, $3,$4);');
-        insert.run(customerName, customerEmail, customerPassword, customerPhone);
-        insert.finalize();
+        //const insert = db.prepare('INSERT INTO users (customerName, customerEmail, customerPassword, CustomerPhone) VALUES ($1, $2, $3,$4);');
+        //insert.run(customerName, customerEmail, customerPassword, customerPhone);
+        //insert.finalize();
 
         //const query = db.prepare('SELECT id, fName, lName, email FROM subscribers ORDER BY id DESC LIMIT 5;');
         // query.all - will return all rows, expects at least 1 or more
