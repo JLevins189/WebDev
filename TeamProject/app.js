@@ -110,7 +110,7 @@ function(req, res) {
                 console.log(rows);
                 res.status(200).json(rows);
             }
-        });*/
+        });
     }
 
     //res.json(`${customerName} ${customerEmail}, ${customerPassword}, ${customerPhone}`);
