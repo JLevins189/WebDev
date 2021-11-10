@@ -1,12 +1,58 @@
 <!DOCTYPE html>
 <html>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="css/jecinema.css">
+  <script>    
+     function uploadFile(input){
+        var image = $("input[type=file]").get(0).files[0];
+ 
+        if(image){
+            var reader = new FileReader();
+ 
+            reader.onload = function(){
+                $("#profile-pic").attr("src", reader.result);
+                $("#user-picture").attr("src", reader.result);
+
+            }
+ 
+            reader.readAsDataURL(image);
+        }
+    }
+  </script>
   <style>
     .profilepic {
       border-radius: 60px;
-      margin-top: 40px;
-      margin-left: 230px;
-      width: 30%;
-      height: 30%;
+      margin-top: 150px;
+      margin-left: 265px;
+      width: 150px;
+      height: 150px;
+    }
+
+    #name {
+      outline: none;
+      background-color: black;
+      color:white;
+      border: none;
+      font-size: 20px;
+    }
+
+    #email {
+      outline: none;
+      background-color: black;
+      color:white;
+      border: none;
+      font-size: 20px;
+    }
+
+    #password {
+      outline: none;
+      background-color: black;
+      color:white;
+      border: none;
+      font-size: 20px;
     }
   </style>
 <head>
@@ -64,18 +110,66 @@
   <div class="col no-gutters">
    <div class="leftside">
     <h1 style="text-align: left; padding-top:5vh; color: white;">Profile</h1>
-    <img class="profilepic" src="pictures/profilepic.jpg">
+    <img id = "profile-pic" class="profilepic" src="pictures/profilepic.jpg">
     <br>
     <br>
-    <p style="margin-left: 280px; color: white">Change Image</p>
+    <p style="margin-left: 290px; color: white">Change Image</p>
     <form>
-      <input class="btn btn-outline-warning" style="margin-left: 200px; " type="file" id="profile" name="profilepic" accept="image/*"><br>
-      <input class="btn btn-outline-warning" style="margin-left: 280px;" value="Choose Image" type="submit">
+      <input class="btn btn-outline-warning" style="margin-left: 200px; " type="file" id="profile" name="profilepic" onchange="uploadFile(this);" required><br>
     </form>
   </div>
   </div>
   <div class="col">
     <div class="rightside">
+      <br>
+      <br>
+      <form>
+        <label for="name" style="color:white;">Name: </label>
+        <input type="text" id="name" name="fullname" value="Ethan Moran"><br>
+      </form>
+       <hr style="border: 1px solid orange;">
+       <form>
+        <label for="email" style="color:white;">Email: </label>
+        <input type="email" id="email" name="fullemail" value="c19305451@mytudublin.ie"><br>
+      </form>
+       <hr style="border: 1px solid orange;">
+       <br>
+       <h3 style="color: white;">Favourites</h3>
+       <br>
+      <img style="width: 150px; height: 200px;" src="pictures/notimetodie_poster.jpg">
+      &nbsp; 
+      &nbsp; 
+      &nbsp; 
+      &nbsp; 
+      <img style="width: 150px; height: 200px;" src="pictures/pawpatrol_poster.jpg">
+      &nbsp; 
+      &nbsp; 
+      &nbsp; 
+      &nbsp; 
+      <img style="width: 150px; height: 200px;" src="pictures/thegodfather_poster.jpg">
+      &nbsp; 
+      &nbsp; 
+      &nbsp; 
+      &nbsp; 
+      <img style="width: 150px; height: 200px;" src="pictures/savingprivateryan_poster.jpg">
+      <br>
+      <br>
+      <img style="width: 150px; height: 200px;" src="pictures/lionking_poster.jpg">
+      &nbsp; 
+      &nbsp; 
+      &nbsp; 
+      &nbsp;
+      <img style="width: 150px; height: 200px;" src="pictures/deadlycuts_poster.jpg">
+      <br>
+      <br>
+      <br>
+      <br>
+      <hr style="border: 1px solid orange;">
+      <form>
+        <label for="password" style="color:white;">Password: </label>
+        <input type="password" id="password" name="fullpassword" value="Whatever"><br>
+      </form>
+      <hr style="border: 1px solid orange;">
     </div>
   </div>   
 </div>
