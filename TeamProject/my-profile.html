@@ -1,5 +1,12 @@
 <!DOCTYPE html>
 <html>
+  <style>
+    .profilepic {
+      border-radius: 60px;
+      margin-top: 40px;
+      margin-left: 40px;
+    }
+  </style>
 <head>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -50,5 +57,28 @@
     </form>
   </div>
 </nav>
+
+<div class="row">
+  <div class="col no-gutters">
+   <div class="leftside">
+    <h1 style="text-align: left; padding-top:5vh;">Profile</h1>
+    <img class="profilepic"src="pictures/profilepic.jpg">
+    <br>
+    <br>
+    <br>
+    <form>
+      <input type="file" id="profile" name="profilepic" accept="image/*"><br>
+      <input value="button" type="submit">
+    </form>
+  </div>
+  </div>
+  <div class="col">
+    <div class="rightside">
+    </div>
+  </div>   
+</div>
+
+
+
 </body>
 </html>
