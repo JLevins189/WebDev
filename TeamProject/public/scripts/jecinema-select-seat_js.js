@@ -4,33 +4,31 @@ const count = $('#count');
 const total = $('#total');
 
 
-populateUI();
+FillInfo();
 
 let ticketPrice = 10;
 
-// Save selected movie index and price
-function setMovieData(movieIndex, moviePrice) {
-  localStorage.setItem('selectedMovieIndex', movieIndex);
-  localStorage.setItem('selectedMoviePrice', ticketPrice);
-}
-
 // Update total and count
 function updateSelectedCount() {
-  const selectedSeats = document.querySelectorAll('.row .seat.selected');
+  //const  = document.querySelectorAll('.row .seat.selected');
+
+  const selectedSeats = $('.row .seat.selected').toArray();
+
+  //console.log(lis);
+  //console.log(selectedSeats);
 
   const seatsIndex = [...selectedSeats].map(seat => [...seats].indexOf(seat));
-
   localStorage.setItem('selectedSeats', JSON.stringify(seatsIndex));
 
-  const selectedSeatsCount = selectedSeats.length;
+  const selectedSeatsAmnt = selectedSeats.length;
 
-  $('#count').text(selectedSeatsCount);
-  $('#total').text(selectedSeatsCount * ticketPrice);
+  $('#count').text(selectedSeatsAmnt);  //the amount of seats selected
+  $('#total').text(selectedSeatsAmnt * ticketPrice);  // charge per seat
   
 }
 
-// Get data from localstorage and populate UI
-function populateUI() {
+// Get data from localstorage and fill in info
+function FillInfo() {
   const selectedSeats = JSON.parse(localStorage.getItem('selectedSeats'));
 
   if (selectedSeats !== null && selectedSeats.length > 0) {
@@ -43,16 +41,45 @@ function populateUI() {
 }
 
 // Seat click event
-container.addEventListener('click', e => {
+container.addEventListener('click', event => {
   if (
-    e.target.classList.contains('seat') &&
-    !e.target.classList.contains('occupied')
+    event.target.classList.contains('seat') &&
+    !event.target.classList.contains('occupied')  //if seat is not occupied
   ) {
-    e.target.classList.toggle('selected');
+    event.target.classList.toggle('selected');  //toggle it to selected classlist
 
-    updateSelectedCount();
+    updateSelectedCount();  //update the selected info on each seat selection
   }
 });
 
+
+//Set occupied seats from database
+function setOccupiedSeats()  {
+  const array = ["one", "two", "three"]
+  const selectedSeats = JSON.parse(localStorage.getItem('selectedSeats'));
+  
+  
+  selectedSeats.forEach(function (item, index) {
+    console.log(item);  //Item is the seat number selected
+                        //post seat numbers to be inserted to db
+
+});
+}
+
 // Initial count and total set
 updateSelectedCount();
+setOccupiedSeats();
+
+
+$("#BookingBttn").click(function()  {
+  //post data
+  //Take data from session storage to complete booking
+
+  //Add seat number
+
+  //Post
+});
+
+
+
+

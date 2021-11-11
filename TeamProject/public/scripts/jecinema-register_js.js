@@ -82,10 +82,6 @@ $(document).ready(function() {
             customerEmail: $("#customer_email")[0].value,
             customerPassword: $("customer_password")[0].value,
             customerPhone: $("customer_contactphone")[0].value
-            /*customerName: 'jacklevins@hotmail.com',
-            customerEmail: 'jacklevins@hotmail.com',
-            customerPassword: 'aaaaaa',
-            customerPhone: '0861263284'*/
         }
         console.log(data);
         let var1 = $('#customer_name')[0].value;

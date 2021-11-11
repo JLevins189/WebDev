@@ -49,9 +49,11 @@ app.get("/my-profile", function(req, res) {	//make conditional to login
     res.sendFile(__dirname + "/my-profile.html");
 });
 
-/*app.get("/select-seat", function(req, res) {	//make conditional to post booking
-    
-});*/
+
+
+app.get("/select-seat", function(req, res) {	//make conditional to post booking
+    res.sendFile(__dirname + "/select-seat.html")
+});  //only till testing finished
 
 /*
 app.post('/newuser',function(req,res)
