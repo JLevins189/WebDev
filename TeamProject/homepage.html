@@ -6,12 +6,37 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="css/jecinema.css">
 
+
+  <script>
+    function changeHeart1() {
+      $('#favourite1').attr('src', 'pictures/full_heart.png');
+    }
+    function changeHeart2() {
+      $('#favourite2').attr('src', 'pictures/full_heart.png');
+    }
+    
+    function changeHeart3() {
+      $('#favourite3').attr('src', 'pictures/full_heart.png');
+    }
+    
+    function changeHeart4() {
+      $('#favourite4').attr('src', 'pictures/full_heart.png');
+    }
+    
+    function changeHeart5() {
+      $('#favourite5').attr('src', 'pictures/full_heart.png');
+    }
+    
+    function changeHeart6() {
+      $('#favourite6').attr('src', 'pictures/full_heart.png');
+    }
+  </script>
   <style>
 
   html, body {
     max-width: 100%;
     overflow-x: hidden;
-    
+    color: white;
   }
 	.carousel-inner img {
       width: 100%;
@@ -30,6 +55,7 @@
       padding: 10px;
     }
 
+  
     .poster1 {
       width: 100%;
       height: auto;
@@ -134,6 +160,7 @@
       top: -908px;
     }
      
+    
 
     .poster6 {
       width: 100%;
@@ -257,27 +284,27 @@
 <br>
 
 <div class="movie1">
-  <img class="poster1" src="pictures/savingprivateryan_poster.jpg" width="120" height="200"><h3 id="movie1">Saving Private Ryan</h3>
+  <img class="poster1" src="pictures/savingprivateryan_poster.jpg" width="120" height="200"><h3 id="movie1">Saving Private Ryan <img id ="favourite1" onClick="changeHeart1()" style="width: 20px; height:20px"src="pictures/empty_heart.png"></h3>
 </div>
 
 <div class="movie2">
-  <img class="poster2" src="pictures/thegodfather_poster.jpg" width="120" height="200"><h3 id="movie2">The Godfather</h3>
+  <img class="poster2" src="pictures/thegodfather_poster.jpg" width="120" height="200"><h3 id="movie2">The Godfather <img id ="favourite2" onClick="changeHeart2()" style="width: 20px; height:20px"src="pictures/empty_heart.png"></h3>
 </div>
 
 <div class="movie3">
-  <img class="poster3" src="pictures/pawpatrol_poster.jpg" width="120" height="200"><h3 id="movie3">Paw Patrol</h3>
+  <img class="poster3" src="pictures/pawpatrol_poster.jpg" width="120" height="200"><h3 id="movie3">Paw Patrol <img id ="favourite3" onClick="changeHeart3()" style="width: 20px; height:20px"src="pictures/empty_heart.png"></h3>
 </div>
 
 <div class="movie4">
-  <img class="poster4" src="pictures/lionking_poster.jpg" width="120" height="200"><h3 id="movie4">The Lion King</h3>
+  <img class="poster4" src="pictures/lionking_poster.jpg" width="120" height="200"><h3 id="movie4">The Lion King <img id ="favourite4" onClick="changeHeart4()" style="width: 20px; height:20px"src="pictures/empty_heart.png"></h3>
 </div>
 
 <div class="movie5">
-  <img class="poster5" src="pictures/notimetodie_poster.jpg" width="120" height="200"><h3 id="movie5">007: No Time to Die</h3>
+  <img class="poster5" src="pictures/notimetodie_poster.jpg" width="120" height="200"><h3 id="movie5">007: No Time to Die <img id ="favourite5" onClick="changeHeart5()" style="width: 20px; height:20px"src="pictures/empty_heart.png"></h3>
 </div>
 
 <div class="movie6">
-  <img class="poster6" src="pictures/deadlycuts_poster.jpg" width="120" height="200"><h3 id="movie6">Deadly Cuts</h3>
+  <img class="poster6" src="pictures/deadlycuts_poster.jpg" width="120" height="200"><h3 id="movie6">Deadly Cuts <img id ="favourite6" onClick="changeHeart6()" style="width: 20px; height:20px"src="pictures/empty_heart.png"></h3>
 </div>
 
 </div>
