@@ -129,7 +129,7 @@ function setProfilePhoto()
 	if(sessionStorage.getItem("user-picture") !== null)
 	{
 		//Set Picture to user's profile picture 
-		let profilePicture = sessionStorage.getItem("user-picture");
+		const profilePicture = sessionStorage.getItem("user-picture");
 		$("#user-picture").attr("src",profilePicture);
 	}
 	else
@@ -150,7 +150,7 @@ function logout()
 	else
 	{
 		sessionStorage.clear();
-		window.location.href = "homepage";  //redirect to home / refresh page
+		window.location.href = "/";  //redirect to home / refresh page
 	}  
 }
 

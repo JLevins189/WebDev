@@ -5,46 +5,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="css/jecinema.css">
-  <script>    
-     function uploadFile(input){
-        var image = $("input[type=file]").get(0).files[0];
- 
-        if(image){
-            var reader = new FileReader();
- 
-            reader.onload = function(){
-                $("#profile-pic").attr("src", reader.result);
-                $("#user-picture").attr("src", reader.result);
 
-            }
- 
-            reader.readAsDataURL(image);
-        }
-    }
-
-    function setProfilePhoto()
-    { 
-    	if(sessionStorage.getItem("user-picture") !== null)
-	    {
-
-      }
-	    else
-	    {
-		    $("#user-picture").attr("src", "pictures/profilepic.jpg");  //Revert to default image
-	    }
-
-      //Set Picture to user's profile picture 		    
-      var image = $("input[type=file]").get(0).files[0];
-
-    if(image){
-        var reader = new FileReader();
-        reader.onload = function(){
-            $("#profile-pic").attr("src", reader.result);
-            $("#user-picture").attr("src", reader.result);
-        }
-
-    }
-  </script>
   <style>
     .profilepic {
       border-radius: 60px;
@@ -148,12 +109,12 @@
       <br>
       <form>
         <label for="name" style="color:white;">Name: </label>
-        <input type="text" id="name" name="fullname" value="Ethan Moran"><br>
+        <input type="text" id="name" name="fullname" value="DefaultValue"><br>
       </form>
        <hr style="border: 1px solid orange;">
        <form>
         <label for="email" style="color:white;">Email: </label>
-        <input type="email" id="email" name="fullemail" value="c19305451@mytudublin.ie"><br>
+        <input type="email" id="email" name="fullemail" value="DefaultValue"><br>
       </form>
        <hr style="border: 1px solid orange;">
        <br>
@@ -198,6 +159,6 @@
 </div>
 
 
-
+<script type="text/javascript" src="scripts/jecinema-myprofile_js.js"></script>
 </body>
 </html>
