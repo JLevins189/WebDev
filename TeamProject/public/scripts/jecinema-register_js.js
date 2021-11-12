@@ -20,7 +20,8 @@ $(document).ready(function() {
                 required: true,
                 email: true,
                 minlength: 5,
-                maxlength: 50
+                maxlength: 50,
+                equalTo: "#customer_email"
             },
             customer_password:  {
                 required: true,
@@ -30,7 +31,8 @@ $(document).ready(function() {
             customer_confpassword:  {
                 required: true,
                 minlength: 5,
-                maxlength: 50            
+                maxlength: 50 ,
+                equalTo: "#customer_password"           
             },
             customer_contactphone:  {
                 required: true,
@@ -51,7 +53,8 @@ $(document).ready(function() {
             customer_confemail: {
                 required: 'Please re-enter your email',
                 minlength: 'Your email should contain at least 5 chars.',
-                email: 'Email address format not valid'
+                email: 'Email address format not valid',
+                equalTo: 'Confirm Email must match Email.'
             },
             customer_password:  {
                 required: 'Please enter a password',
@@ -59,7 +62,8 @@ $(document).ready(function() {
             },
             customer_confpassword:  {
                 required: 'Please enter a password',
-                minlength: 'Your password should contain at least 5 chars.'
+                minlength: 'Your password should contain at least 5 chars.',
+                equalTo: 'Confirm Password should match Password.'
             },
             customer_contactphone:  {
                 required: 'Please enter your phone number',
@@ -72,6 +76,7 @@ $(document).ready(function() {
         submitHandler: createAjaxPost
     });
     
+
     function validateFiels(element, event) {
         $(element).valid();
     }
@@ -80,28 +85,33 @@ $(document).ready(function() {
         const data = {
             customerName: $("#customer_name")[0].value,
             customerEmail: $("#customer_email")[0].value,
-            customerPassword: $("customer_password")[0].value,
-            customerPhone: $("customer_contactphone")[0].value
+            customerPassword: $("#customer_password")[0].value,
+            customerPhone: $("#customer_contactphone")[0].value
         }
-        console.log(data);
-        let var1 = $('#customer_name')[0].value;
-        console.log(var1);
+
         const post = $.post('http://localhost:3000/newuser', data);
         post.done(processResults);
         post.fail(processErrors);
     }
     
+
     $('#RegisterBttn').click(function() {
-        //$('#register-form').submit();
+        $('#register-form').submit();
     });
     
-    function processErrors() {
+
+    function processErrors(xhr, textStatus, errorThrown) {
         console.log('Validation errors');
     }
+
+        
     
-    function handleDone(response, status, xhr) {
-        const result = response.result;
-        $(`<div>${result}</div><a href='/'>Clear</a>`).insertAfter("#register-form");
+
+    function processResults(response, status, xhr) {    //set session variables and redirect to login immediately
+        sessionStorage.setItem("user-name", response.customerName);
+        sessionStorage.setItem("user-email", response.customerEmail);
+        sessionStorage.setItem("user-phone", response.customerPhone);
+        window.location.href = "/login";
     }
 
 });

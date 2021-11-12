@@ -1,10 +1,25 @@
 $(document).ready(function(){
-    const userFullName = sessionStorage.getItem("user-name");
-    const userEmail = sessionStorage.getItem("user-email");
+
     uploadFile();
     setProfilePhoto();
-    autofillForm(userEmail, userEmail);
+    autofillForm();
+    $("#SaveBttn").click(function ()
+    {
+        editProfile();
+    });
   });
+
+const userFullName = sessionStorage.getItem("user-name");
+const userEmail = sessionStorage.getItem("user-email");
+let editedFullName = $("#name").val();
+let editedEmail = $("#email").val();
+
+
+populateFromDatabase()
+{
+    //
+}
+
 
 //Take Uploaded Image and set it to profile pic
 function uploadFile(){
@@ -17,6 +32,7 @@ function uploadFile(){
             //Set Picture to user's profile picture 
             sessionStorage.setItem("user-picture", reader.result);
             setProfilePhoto();
+            //Post image to db
         }
 
         reader.readAsDataURL(image);
@@ -39,7 +55,7 @@ function setProfilePhoto()
 }  
 
 
-function autofillForm(userEmail, userFullName)
+function autofillForm()
 {
     if(userEmail !== null)
     {
@@ -49,4 +65,33 @@ function autofillForm(userEmail, userFullName)
     {
         $("#name").val(userFullName);
     }
+    //Pull password from db
+
+}
+
+
+function editProfile()
+{
+    editedFullName = $("#name").val();
+    editedEmail = $("#email").val();
+    sessionStorage.setItem("user-name", "DefaultValue")
+    sessionStorage.setItem("user-email", "DefaultValue");
+    
+    //console.log(editedFullName);
+    console.log(userEmail);
+    console.log(editedEmail);
+    if(userFullName !== editedFullName  || userEmail !== editedEmail)
+    {
+        //Post for database to update values
+        console.log("Y");
+        
+        /*UPDATE customer
+        SET customer_name = editedFullName,
+        WHERE customer_email = userEmail;*/
+    }
+    else
+    {
+        alert("No changes made");
+    }
+
 }
