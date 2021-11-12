@@ -14,7 +14,6 @@ function updateSelectedCount() {
 
   const selectedSeats = $('.row .seat.selected').toArray();
 
-  //console.log(lis);
   //console.log(selectedSeats);
 
   const seatsIndex = [...selectedSeats].map(seat => [...seats].indexOf(seat));
@@ -55,7 +54,6 @@ container.addEventListener('click', event => {
 
 //Set occupied seats from database
 function setOccupiedSeats()  {
-  const array = ["one", "two", "three"]
   const selectedSeats = JSON.parse(localStorage.getItem('selectedSeats'));
   
   
@@ -74,11 +72,28 @@ setOccupiedSeats();
 $("#BookingBttn").click(function()  {
   //post data
   //Take data from session storage to complete booking
-
+  const data = {
+    movieName: sessionStorage.getItem("movie-selected"),
+    loginEmail: sessionStorage.getItem("user-email"),
+    customerPhone: sessionStorage.getItem("user-phone"),
+    seatsBooked: JSON.parse(localStorage.getItem('selectedSeats'))
+  }
   //Add seat number
 
   //Post
+  const post = $.post('http://localhost:3000/seatselect', data);
+  post.done(processResults);
+  post.fail(processErrors);
 });
+
+function processErrors(xhr, textStatus, errorThrown) {
+  console.log('An error has occured');
+}
+
+
+function processResults(response, status, xhr) {    //set session variables and redirect to my profile immediately if successful
+  console.log("Success");
+}
 
 
 

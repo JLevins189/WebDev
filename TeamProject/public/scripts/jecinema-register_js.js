@@ -97,6 +97,7 @@ $(document).ready(function() {
 
     $('#RegisterBttn').click(function() {
         $('#register-form').submit();
+        $("#RegisterBttn").prop("disabled", true);
     });
     
 

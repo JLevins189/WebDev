@@ -1,15 +1,17 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const { body, validationResult} = require('express-validator');
+const fileUpload = require('express-fileupload');
 
-/*const pgp = require('pg-promise')({});
+const pgp = require('pg-promise')({});
 const { PreparedStatement: PS } = require('pg-promise');
 // connection = protocol://userName:password@host:port/databaseName
 const db = pgp('postgres://webdevassignment:assignmentpassword@localhost:5432/webdevassignment');
-*/
+
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname + "/public"));
+app.use(fileUpload());
 
 
 app.listen(3000, function() {
@@ -44,13 +46,13 @@ app.get("/register", function(req, res) {	//make conditional to login
     res.sendFile(__dirname + "/register.html");
 });
 
-app.get("/my-profile", function(req, res) {	//make conditional to login
+/*app.get("/my-profile", function(req, res) {	//make conditional to login
     res.sendFile(__dirname + "/my-profile.html");
-});
+});*/
 
-app.get("/select-seat", function(req, res) {	//make conditional to post booking
+/*app.get("/select-seat", function(req, res) {	//make conditional to post booking
     res.sendFile(__dirname + "/select-seat.html")
-});  //only till testing finished
+});  //only till testing finished*/
 
 
 //Register Form Posted
@@ -95,8 +97,149 @@ function(req, res) {
         }
 
         console.log(`${customerName} ${customerEmail} ${customerPassword} ${customerPhone}`);
-        console.log(data);
+        
+        
+        //Check if user already exists
+        const selectuser = new PS({
+            name: 'retrieve-user-same-email',
+            text: 'SELECT email FROM users WHERE email = $1;',
+            values: [customerEmail]
+        });
+
+        //Insert User
+        const insertuser = new PS({
+            name: 'new-user',
+            text: 'INSERT INTO users (email, password, name, phonenumber) VALUES ($1, $2, $3, $4);',
+            values: [customerEmail, customerPassword, customerName, customerPhone]
+        });
+
+
+        //Select to make sure user doesn't exist... if they do provide an error else register the user 
+        db.none(selectuser)
+        .then(function(rows) {
+            db.none(insertuser)
+            .then(function(rows) {
+                console.log(rows);
+            });
+            res.status(200).json(data);
+        })
+        .catch(function(errors) {
+            console.log(errors);
+            res.status(400).json(errors)
+        });
+    }
+
+});
+
+
+//Login Form Posted
+app.post('/existinguser', [
+
+    body('customerEmail')
+        .isLength({ min: 5, max: 50 })
+        .isEmail()
+        .normalizeEmail(),
+
+    body('customerPassword')
+        .isLength({ min: 5, max: 50 }),
+
+],
+function(req, res) {
+    const validErrors = validationResult(req);
+
+    if (!validErrors.isEmpty()) {
+        console.log(validErrors);
+        return res.status(400).json({ errors: validErrors.array() });
+    } 
+    else 
+    {
+        const customerEmail = req.body.customerEmail;
+        const customerPassword = req.body.customerPassword;
+		
+
+        const data = {
+            customerEmail: customerEmail,
+            customerPassword: customerPassword,
+        }
+
+        console.log(` ${customerEmail} ${customerPassword}`);
+
+        //Check if user already exists
+        const selectuserlogin = new PS({
+            name: 'retrieve-user-same-email-password',
+            text: 'SELECT email, password, name FROM users WHERE email = $1 AND password = $2;',
+            values: [customerEmail, customerPassword]
+        });
+
+
+        //Select to make sure email and password match to db
+        db.one(selectuserlogin)
+        .then(function(rows) {
+            console.log(rows.name);
+            const data = {
+                customerEmail: rows.email,
+                customerName: rows.name
+            }
+            res.status(200).json(data);
+            
+            //Allow user to be redirected to my profile on login
+            app.get("/my-profile", function(req, res) {	//make conditional to login
+                res.sendFile(__dirname + "/my-profile.html");
+            });
+        })
+        .catch(function(errors) {
+            console.log(errors);
+            res.status(400).json(errors)
+        });
+
+    }
+});
+
+
+
+//Create Booking Form Posted
+app.post('/newbooking', [
+
+    body('loginEmail')
+        .isLength({ min: 5, max: 50 })
+        .isEmail()
+        .normalizeEmail(),
+
+        body('customerPhone')
+        .isLength({ min: 6, max: 14 })
+        .isMobilePhone(),
+
+        body('movieName')
+        .isLength({ min: 5, max: 50 })
+],
+function(req, res) {
+    const validErrors = validationResult(req);
+
+    if (!validErrors.isEmpty()) {
+        return res.status(400).json({ errors: validErrors.array() });
+    } 
+    else 
+    {
+        const movieName = req.body.movieName;
+        const loginEmail = req.body.loginEmail;
+        const customerPhone = req.body.customerPhone
+		
+
+        const data = {
+            movieName: movieName,
+            customerEmail: loginEmail,
+            customerPhone: customerPhone
+        }
+
+        console.log(` ${movieName} ${loginEmail} ${customerPhone}`);
         res.json(data);
+        
+        
+        app.get("/select-seat", function(req, res) {	//make conditional to post booking
+            res.sendFile(__dirname + "/select-seat.html")
+        });
+        res.sendFile(__dirname + "/select-seat.html");
+        //res.json(data);
 
         //const insert = db.prepare('INSERT INTO users (customerName, customerEmail, customerPassword, CustomerPhone) VALUES ($1, $2, $3,$4);');
         //insert.run(customerName, customerEmail, customerPassword, customerPhone);
@@ -119,5 +262,61 @@ function(req, res) {
             }
         });*/
     }
+
+});
+
+
+app.post("/seatselect", function(req, res) {
+    ///Data already validated from last form
+
+    const seatsBooked = myArray = JSON.Parse(req.body.seatsBooked);
+    const movieName = req.body.movieName;
+    const loginEmail = req.body.loginEmail;
+    const customerPhone = req.body.customerPhone;
+
+    //Insert Booking to DB
+    res.json({});
+});
+
+app.post('/my-profile', (req, res) =>
+{
+    let fileUpload;
+
+    console.log(req.files);
+    fileUpload = req.files.profilepic;
+    const uploadPath = __dirname +  "/public/pictures/profilepictures/" + fileUpload.name;
+
+    //Put file on server
+    
+    fileUpload.mv(uploadPath, function(err)
+    {
+        if(err) return res.status(500).send(err);   
+    });
+
+    
+    const userEmail = req.body.userEmail;
+    console.log(userEmail);
+
+    const updatePicture = new PS({
+        name: 'modify-picture',
+        text: 'UPDATE users SET profilepicture = $1 WHERE email = $2;',
+        values: [fileUpload.name, userEmail]
+    });
+
+
+    //Select to make sure user doesn't exist... if they do provide an error else register the user 
+
+    db.none(updatePicture)
+    .then(function(rows) {
+        res.status(200).json({profilePicture: fileUpload.name});
+        console.log(rows);
+    })
+    .catch(function(errors) {
+        console.log(errors);
+        res.status(400).json(errors)
+    });
+
+    
+
 
 });

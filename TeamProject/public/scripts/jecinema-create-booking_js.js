@@ -1,31 +1,99 @@
-$(document).ready(function() 
-{
-    $(function () 
-	{	
-		//Fill Out Rows Using Session Data
-		setMovieNames();
-		autofillForm();
-		//Catch form data and save for later
-		$("#movielist").change(function(){
-			let movieSelected = $( "#movielist" ).val();  //Catch Option Selected on drop-down and save it to session variable for next step
-			sessionStorage.setItem("movie-selected", movieSelected);
-			console.log(movieSelected);
-			let customerEmail = $( "#booking_email" ).val();
-			sessionStorage.setItem("user-email", customerEmail);  //Catch email entered and save it to session variable for next step
-			let customerPhone = $( "#cust_contactphone" ).val();
-			sessionStorage.setItem("user-phone", customerPhone);  //Catch phone and save it to session variable for next step
-		})
-		/*
-		Make sure form is filled out correctly before this step
-		
-		*/
-		$("#NextStepBttn").click(function() //when user wants to go to next step
-		{
-			window.location.href = "select-seat";  //bring to pick a seat before posting form
-			
-		});
-	});
-});	
+const { request } = require("express");
+
+$(document).ready(function() {
+	setMovieNames();
+	autofillForm();
+	$("#movielist").change(function(){
+		let movieSelected = $( "#movielist" ).val();  //Catch Option Selected on drop-down and save it to session variable for next step
+		sessionStorage.setItem("movie-selected", movieSelected);
+		console.log(movieSelected);
+		let customerEmail = $( "#booking_email" ).val();
+		sessionStorage.setItem("user-email", customerEmail);  //Catch email entered and save it to session variable for next step
+		let customerPhone = $( "#cust_contactphone" ).val();
+		sessionStorage.setItem("user-phone", customerPhone);  //Catch phone and save it to session variable for next step
+	})
+	$('#createBookingForm').validate({
+        errorElement: "div",
+        errorPlacement: function(error, element) {
+            element.after(error);
+        },
+        rules: {
+            movieName:  {
+				required: true,
+				minlength: 5,
+				maxlength: 50
+			},
+			loginEmail: {
+                required: true,
+                email: true,
+                minlength: 5,
+                maxlength: 50
+            },
+			contactPhone:  {
+                required: true,
+                minlength: 6,
+                maxlength: 14            
+            },
+
+
+        },
+        messages: {
+            movieName:  {
+				required: 'Please choose a movie',
+				minlength: 'Movie name invalid',
+				maxlength: 'Movie name invalid',
+			},
+			loginEmail: {
+                required: 'Please enter your email',
+                minlength: 'Your email should contain at least 5 chars.',
+                email: 'Email address format not valid'
+            },
+            contactPhone:  {
+                required: 'Please enter your phone number',
+                minlength: 'Your phone number should contain at least 6 chars.',
+                maxlength: 'Your phone number should only contain max 14 characters'
+            },    
+        },
+        onfocusout: validateFiels,
+        submitHandler: createAjaxPost
+    });
+    
+
+    function validateFiels(element, event) {
+        $(element).valid();
+    }
+    
+    function createAjaxPost() {
+        const data = {
+            movieName: $("#movielist").val(),
+			loginEmail: $("#loginEmail")[0].value,
+			customerPhone: $("#contactPhone")[0].value
+        }
+        const post = $.post('http://localhost:3000/newbooking', data);
+        post.done(processResults);
+        post.fail(processErrors);
+    }
+    
+
+    $('#loginbttn').click(function() {
+        $('#createBookingForm').submit();
+    });
+    
+
+    function processErrors(xhr, textStatus, errorThrown) {
+        console.log('Validation errors');
+    }
+
+
+    function processResults(response, status, xhr) {    //send get request to book a seat
+        sessionStorage.setItem("user-email", response.customerEmail);
+        sessionStorage.setItem("user-phone", response.customerPhone);
+		sessionStorage.setItem("movie-selected", response.MovieName);
+		window.location.href = "/select-seat";
+    }
+
+});
+
 
 
 function autofillForm()
@@ -44,26 +112,21 @@ function autofillForm()
 	if(sessionStorage.getItem('movie-selected') !== null)
 	{
 		//Fill movie into form
-		console.log("HHHHH");
-		console.log(movieSelected);
 		$('option:contains(' + movieSelected + ')').attr('selected', true);
-
 	}
 	if(sessionStorage.getItem('user-email') !== null)
 	{
 		//Fill into form
-		$("#booking_email").val(userEmail);
-		console.log(userEmail);  //testing
+		$("#loginEmail").val(userEmail);
 	}
 	if(sessionStorage.getItem('user-phone') !== null)
 	{
 		//Fill into form
-		$("#cust_contactphone").val(userPhone);
-		console.log(userPhone);  //testing
+		$("#contactPhone").val(userPhone);
 	}			
 	
-
 }
+
 
 function setMovieNames()  //To Make the movie names dynamic for future updates
 {

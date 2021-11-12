@@ -5,7 +5,8 @@ $(document).ready(function(){
     autofillForm();
     $("#SaveBttn").click(function ()
     {
-        editProfile();
+        $('#profilePictureForm').submit();
+        //editProfile();
     });
   });
 
@@ -13,12 +14,6 @@ const userFullName = sessionStorage.getItem("user-name");
 const userEmail = sessionStorage.getItem("user-email");
 let editedFullName = $("#name").val();
 let editedEmail = $("#email").val();
-
-
-populateFromDatabase()
-{
-    //
-}
 
 
 //Take Uploaded Image and set it to profile pic
@@ -60,6 +55,8 @@ function autofillForm()
     if(userEmail !== null)
     {
         $("#email").val(userEmail);
+        $("#userEmail").val(userEmail);  //hidden field to make sure right account's profile image is changed
+        
     }
     if(userFullName !== null)
     {
