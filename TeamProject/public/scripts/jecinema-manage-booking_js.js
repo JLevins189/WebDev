@@ -1,96 +1,6 @@
-$(document).ready(function() 
-{
-    $(function () {
-		checkLogin(); //set as logged in/guest
-		$(".poster1").click(function() 
-		{
-			whatsOnMovie1();
-			
-		});
-		$(".poster2").click(function ()
-		{
-			whatsOnMovie2();
-		});
-
-
-		$(".poster3").click(function() 
-		{
-			whatsOnMovie3();
-		});
-
-		$(".poster4").click(function() 
-		{
-			whatsOnMovie4();
-		});
-
-		$(".poster5").click(function() 
-		{
-			whatsOnMovie5();
-		});
-
-		$(".poster6").click(function() 
-		{
-			whatsOnMovie6();
-		});
-		$("#logout_button").click(function()
-		{
-			logout();
-		});
-
-	});
+$(document).ready(function() {
+	checkLogin();
 });
-
-
-
-/*  Get movie name from the click of their poster in the what's on page
-	Bring the user to the booking page with that movie pre selected	*/
-
-function whatsOnMovie1()
-{
-	let movie1 = $("#movie1").text();
-	sessionStorage.setItem("movie-selected", movie1);
-	window.location.href = "create-booking";	
-}	
-
-
-function whatsOnMovie2()
-{
-	let movie2 = $("#movie2").text();
-	sessionStorage.setItem("movie-selected", movie2);
-	window.location.href = "create-booking";	
-}	
-
-
-function whatsOnMovie3()
-{
-	let movie3 = $("#movie3").text();
-	sessionStorage.setItem("movie-selected", movie3);
-	window.location.href = "create-booking";	
-}	
-
-
-function whatsOnMovie4()
-{
-	let movie4 = $("#movie4").text();
-	sessionStorage.setItem("movie-selected", movie4);
-	window.location.href = "create-booking";	
-}	
-
-
-function whatsOnMovie5()
-{
-	let movie5 = $("#movie5").text();
-	sessionStorage.setItem("movie-selected", movie5);
-	window.location.href = "create-booking";	
-}	
-
-
-function whatsOnMovie6()
-{
-	let movie6 = $("#movie6").text();
-	sessionStorage.setItem("movie-selected", movie6);
-	window.location.href = "create-booking";	
-}	
 
 
 function setProfilePhoto()
@@ -154,4 +64,3 @@ function logout()
 		window.location.href = "/";  //redirect to home / refresh page
 	}  
 }
-

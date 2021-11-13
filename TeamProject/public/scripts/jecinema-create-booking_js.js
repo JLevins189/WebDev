@@ -1,12 +1,15 @@
-const { request } = require("express");
-
 $(document).ready(function() {
 	setMovieNames();
+	checkLogin();
 	autofillForm();
+	$("#logout_button").click(function()
+	{
+		logout();
+	});
+	
 	$("#movielist").change(function(){
 		let movieSelected = $( "#movielist" ).val();  //Catch Option Selected on drop-down and save it to session variable for next step
 		sessionStorage.setItem("movie-selected", movieSelected);
-		console.log(movieSelected);
 		let customerEmail = $( "#booking_email" ).val();
 		sessionStorage.setItem("user-email", customerEmail);  //Catch email entered and save it to session variable for next step
 		let customerPhone = $( "#cust_contactphone" ).val();
@@ -75,7 +78,7 @@ $(document).ready(function() {
     }
     
 
-    $('#loginbttn').click(function() {
+    $('#NextStepBttn').click(function() {
         $('#createBookingForm').submit();
     });
     
@@ -112,7 +115,7 @@ function autofillForm()
 	if(sessionStorage.getItem('movie-selected') !== null)
 	{
 		//Fill movie into form
-		$('option:contains(' + movieSelected + ')').attr('selected', true);
+		$('option:contains(' + sessionStorage.getItem('movie-selected') + ')').attr('selected', true);
 	}
 	if(sessionStorage.getItem('user-email') !== null)
 	{
@@ -123,6 +126,10 @@ function autofillForm()
 	{
 		//Fill into form
 		$("#contactPhone").val(userPhone);
+	}
+	if(sessionStorage.getItem('user-phone') !== null)
+	{
+		$("contactPhone").val(userPhone);
 	}			
 	
 }
@@ -152,3 +159,66 @@ function setMovieNames()  //To Make the movie names dynamic for future updates
 	$("#movie5").val(movie5Name);
 	$("#movie6").val(movie6Name);
 }	
+
+
+function setProfilePhoto()
+{
+	if(sessionStorage.getItem("user-picture") !== null)
+	{
+		//Set Picture to user's profile picture 
+		const profilePicture = sessionStorage.getItem("user-picture");
+		$("#user-picture").attr("src",profilePicture);
+	}
+	else
+	{
+		$("#user-picture").attr("src", "pictures/profilepic.jpg");  //Revert to default image
+	}
+
+}
+
+
+function checkLogin()
+{
+	if(sessionStorage.getItem("user-email") !== null)  //if user logged in
+	{
+		//Change Login Option to Log out
+		$("#sign-in").text("Log Out").attr("href", "javascript:void(0);").attr("id","logout_button"); //javascript void prevents redirect on link press (handled in function instead ) 
+
+		//Change Register Option to My profile
+		$("#register").text("My Profile").attr("id","my_profile").attr("href", "my-profile");
+		
+		//Set Profile Picture if logged in
+		setProfilePhoto();
+	}
+	else  //if user is not logged in
+	{
+		//Reverse changes to options above  if needed
+		if( $("#logout_button").text() === "" || $("#logout_button").text() === null)  //revert to guest view
+		{
+			//Change Log out to Login
+			$("#logout-button").text("Sign In").attr("id", "sign-in").attr("href", "login");
+
+			//Change My Profile Option to Register
+			$("#my-profile").text("Register").attr("id", "register").attr("href", "register");
+					
+			//Set Profile Picture to default
+			setProfilePhoto();
+		}
+
+	}
+}
+
+
+function logout()
+{
+	if(sessionStorage.getItem('user-email') === null)  //if not logged in - impossible case unless jquery function fails to changed from logged in to guest
+	{
+		//Give feedback operation not allowed
+		alert("You must be signed in to logout");
+	}
+	else
+	{
+		sessionStorage.clear();
+		window.location.href = "/";  //redirect to home / refresh page
+	}  
+}

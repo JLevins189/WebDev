@@ -46,6 +46,36 @@ app.get("/register", function(req, res) {	//make conditional to login
     res.sendFile(__dirname + "/register.html");
 });
 
+app.get("/getuser/:email", function(req, res) {	//send profile info back to user
+    const userEmail = req.params.email;
+    console.log(req.params);
+    //Check if user already exists
+    
+    const selectuserdetails = new PS({
+        name: 'retrieve-user-details',
+        text: 'SELECT name, password, profilepicture FROM users WHERE email = $1;',
+        values: [userEmail]
+    });
+
+    //Select to make sure email and password match to db
+    db.one(selectuserdetails)
+    .then(function(rows) {
+        //console.log(rows);
+        const data = {
+            customerName: rows.name,
+            customerPassword: rows.password,
+            customerProfilePic: rows.profilepicture,
+            customerEmail: userEmail
+        }
+        res.status(200).json(data);
+        console.log(data);
+    })
+    .catch(function(errors) {
+        console.log(errors);
+        res.status(400).json(errors)
+    });    
+});
+
 /*app.get("/my-profile", function(req, res) {	//make conditional to login
     res.sendFile(__dirname + "/my-profile.html");
 });*/
@@ -162,12 +192,11 @@ function(req, res) {
             customerPassword: customerPassword,
         }
 
-        console.log(` ${customerEmail} ${customerPassword}`);
 
         //Check if user already exists
         const selectuserlogin = new PS({
             name: 'retrieve-user-same-email-password',
-            text: 'SELECT email, password, name FROM users WHERE email = $1 AND password = $2;',
+            text: 'SELECT email, password, phonenumber, name FROM users WHERE email = $1 AND password = $2;',
             values: [customerEmail, customerPassword]
         });
 
@@ -175,11 +204,12 @@ function(req, res) {
         //Select to make sure email and password match to db
         db.one(selectuserlogin)
         .then(function(rows) {
-            console.log(rows.name);
             const data = {
                 customerEmail: rows.email,
-                customerName: rows.name
+                customerName: rows.name,
+                customerPhone: rows.phonenumber
             }
+            console.log(rows);
             res.status(200).json(data);
             
             //Allow user to be redirected to my profile on login
@@ -195,6 +225,103 @@ function(req, res) {
     }
 });
 
+
+//My Profile Form Posted
+app.post('/changeuser', [
+    body('customerName')
+    .isLength({ min: 4, max: 50 })
+    .trim()
+    .escape(),
+    
+    body('customerEmail')
+        .isLength({ min: 5, max: 50 })
+        .isEmail()
+        .normalizeEmail(),
+
+    body('customerPassword')
+        .isLength({ min: 5, max: 50 })
+],
+function(req, res) {
+    const validErrors = validationResult(req);
+
+    if (!validErrors.isEmpty()) {
+        console.log(validErrors);
+        return res.status(400).json({ errors: validErrors.array() });
+    } 
+    else 
+    {
+        const customerName = req.body.customerName;
+        const customerEmail = req.body.customerEmail;
+        const customerPassword = req.body.customerPassword;
+        const oldEmail = req.body.oldEmail;
+		
+
+        const data = {
+            customerName: customerName,
+            customerEmail: customerEmail,
+            customerPassword: customerPassword,
+            oldEmail: oldEmail
+        }
+
+        console.log(`${customerName} ${customerEmail} ${customerPassword} ${oldEmail}`);
+        
+        
+        //Check if user already exists
+        const selectuser = new PS({
+            name: 'retrieve-user-same-email',
+            text: 'SELECT email FROM users WHERE email = $1;',
+            values: [oldEmail]
+        });
+
+        //Insert User
+        const updateuser = new PS({
+            name: 'update-user',
+            
+            text: 'UPDATE users SET email = $1, password = $2, name = $3 WHERE email = $4;',
+            values: [customerEmail, customerPassword, customerName, oldEmail]
+        });
+
+
+        db.one(selectuser)
+        .then(function(rows) {
+            db.none(insertuser)
+            .then(function(rows) {
+                console.log(rows);
+            });
+            res.status(200).json(data);
+        })
+        .catch(function(errors) {
+            console.log(errors);
+            res.status(400).json(errors)
+        });
+
+
+
+        //Select to make sure user doesn't exist... if they do provide an error else register the user 
+        db.one(selectuser)
+        .then(function(rows) 
+        {
+            db.none(updateuser)
+            .then(function(rows) 
+            {
+                console.log(rows);
+            })
+            .catch(function(errors) 
+            {
+                console.log(errors);
+                res.status(400).json(errors)
+            })
+
+            res.status(200).json(data);
+
+        })
+        .catch(function(errors) {
+            console.log(errors);
+            res.status(400).json(errors)
+        });
+    }
+
+});
 
 
 //Create Booking Form Posted
@@ -278,11 +405,10 @@ app.post("/seatselect", function(req, res) {
     res.json({});
 });
 
-app.post('/my-profile', (req, res) =>
+app.post('/my-profile', (req, res) =>   //new profile pic
 {
     let fileUpload;
 
-    console.log(req.files);
     fileUpload = req.files.profilepic;
     const uploadPath = __dirname +  "/public/pictures/profilepictures/" + fileUpload.name;
 
@@ -295,7 +421,6 @@ app.post('/my-profile', (req, res) =>
 
     
     const userEmail = req.body.userEmail;
-    console.log(userEmail);
 
     const updatePicture = new PS({
         name: 'modify-picture',
@@ -308,8 +433,9 @@ app.post('/my-profile', (req, res) =>
 
     db.none(updatePicture)
     .then(function(rows) {
-        res.status(200).json({profilePicture: fileUpload.name});
-        console.log(rows);
+        //res.status(200);
+        setTimeout(function(){res.status(200).redirect('my-profile')},1000);
+        //console.log(rows);
     })
     .catch(function(errors) {
         console.log(errors);
