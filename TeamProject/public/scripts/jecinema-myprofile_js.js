@@ -33,12 +33,6 @@ $(document).ready(function() {
                 minlength: 5,
                 maxlength: 50            
             },
-            oldEmail: {
-                required: true,
-                email: true,
-                minlength: 5,
-                maxlength: 50
-            },
         },
         messages: {
             fullname: {
@@ -60,16 +54,17 @@ $(document).ready(function() {
     });
     
 
-    function validateFiels(element, event) {
+    function validateFiels(element, event) 
+    {
         $(element).valid();
     }
     
-    function createAjaxPost() {
+    function createAjaxPost() 
+    {
         const data = {
             customerName: $("#name")[0].value,
             customerEmail: $("#email")[0].value,
-            customerPassword: $("#password")[0].value,
-            oldEmail: $("#userEmail2")[0].value
+            customerPassword: $("#password")[0].value
         }
 
         const post = $.post('http://localhost:3000/changeuser', data);
@@ -78,13 +73,15 @@ $(document).ready(function() {
     }
     
 
-    $('#SaveBttn').click(function() {
+    $('#SaveBttn').click(function() 
+    {
         $('#changeDetails').submit();
         $("#SaveBttn").prop("disabled", true);  //prevent double posts
     });
     
 
-    function processErrors(xhr, textStatus, errorThrown) {
+    function processErrors(xhr, textStatus, errorThrown) 
+    {
         console.log('Validation errors');
         $("#SaveBttn").prop("disabled", false);  //re-enable for re-use 
     }
@@ -92,7 +89,8 @@ $(document).ready(function() {
         
     
 
-    function processResults(response, status, xhr) {    //set session variables and redirect to login immediately
+    function processResults(response, status, xhr) 
+    {    //set session variables and redirect to login immediately
         $("#SaveBttn").prop("disabled", false);  //re-enable for re-use 
         sessionStorage.setItem("user-name", response.customerName);
         sessionStorage.setItem("user-email", response.customerEmail);

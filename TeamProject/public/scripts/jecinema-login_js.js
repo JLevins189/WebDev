@@ -63,7 +63,7 @@ $(document).ready(function() {
         $("#loginbttn").prop("disabled", false);  //re-enable button after post
         if ( xhr.status == 400  &&  $("#errortext").length == 0 )   //incorrect login
         {
-            $("<p id='errortext' style='color:red;''>You have entered an invalid username or password</p>").insertAfter("#loginheader");
+            $("<p id='errortext' style='color:red;''>You have entered an invalid email or password</p>").insertAfter("#loginheader");
         }
         else if (xhr.status !== 400)
         {
@@ -147,3 +147,14 @@ $(document).ready(function() {
 
 });
 
+
+function autofillForm()
+{
+	let userEmail = sessionStorage.getItem('user-email');
+	
+	if(sessionStorage.getItem('user-email') !== null)
+	{
+		//Fill into form
+		$("#loginemail").val(userEmail);
+	}
+}

@@ -36,6 +36,7 @@ $(document).ready(function()
 		{
 			logout();
 		});
+		
 
 	});
 });
@@ -154,4 +155,65 @@ function logout()
 		window.location.href = "/";  //redirect to home / refresh page
 	}  
 }
+
+
+<script>
+function changeHeart1() {
+  if($('#favourite1').attr('src') === 'pictures/empty_heart.png') {
+	$('#favourite1').attr('src', 'pictures/full_heart.png');
+  }
+  else {
+	$('#favourite1').attr('src', 'pictures/empty_heart.png');
+  }
+  
+}
+function changeHeart2() {
+  if($('#favourite2').attr('src') === 'pictures/empty_heart.png') {
+	$('#favourite2').attr('src', 'pictures/full_heart.png');
+  }
+  else {
+	$('#favourite2').attr('src', 'pictures/empty_heart.png');
+  }
+}
+
+function changeHeart3() {
+  if($('#favourite3').attr('src') === 'pictures/empty_heart.png') {
+	$('#favourite3').attr('src', 'pictures/full_heart.png');
+  }
+  else {
+	$('#favourite3').attr('src', 'pictures/empty_heart.png');
+  }
+}
+
+function changeHeart4() {
+  if($('#favourite4').attr('src') === 'pictures/empty_heart.png') {
+	$('#favourite4').attr('src', 'pictures/full_heart.png');
+  }
+  else {
+	$('#favourite4').attr('src', 'pictures/empty_heart.png');
+  }
+}
+
+function changeHeart5() {
+  if($('#favourite5').attr('src') === 'pictures/empty_heart.png') {
+	$('#favourite5').attr('src', 'pictures/full_heart.png');
+  }
+  else {
+	$('#favourite5').attr('src', 'pictures/empty_heart.png');
+  }
+}
+
+function changeHeart6() 
+{
+  if ($('#favourite6').attr('src') === 'pictures/empty_heart.png') 
+  {
+	$('#favourite6').attr('src', 'pictures/full_heart.png');
+  }
+  else 
+  {
+	$('#favourite6').attr('src', 'pictures/empty_heart.png');
+  }
+
+}
+
 

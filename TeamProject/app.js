@@ -253,42 +253,41 @@ function(req, res) {
         const customerName = req.body.customerName;
         const customerEmail = req.body.customerEmail;
         const customerPassword = req.body.customerPassword;
-        const oldEmail = req.body.oldEmail;
 		
 
         const data = {
             customerName: customerName,
             customerEmail: customerEmail,
             customerPassword: customerPassword,
-            oldEmail: oldEmail
         }
 
-        console.log(`${customerName} ${customerEmail} ${customerPassword} ${oldEmail}`);
+        console.log(`${customerName} ${customerEmail} ${customerPassword}`);
         
         
         //Check if user already exists
         const selectuser = new PS({
             name: 'retrieve-user-same-email',
             text: 'SELECT email FROM users WHERE email = $1;',
-            values: [oldEmail]
+            values: [customerEmail]
         });
 
-        //Insert User
+        //Update User
         const updateuser = new PS({
             name: 'update-user',
             
-            text: 'UPDATE users SET email = $1, password = $2, name = $3 WHERE email = $4;',
-            values: [customerEmail, customerPassword, customerName, oldEmail]
+            text: 'UPDATE users password = $1, name = $2 WHERE email = $3;',
+            values: [customerPassword, customerName, customerEmail]
         });
 
 
         db.one(selectuser)
         .then(function(rows) {
-            db.none(insertuser)
+            db.none(updateuser)
             .then(function(rows) {
+                res.status(200).json(data);
                 console.log(rows);
             });
-            res.status(200).json(data);
+            
         })
         .catch(function(errors) {
             console.log(errors);
@@ -296,29 +295,6 @@ function(req, res) {
         });
 
 
-
-        //Select to make sure user doesn't exist... if they do provide an error else register the user 
-        db.one(selectuser)
-        .then(function(rows) 
-        {
-            db.none(updateuser)
-            .then(function(rows) 
-            {
-                console.log(rows);
-            })
-            .catch(function(errors) 
-            {
-                console.log(errors);
-                res.status(400).json(errors)
-            })
-
-            res.status(200).json(data);
-
-        })
-        .catch(function(errors) {
-            console.log(errors);
-            res.status(400).json(errors)
-        });
     }
 
 });
@@ -365,8 +341,7 @@ function(req, res) {
         app.get("/select-seat", function(req, res) {	//make conditional to post booking
             res.sendFile(__dirname + "/select-seat.html")
         });
-        res.sendFile(__dirname + "/select-seat.html");
-        //res.json(data);
+        //res.sendFile(__dirname + "/select-seat.html");
 
         //const insert = db.prepare('INSERT INTO users (customerName, customerEmail, customerPassword, CustomerPhone) VALUES ($1, $2, $3,$4);');
         //insert.run(customerName, customerEmail, customerPassword, customerPhone);
@@ -433,16 +408,17 @@ app.post('/my-profile', (req, res) =>   //new profile pic
 
     db.none(updatePicture)
     .then(function(rows) {
-        //res.status(200);
-        setTimeout(function(){res.status(200).redirect('my-profile')},1000);
+        //Delay redirect to allow database to react in time for refresh
+        setTimeout(function()
+        {
+            res.status(200).redirect('my-profile')
+        },1000);
         //console.log(rows);
     })
     .catch(function(errors) {
         console.log(errors);
         res.status(400).json(errors)
     });
-
-    
 
 
 });

@@ -84,7 +84,15 @@ $(document).ready(function() {
     
 
     function processErrors(xhr, textStatus, errorThrown) {
-        console.log('Validation errors');
+		if ( xhr.status == 400  &&  $("#errortext").length == 0 )   //incorrect login
+        {
+            $("<p id='errortext' style='color:red;''>Please enter your own email address</p>").insertAfter("#loginheader");
+        }
+		else
+		{
+			console.log('Validation errors');
+		}
+		
     }
 
 
@@ -104,13 +112,7 @@ function autofillForm()
 	let movieSelected = sessionStorage.getItem('movie-selected');
 	let userEmail = sessionStorage.getItem('user-email');
 	let userPhone = sessionStorage.getItem("user-phone");
-	
-	/* Test
-	userEmail = "jecinema@hotmail.com";
-	userPhone = "0861112222";
-	sessionStorage.setItem("user-email", userEmail);
-	sessionStorage.setItem("user-phone", userPhone);
-	*/
+
 
 	if(sessionStorage.getItem('movie-selected') !== null)
 	{
