@@ -4,11 +4,12 @@ about (done)
 register (done)
 
 
+
 homepage (just needs wishlist functionality)
 
 
 - Express set up with getters etc. (done)
-- Proper error messages (should be done)
+- Proper error messages (not yet done)
 - Avoid SQL Injection (done)
 
 ****************readme.txt*************
@@ -16,7 +17,7 @@ homepage (just needs wishlist functionality)
 CRUD
 C - Register
 R - Login
-U - Change Password or anything on my profile
+U - Change Password or anything on my profile (except email)
 D - ******Deactivate account*******
 
 
@@ -25,9 +26,9 @@ Watchlist
 
 
 my profile (when DB ready - has to be dynamic)
- - *****Change password option******
+ - Change password option (done)
  - *****delete/deactivate profile******
- - Profile pic management
+ - Profile pic management (done)
 
 searchpage(last)
  - view

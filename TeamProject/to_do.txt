@@ -1,0 +1,14 @@
+To do list
+
+Login tokens
+Register error messages
+Remove ability to change email
+
+Deactivate account (enter password to confirm)
+Wishlist functioning
+
+Animations
+Readme.txt
+Searchpage
+Finish select seat
+
