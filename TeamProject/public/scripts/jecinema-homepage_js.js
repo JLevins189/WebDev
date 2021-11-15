@@ -93,6 +93,22 @@ function whatsOnMovie6()
 }	
 
 
+function setProfilePhoto()
+{
+	if(sessionStorage.getItem("user-picture") !== null)
+	{
+		//Set Picture to user's profile picture 
+		const profilePicture = sessionStorage.getItem("user-picture");
+		$("#user-picture").attr("src",profilePicture);
+	}
+	else
+	{
+		$("#user-picture").attr("src", "pictures/profilepic.jpg");  //Revert to default image
+	}
+
+}
+
+
 function checkLogin()
 {
 	if(sessionStorage.getItem("user-email") !== null)  //if user logged in
@@ -122,21 +138,6 @@ function checkLogin()
 		}
 
 	}
-}
-
-function setProfilePhoto()
-{
-	if(sessionStorage.getItem("user-picture") !== null)
-	{
-		//Set Picture to user's profile picture 
-		const profilePicture = sessionStorage.getItem("user-picture");
-		$("#user-picture").attr("src",profilePicture);
-	}
-	else
-	{
-		$("#user-picture").attr("src", "pictures/profilepic.jpg");  //Revert to default image
-	}
-
 }
 
 

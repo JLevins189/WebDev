@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html>
+<head>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  <link rel="stylesheet" href="css/jecinema.css">
+  <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+  <link rel="stylesheet" href="css/jecinema.css">   
 
   <style>
     .profilepic {
@@ -38,13 +39,14 @@
       border: none;
       font-size: 20px;
     }
+
+    #savebutton  {
+      text-align: center;
+    }
+
   </style>
-<head>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  <link rel="stylesheet" href="css/jecinema.css">  
+</head>
+
 
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -90,70 +92,86 @@
   </div>
 </nav>
 
+
+
 <div class="row">
   <div class="col no-gutters">
-   <div class="leftside">
-    <h1 style="text-align: left; padding-top:5vh; color: white;">Profile</h1>
+   
+    <div class="leftside">
+    <h1 style="text-align: left; margin-left:5%; padding-top:5vh; color: white;">Profile</h1>
     <img id = "profile-pic" class="profilepic" src="pictures/profilepic.jpg">
     <br>
     <br>
+    
     <p style="margin-left: 290px; color: white">Change Image</p>
-    <form>
-      <input class="btn btn-outline-warning" style="margin-left: 200px; " type="file" id="profile" name="profilepic" onchange="uploadFile(this);" required><br>
+    <form method="post" enctype='multipart/form-data' id="profilePictureForm">
+      <input class="btn btn-outline-warning" style="margin-left: 200px; " type="file" id="profilepicture" name="profilepic" onchange="this.form.submit();" accept="image/*"><br>
+      <input type="email" id="userEmail" name="userEmail" value="DefaultValue" hidden><br>
     </form>
+
   </div>
   </div>
   <div class="col">
+    
     <div class="rightside">
       <br>
       <br>
-      <form>
-        <label for="name" style="color:white;">Name: </label>
-        <input type="text" id="name" name="fullname" value="DefaultValue"><br>
-      </form>
-       <hr style="border: 1px solid orange;">
-       <form>
-        <label for="email" style="color:white;">Email: </label>
-        <input type="email" id="email" name="fullemail" value="DefaultValue"><br>
-      </form>
-       <hr style="border: 1px solid orange;">
-       <br>
-       <h3 style="color: white;">Favourites</h3>
-       <br>
-      <img style="width: 150px; height: 200px;" src="pictures/notimetodie_poster.jpg">
-      &nbsp; 
-      &nbsp; 
-      &nbsp; 
-      &nbsp; 
-      <img style="width: 150px; height: 200px;" src="pictures/pawpatrol_poster.jpg">
-      &nbsp; 
-      &nbsp; 
-      &nbsp; 
-      &nbsp; 
-      <img style="width: 150px; height: 200px;" src="pictures/thegodfather_poster.jpg">
-      &nbsp; 
-      &nbsp; 
-      &nbsp; 
-      &nbsp; 
-      <img style="width: 150px; height: 200px;" src="pictures/savingprivateryan_poster.jpg">
-      <br>
-      <br>
-      <img style="width: 150px; height: 200px;" src="pictures/lionking_poster.jpg">
-      &nbsp; 
-      &nbsp; 
-      &nbsp; 
-      &nbsp;
-      <img style="width: 150px; height: 200px;" src="pictures/deadlycuts_poster.jpg">
-      <br>
-      <br>
-      <br>
-      <br>
-      <hr style="border: 1px solid orange;">
-      <form>
+        <form id="changeDetails">
+          <label for="name" style="color:white;">Name: </label>
+          <input type="text" id="name" name="fullname" value="DefaultValue"><br>
+
+          <hr style="border: 1px solid orange;">
+
+          <label for="email" style="color:white;">Email: </label>
+          <input type="email" id="email" name="fullemail" value="DefaultValue"><br>
+
+          <input type="email" id="userEmail2" name="oldEmail" value="DefaultValue" hidden>
+
+
+        <hr style="border: 1px solid orange;">
+        <br>
+        <h3 style="color: white;">Favourites</h3>
+        <br>
+        <img  id="movie1" style="width: 150px; height: 200px;" src="pictures/savingprivateryan_poster.jpg">
+        &nbsp; 
+        &nbsp; 
+        &nbsp; 
+        &nbsp; 
+        <img id="movie2" style="width: 150px; height: 200px;" src="pictures/thegodfather_poster.jpg">
+        &nbsp; 
+        &nbsp; 
+        &nbsp; 
+        &nbsp; 
+        <img id="image3" style="width: 150px; height: 200px;" src="pictures/pawpatrol_poster.jpg">
+        &nbsp; 
+        &nbsp; 
+        &nbsp; 
+        &nbsp; 
+        <img id="image4" style="width: 150px; height: 200px;" src="pictures/lionking_poster.jpg">
+        <br>
+        <br>
+        <img id="image5" style="width: 150px; height: 200px;" src="pictures/notimetodie_poster.jpg">
+        &nbsp; 
+        &nbsp; 
+        &nbsp; 
+        &nbsp;
+        <img id="image6" style="width: 150px; height: 200px;" src="pictures/deadlycuts_poster.jpg">
+        <br>
+        <br>
+        <br>
+        <br>
+        <hr style="border: 1px solid orange;">
+
+
         <label for="password" style="color:white;">Password: </label>
         <input type="password" id="password" name="fullpassword" value="Whatever"><br>
       </form>
+
       <hr style="border: 1px solid orange;">
+      <div id="savebutton">
+        <br><button class="btn btn-outline-warning" id="SaveBttn">Save Changes</button><br>
+      </form>
+      </div>
     </div>
   </div>   
 </div>

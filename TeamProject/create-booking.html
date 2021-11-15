@@ -5,7 +5,8 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  <link rel="stylesheet" href="css/jecinema.css">
+  <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+  <link rel="stylesheet" href="css/jecinema.css">  
 
 <style>
     .card {
@@ -65,8 +66,8 @@
           Booking
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="create-booking">Make booking</a>
-          <a class="dropdown-item" href="manage-booking">Manage/Cancel Booking</a>
+          <a class="dropdown-item" href="/create-booking">Make booking</a>
+          <a class="dropdown-item" href="/manage-booking">Manage/Cancel Booking</a>
         </div>
       </li>
     </ul>
@@ -76,8 +77,8 @@
           <img id="user-picture" src="pictures/profilepic.jpg" width="35px" height="35px" class="profile">
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" id="sign-in" href="login">Sign in</a>
-          <a class="dropdown-item" id="register" href="register">Register</a>
+          <a class="dropdown-item" id="sign-in" href="/login">Sign in</a>
+          <a class="dropdown-item" id="register" href="/register">Register</a>
         </div>
       </li>
     </ul>
@@ -93,21 +94,21 @@
 <div class="card">
   <div class="container">
     <img class="navbar-brand" src="pictures/je-logo3.png" height="50px" width="50px" alt="logo">
-    <h4 style="color:silver"><b>Create a Booking</b></h4> 
-      <p style="color:silver">Please select a movie:</p>
-	<label for="movies" style="color:slver">Choose a movie:</label><br>
-	<select name="movielist"  id="movielist">
-		<option value="movie1" id="movie1">javascript takes care of this</option>
-		<option value="movie2" id="movie2">javascript takes care of this</option>
-		<option value="movie3" id="movie3">javascript takes care of this</option>
-		<option value="movie4" id="movie4">javascript takes care of this</option>
-		<option value="movie5" id="movie5">javascript takes care of this</option>
-		<option value="movie6" id="movie6">javascript takes care of this</option>
-	</select><br><br>
-	
-    <input type="email" id="booking_email" style="border-radius: 5px;" placeholder="Email" required><br><br>
-    <input type="text" id="cust_contactphone" style="border-radius: 5px;" placeholder="Phone Number" required><br><br>
-	<button class="btn btn-outline-warning" id="NextStepBttn" type="submit">Next Step...</button><br><br>
+    <h4 style="color:silver"><b>Create a Booking</b></h4>
+    <form id="createBookingForm">
+	    <label for="movies" style="color:slver">Choose a movie:</label><br>
+      <select name="movielist"  id="movielist">
+          <option value="movie1" id="movie1">javascript takes care of this</option>
+          <option value="movie2" id="movie2">javascript takes care of this</option>
+          <option value="movie3" id="movie3">javascript takes care of this</option>
+          <option value="movie4" id="movie4">javascript takes care of this</option>
+          <option value="movie5" id="movie5">javascript takes care of this</option>
+          <option value="movie6" id="movie6">javascript takes care of this</option>
+        </select><br><br>
+      <input type="email" id="loginEmail" style="border-radius: 5px;" placeholder="Email" required><br><br>
+      <input type="text" id="contactPhone" style="border-radius: 5px;" placeholder="Phone Number" required><br><br>
+      <button class="btn btn-outline-warning" id="NextStepBttn" type="submit">Next Step...</button><br><br>
+    </form>   
 	
 	<p style="color:silver">Already have a booking? <a href="manage-booking">Manage your booking here</a></p>
   </div>

@@ -5,7 +5,8 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  <link rel="stylesheet" href="css/jecinema.css">
+  <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+  <link rel="stylesheet" href="css/jecinema.css">  
   <style>
     .card {
       box-shadow: 0 4px 8px 0 rgba(240, 166, 7, 0.2);
@@ -83,19 +84,23 @@
 <div class="card">
   <div class="container">
     <img class="navbar-brand" src="pictures/je-logo3.png" height="50px" width="50px" alt="logo">
-    <h4 style="color:silver"><b>Login</b></h4> 
-    
-	<input type="email" id="loginemail" style="border-radius: 5px;" placeholder="Email"><br><br>
+    <h4 id="loginheader" style="color:silver"><b>Login</b></h4> 
+  
+  <form id="login-form">
+	  <input type="email" id="loginemail" style="border-radius: 5px;" placeholder="Email"><br><br>
     <input type="password" id="loginpassword" style="border-radius: 5px;" placeholder="Password"><br><br>
     <button class="btn btn-outline-warning" id="loginbttn" type="submit">Login</button><br><br>
-	
-	<p style="color:silver">Not registered? <a href="register.html">Register here</a></p>
+	</form>  
+
+	<p style="color:silver">Not registered? <a href="/register">Register here</a></p>
   </div>
 </div>
 
 <div class="blank_space">
   <br>
 </div>
+
+<script type="text/javascript" src="scripts/jecinema-login_js.js"></script>
 
 </body>
 </html>
