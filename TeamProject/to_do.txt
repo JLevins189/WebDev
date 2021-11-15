@@ -1,14 +1,22 @@
 To do list
+------------------
+Jack 
+
+-----------
 
 Login tokens
-Register error messages
 Remove ability to change email
-
-Deactivate account (enter password to confirm)
+Deactivate account (enter password to confirm) - db 
 Wishlist functioning
+Finish select seat
 
+-------------------
+
+Ethan
+
+-----------
 Animations
 Readme.txt
 Searchpage
-Finish select seat
-
+video on carousel(trailer)
+Deactivate account (enter password to confirm) - button
