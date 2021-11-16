@@ -1,17 +1,55 @@
+require("dotenv").config();
 const express = require('express');
 const bodyParser = require('body-parser');
+
 const { body, validationResult} = require('express-validator');
 const fileUpload = require('express-fileupload');
 
 const pgp = require('pg-promise')({});
 const { PreparedStatement: PS } = require('pg-promise');
+
+const dbUser = process.env.DB_USER;
+const dbPass = process.env.DB_PASS;
+const dbHost = process.env.DB_HOST;
+const dbPort = process.env.DB_PORT;
+const dbName = process.env.DB_NAME;
+
 // connection = protocol://userName:password@host:port/databaseName
+//const db = pgp(`postgres://${dbUser}:${dbPass}@${dbHost}:${dbPort}/${dbName}`);
 const db = pgp('postgres://webdevassignment:assignmentpassword@localhost:5432/webdevassignment');
 
+const session = require("express-session");
+const passport = require("passport");
+const LocalStrategy = require("passport-local").Strategy;
+
+const bcrypt = require("bcrypt")
+
 const app = express();
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname + "/public"));
 app.use(fileUpload());
+
+app.use(
+    session({
+        secret: "JECinemaoG1AosCookie",
+        resave: false,
+        saveUninitialized: false,
+    })
+);
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+
+function isAuthenticated() {
+    return function (req, res, next) {
+        if (req.isAuthenticated()) {
+            return next();
+        }
+        res.redirect("/login");
+    };
+}
 
 
 app.listen(3000, function() {
@@ -30,26 +68,37 @@ app.get("/about", function(req, res) {
     res.sendFile(__dirname + "/about.html");
 });
 
-app.get("/create-booking", function(req, res) {
+app.get("/create-booking", isAuthenticated(), function(req, res) {
     res.sendFile(__dirname + "/create-booking.html");
 });
 
-app.get("/manage-booking", function(req, res) {	
+app.get("/manage-booking", isAuthenticated(), function(req, res) {	
     res.sendFile(__dirname + "/manage-booking.html");
 });
 
-app.get("/login", function(req, res) {	//make conditional to login
-    res.sendFile(__dirname + "/login.html");
+app.get("/login", function(req, res) {	//only if not already logged in
+    if(!isAuthenticated())
+    {
+        res.sendFile(__dirname + "/register.html");
+    }   
 });
 
-app.get("/register", function(req, res) {	//make conditional to login
-    res.sendFile(__dirname + "/register.html");
+app.get("/register", function(req, res) {	//only if not already logged in
+    if(!isAuthenticated())
+    {
+        res.sendFile(__dirname + "/register.html");
+    }    
+});
+
+app.get("/logout", function (req, res) {
+    req.logout();
+    res.redirect("/");
 });
 
 app.get("/getuser/:email", function(req, res) {	//send profile info back to user
     const userEmail = req.params.email;
-    console.log(req.params);
-    //Check if user already exists
+    //console.log(req.params);
+    
     
     const selectuserdetails = new PS({
         name: 'retrieve-user-details',
@@ -76,13 +125,13 @@ app.get("/getuser/:email", function(req, res) {	//send profile info back to user
     });    
 });
 
-/*app.get("/my-profile", function(req, res) {	//make conditional to login
+app.get("/my-profile", isAuthenticated(), function(req, res) {	//make conditional to login
     res.sendFile(__dirname + "/my-profile.html");
-});*/
+});
 
-/*app.get("/select-seat", function(req, res) {	//make conditional to post booking
+app.get("/select-seat", isAuthenticated(), function(req, res) {	
     res.sendFile(__dirname + "/select-seat.html")
-});  //only till testing finished*/
+});  
 
 
 //Register Form Posted
