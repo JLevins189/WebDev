@@ -157,55 +157,54 @@ function logout()
 }
 
 
-<script>
-function changeHeart1() {
+
+$("#favourite1").click(function() { 
   if($('#favourite1').attr('src') === 'pictures/empty_heart.png') {
 	$('#favourite1').attr('src', 'pictures/full_heart.png');
   }
   else {
 	$('#favourite1').attr('src', 'pictures/empty_heart.png');
   }
-  
-}
-function changeHeart2() {
+});
+
+$("#favourite2").click(function() { 
   if($('#favourite2').attr('src') === 'pictures/empty_heart.png') {
 	$('#favourite2').attr('src', 'pictures/full_heart.png');
   }
   else {
 	$('#favourite2').attr('src', 'pictures/empty_heart.png');
   }
-}
+});
 
-function changeHeart3() {
+$("#favourite3").click(function() { 
   if($('#favourite3').attr('src') === 'pictures/empty_heart.png') {
 	$('#favourite3').attr('src', 'pictures/full_heart.png');
   }
   else {
 	$('#favourite3').attr('src', 'pictures/empty_heart.png');
   }
-}
+});
 
-function changeHeart4() {
+$("#favourite4").click(function() { 
   if($('#favourite4').attr('src') === 'pictures/empty_heart.png') {
 	$('#favourite4').attr('src', 'pictures/full_heart.png');
   }
   else {
 	$('#favourite4').attr('src', 'pictures/empty_heart.png');
   }
-}
+});
 
-function changeHeart5() {
+$("#favourite5").click(function() {   
   if($('#favourite5').attr('src') === 'pictures/empty_heart.png') {
 	$('#favourite5').attr('src', 'pictures/full_heart.png');
   }
   else {
 	$('#favourite5').attr('src', 'pictures/empty_heart.png');
   }
-}
+});
 
-function changeHeart6() 
-{
-  if ($('#favourite6').attr('src') === 'pictures/empty_heart.png') 
+$("#favourite6").click(function() { 
+  if($('#favourite6').attr('src') === 'pictures/empty_heart.png') 
   {
 	$('#favourite6').attr('src', 'pictures/full_heart.png');
   }
@@ -213,7 +212,5 @@ function changeHeart6()
   {
 	$('#favourite6').attr('src', 'pictures/empty_heart.png');
   }
-
-}
-
+});
 
