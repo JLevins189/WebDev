@@ -168,9 +168,8 @@ function autofillForm(userEmail, userFullName)
 {
     if(userEmail !== null)  //set email field
     {
-        $("#email").val(userEmail);
-        $("#userEmail").val(userEmail);  //hidden field to make sure right account's profile image is changed
-        $("#userEmail2").val(userEmail);  //hidden field to make sure right account's details are changed
+        $("#email").text(userEmail);
+        $("#userEmail").text(userEmail);  //hidden field to make sure right account's profile image is changed
     }
     if(userFullName !== null)  //set name field
     {   

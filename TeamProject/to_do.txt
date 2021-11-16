@@ -4,7 +4,7 @@ Jack
 
 -----------
 
-Login tokens
+Login tokens - hash passwords
 Remove ability to change email
 Deactivate account (enter password to confirm) - db 
 Wishlist functioning
