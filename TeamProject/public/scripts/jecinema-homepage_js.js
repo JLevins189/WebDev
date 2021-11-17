@@ -216,3 +216,9 @@ $("#favourite6").click(function() {
   }
 });
 
+
+let mvideo = document.getElementById("video-modal")
+$("#film1").click(function() { 
+	modal.style.display = "block";
+  });
+  
