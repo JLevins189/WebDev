@@ -1,5 +1,7 @@
+
 $(document).ready(function() 
 {
+
     $(function () {
 		checkLogin(); //set as logged in/guest
 		$(".poster1").click(function() 
@@ -39,8 +41,8 @@ $(document).ready(function()
 		
 
 	});
-});
 
+});
 
 
 /*  Get movie name from the click of their poster in the what's on page
