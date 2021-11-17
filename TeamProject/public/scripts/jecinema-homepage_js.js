@@ -217,8 +217,14 @@ $("#favourite6").click(function() {
 });
 
 
-let mvideo = document.getElementById("video-modal")
+let mvideo = document.getElementById("video-modal");
 $("#film1").click(function() { 
-	modal.style.display = "block";
+	mvideo.style.display = "block";
   });
   
+
+window.onclick = function(event) {
+	if (event.target == mvideo) {
+	  mvideo.style.display = "none";
+	}
+} 
