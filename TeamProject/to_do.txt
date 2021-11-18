@@ -3,9 +3,9 @@ To do list
 Jack 
 
 -----------
-Deactivate account (enter password to confirm) - db 
+Deactivate account (need to remove session variables and confirm dialog) 
 Wishlist functioning
-Finish select seat
+Finish select seat with db
 
 -------------------
 
