@@ -578,3 +578,39 @@ app.post('/my-profile', (req, res) =>   //new profile pic
 
 
 });
+
+app.post('/deactivate-account', function(req,res)
+{
+    const customerEmail = req.body.deactivateEmail;
+    console.log(customerEmail);
+
+    if(customerEmail !== null || customerEmail !== undefined)
+    {
+        //Delete user from database
+        const deleteuser = new PS(
+            {
+                name: 'delete-user',
+                text: 'DELETE FROM users WHERE email = $1;',
+                values: [customerEmail]
+            });
+
+
+            db.none(deleteuser)
+            .then(function(rows) 
+            {
+                console.log("User " + customerEmail + " deleted");
+                res.status(200).redirect("/logout");  //to properly delete user from sesssions
+            })
+            .catch(function(errors) 
+            {
+                console.log("errors");
+                res.status(400).json(errors)
+            });
+    }
+    else
+    {
+        console.log("User undefined/null trying to delete");
+    }
+
+
+});
