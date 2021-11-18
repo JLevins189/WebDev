@@ -1,5 +1,6 @@
 <html lang="en">
 <head>
+
   <link rel="icon" type="image/x-icon" href="pictures/favicon.ico">
   <title>JE Cinema | Home</title>
   
@@ -170,6 +171,38 @@
       top: -1220px;
     }
 
+<<<<<<< HEAD
+=======
+    .covid_info2 {
+      position: relative;
+      left: 200px;
+      top: -1220px;
+    }
+
+    .modal-box {
+      display: none;
+      position: fixed; 
+      z-index: 1; 
+      padding-top: 100px; 
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%; 
+      overflow: auto;  
+      /*background-color: rgb(0,0,0); */
+      /*background-color: rgba(0,0,0,0.4); */
+    }
+
+    .content-modal {
+    background-color: #fefefe;
+    margin: 28%; 
+    margin-top: 9%;
+    border: 1px solid #888;
+    width: 20%; 
+  }
+
+
+>>>>>>> 033984ad05f58192ca37661bdcf126456d2fb8dd
   </style>
 </head>
 
@@ -217,6 +250,30 @@
   </div>
 </nav>
 
+
+<div class="modal-box" id="video-modal">
+<div class="content-modal">
+  <video src="pictures/007.mp4" controls autoplay>
+  </video>
+</div>
+</div>
+
+
+<div class="modal-box" id="video-modal2">
+  <div class="content-modal">
+    <video src="pictures/savingprivateryan.mp4" controls autoplay>
+    </video>
+  </div>
+  </div>
+
+
+<div class="modal-box" id="video-modal3">
+  <div class="content-modal">
+    <video src="pictures/lionking.mp4" controls autoplay>
+    </video>
+  </div>
+</div>
+
 <div id="demo" class="carousel slide" data-ride="carousel">
 
   <!-- Indicators -->
@@ -229,13 +286,13 @@
   <!-- The slideshow -->
   <div class="carousel-inner">
     <div class="carousel-item active">
-      <img src="pictures/notimetodie.jpg" alt="007 No Time to Die" width="1100" height = "200%">
+      <img src="pictures/notimetodie.jpg" alt="007 No Time to Die" width="1100" height = "200%"  id="film1">
     </div>
     <div class="carousel-item">
-      <img src="pictures/savingprivateryan.jpg" alt="Saving Private Ryan" width="1100" height="800">
+      <img src="pictures/savingprivateryan.jpg" alt="Saving Private Ryan" width="1100" height="800" id="film2">
     </div>
     <div class="carousel-item">
-      <img src="pictures/thelionking.jpeg" alt="The Lion King" width="1100" height="800">
+      <img src="pictures/thelionking.jpeg" alt="The Lion King" width="1100" height="800" id="film3">
     </div>
   </div>
   
@@ -291,7 +348,6 @@
 </div>
 
 <script type="text/javascript" src="scripts/jecinema-homepage_js.js"></script>
-
 </div>
 </body>
 </html>

@@ -1,5 +1,7 @@
+
 $(document).ready(function() 
 {
+
     $(function () {
 		checkLogin(); //set as logged in/guest
 		$(".poster1").click(function() 
@@ -39,8 +41,8 @@ $(document).ready(function()
 		
 
 	});
-});
 
+});
 
 
 /*  Get movie name from the click of their poster in the what's on page
@@ -199,3 +201,32 @@ $("#favourite6").click(function() {
   }
 });
 
+
+let mvideo = document.getElementById("video-modal");
+$("#film1").click(function() { 
+	mvideo.style.display = "block";
+  });
+  
+let mvideo2 = document.getElementById("video-modal2");
+  $("#film2").click(function() { 
+	mvideo2.style.display = "block";
+  });
+ 
+let mvideo3 = document.getElementById("video-modal3");
+$("#film3").click(function() { 
+	mvideo3.style.display = "block";
+  });
+
+
+window.onclick = function(event) {
+	if (event.target == mvideo2) {
+	  mvideo2.style.display = "none";
+	}
+	if (event.target == mvideo) {
+		mvideo.style.display = "none";
+	  }
+	if (event.target == mvideo3) {
+		mvideo3.style.display = "none";
+	}
+
+} 
