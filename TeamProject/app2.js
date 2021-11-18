@@ -24,12 +24,15 @@ const session = require("express-session");
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcrypt")
 
 const app = express();
 
-
-
+app.use(passport.initialize());
+//app.use(passport.session());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.static(__dirname + "/public"));
+app.use(fileUpload());
 
 app.use(
     session({
@@ -39,9 +42,6 @@ app.use(
     })
 );
 
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static(__dirname + "/public"));
-app.use(fileUpload());
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -52,7 +52,7 @@ passport.use(new LocalStrategy({
         function (username, password, done) 
         {
             const selectUserLogin = new PS({
-                name: 'retrieve-user-same-email',
+                name: 'retrieve-user-same-email-password',
                 text: 'SELECT email, password, phonenumber, name FROM users WHERE email = $1;',
                 values: [username]
             });
@@ -62,12 +62,13 @@ passport.use(new LocalStrategy({
                 if (!row) {
                     return done(null, false, { message: "User not found." });
                 }
-                bcrypt.compare(password, row.password,
+                bcrypt.compare(
+                    password,
+                    row.password,
                     function (err, result) {
                         if (result == true) {
                             done(null, { id: row.email });
                         } else {
-
                             return done(null, false, {
                                 message: "Incorrect password",
                             });
@@ -83,7 +84,9 @@ passport.use(new LocalStrategy({
 
 
 passport.serializeUser(function (user, done) {
+    console.log(user.id);
     done(null, user.id);
+
 });
 
 passport.deserializeUser(function (id, done) {
@@ -104,24 +107,12 @@ passport.deserializeUser(function (id, done) {
         .catch(function (err) {
             error = err;
             console.log("Error happened!");
-            //console.log(err, row);
+            console.log(err, row);
         });
 
 });
 
-function isAuthenticated() {
-    return function (req, res, next) {
-        return next();
-        if (req.isAuthenticated()) {
-            //console.log("NO");
-            return next();
-            
-        }
-        console.log("NO");
-        res.redirect("/");
 
-    };
-}
 
 
 app.listen(3000, function() {
@@ -132,6 +123,69 @@ app.get("/", function(req, res) {
     res.sendFile(__dirname + "/homepage.html");
 });
 
+
+app.get("/login", function(req, res) {	//only if not already logged in
+    res.sendFile(__dirname + "/login.html");
+});
+
+//Register Form Posted
+app.post('/newuser', function (req, res) 
+{
+    // uncoment these lines and insert your own values
+    // const email = "post@post123.ie";
+    // const password = "post123";
+    // const name = "POST";
+    // const phonenumber = "3132323223";
+
+    bcrypt.hash(password, saltRounds, function (err, hash) {
+        // Now we can store the password hash in db.
+        const insert = new PS({
+            name: "insert-user",
+            text:'INSERT INTO users (email, password, name, phonenumber) VALUES ($1, $2, $3, $4);',
+            values: [email, hash,name,phonenumber]
+        });
+        db.none(insert)
+            .then(function(rows){
+                console.log('Success!');
+        })
+            .catch(function(error){
+                console.log(error);
+        });
+    });
+});    
+
+
+
+app.post("/existinguser", function (req, res, next) {
+    passport.authenticate("local", function (err, user, info) {
+        if (err) {
+            console.log(err);
+            return next(err);
+        }
+        if (!user) {
+            console.log(info);
+            return res.redirect("/login");
+        }
+        req.logIn(user, function (err) {
+            if (err) {
+                console.log(err);
+                return next(err);
+            }
+            return res.redirect("/home");
+        });
+    })(req, res, next);
+});
+
+
+function isAuthenticated() {
+    return function (req, res, next) {
+        if (req.isAuthenticated()) {
+            return next();
+        }
+        res.redirect("/login");
+    };
+}
+
 app.get("/home", function(req, res) {
     res.sendFile(__dirname + "/homepage.html");
 });
@@ -139,7 +193,6 @@ app.get("/home", function(req, res) {
 app.get("/about", function(req, res) {
     res.sendFile(__dirname + "/about.html");
 });
-
 
 app.get("/create-booking", isAuthenticated(), function(req, res) {
     res.sendFile(__dirname + "/create-booking.html");
@@ -150,33 +203,14 @@ app.get("/manage-booking", isAuthenticated(), function(req, res) {
 });
 
 app.get("/login", function(req, res) {	//only if not already logged in
-    
-    // if(!isAuthenticated)
-    // {
-        res.sendFile(__dirname + "/login.html");  //not logged in yet
-    // }
-    // else
-    // {
-    //     res.redirect("/alreadyloggedin");  //already logged in
-    // }
-    
-});
-
-app.get("/alreadyloggedin", function(req,res)  {
-    res.sendFile(__dirname + "/alreadyloggedin.html");  //already logged in
+    res.sendFile(__dirname + "/login.html");
 });
 
 app.get("/register", function(req, res) {	//only if not already logged in
-    
-    if(!isAuthenticated)
-    {
-        res.sendFile(__dirname + "/register.html");  //not logged in yet
-    }
-    else
-    {
-        res.redirect("/alreadyloggedin");  //already logged in
-    }
-      
+    //if(!isAuthenticated())
+    //{
+        res.sendFile(__dirname + "/register.html");
+    //}    
 });
 
 app.get("/logout", function (req, res) {
@@ -186,12 +220,12 @@ app.get("/logout", function (req, res) {
 
 app.get("/getuser/:email", function(req, res) {	//send profile info back to user
     const userEmail = req.params.email;
-    console.log(req.params);
+    //console.log(req.params);
     
     
     const selectuserdetails = new PS({
         name: 'retrieve-user-details',
-        text: 'SELECT name, profilepicture FROM users WHERE email = $1;',
+        text: 'SELECT name, password, profilepicture FROM users WHERE email = $1;',
         values: [userEmail]
     });
 
@@ -201,10 +235,12 @@ app.get("/getuser/:email", function(req, res) {	//send profile info back to user
         //console.log(rows);
         const data = {
             customerName: rows.name,
+            customerPassword: rows.password,
             customerProfilePic: rows.profilepicture,
             customerEmail: userEmail
         }
         res.status(200).json(data);
+        console.log(data);
     })
     .catch(function(errors) {
         console.log(errors);
@@ -221,178 +257,7 @@ app.get("/select-seat", isAuthenticated(), function(req, res) {
 });  
 
 
-//Register Form Posted
-app.post('/newuser', [
-    body('customerName')
-    .isLength({ min: 4, max: 50 })
-    .trim()
-    .escape(),
-    
-    body('customerEmail')
-        .isLength({ min: 5, max: 50 })
-        .isEmail()
-        .normalizeEmail(),
 
-    body('customerPassword')
-        .isLength({ min: 5, max: 50 }),
-
-    body('customerPhone')
-        .isLength({ min: 6, max: 14 })
-        .isMobilePhone()
-],
-function(req, res) {
-    const validErrors = validationResult(req);
-
-    if (!validErrors.isEmpty()) {
-        console.log(validErrors);
-        return res.status(400).json({ errors: validErrors.array() });
-    } 
-    else 
-    {
-        const customerName = req.body.customerName;
-        const customerEmail = req.body.customerEmail;
-        const customerPassword = req.body.customerPassword;
-        const customerPhone = req.body.customerPhone;
-		
-
-        const data = {
-            customerName: customerName,
-            customerEmail: customerEmail,
-            customerPassword: customerPassword,
-            customerPhone: customerPhone
-        }
-
-        console.log(`${customerName} ${customerEmail} ${customerPassword} ${customerPhone}`);
-        
-        
-        //Check if user already exists
-        const selectuser = new PS({
-            name: 'retrieve-user-same-email',
-            text: 'SELECT email FROM users WHERE email = $1;',
-            values: [customerEmail]
-        });
-		
-		
-		bcrypt.hash(customerPassword, saltRounds, function (err, hash) {
-        // Now we can store the password hash in db.
-        const insertuser = new PS({
-            name: "new-user",
-            text:'INSERT INTO users (email, password, name, phonenumber) VALUES ($1, $2, $3, $4);',
-            values: [customerEmail, hash, customerName, customerPhone]
-        });    
-
-
-            //Select to make sure user doesn't exist... if they do provide an error else register the user 
-            db.none(selectuser)
-            .then(function(rows) {
-                db.none(insertuser)
-                .then(function(rows) {
-                    console.log(rows);
-                });
-                res.status(200).json(data);
-            })
-            .catch(function(errors) {
-                console.log(errors);
-                res.status(400).json(errors);
-            })
-        });
-    }  
-
-});
-
-
-//Login Form Posted
-app.post('/existinguser', [
-
-    body('customerEmail')
-        .isLength({ min: 5, max: 50 })
-        .isEmail()
-        .normalizeEmail(),
-
-    body('customerPassword')
-        .isLength({ min: 5, max: 50 }),
-
-],
-function(req, res, next) {
-    const validErrors = validationResult(req);
-
-    if (!validErrors.isEmpty()) {
-        console.log(validErrors);
-        return res.status(401).json({ errors: validErrors.array() });
-    } 
-    else 
-    {
-        const customerEmail = req.body.customerEmail;
-
-        //Take user details to display user details in my profile using session varibales
-        const selectUserLogin = new PS({
-            name: 'retrieve-user-same-email-password',
-            text: 'SELECT email, phonenumber, name, profilepicture FROM users WHERE email = $1;',
-            values: [customerEmail]
-        });
-
-
-        db.one(selectUserLogin)
-        .then(function(rows) {
-             data = {
-                customerEmail: customerEmail,
-                customerPhone: rows.phonenumber,
-                customerName: rows.name,
-                customerProfilePic: rows.profilepicture
-            }
-            awaitAuthenticate(data);
-            
-        })
-        .catch(function(errors) {
-            console.log("Wrong Username/Password entered");
-            res.status(401).json(errors)
-        });  
-        
-        function awaitAuthenticate(data)  //run from inside db query as it is async and causes undefined to be returned on occassions (too slow)
-        {
-            passport.authenticate('local', function(err, user, info) 
-            {
-                console.log(data);
-                if (err) { return res.status(401).send("HHH"); }  //user doesn't exist
-                if (!user) { return res.status(401).send("HHHHHH"); }  //wrong password
-                
-                req.logIn(user, function(err) {
-                if (err) { return res.status(401).send("LLL"); } 
-                return res.json(data).status(200);  //right password
-                });
-            })(req, res, next);
-
-        }    
-
-
-        
-    };
-      
-});
-      
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
-   
 
 
 //My Profile Form Posted
@@ -432,49 +297,41 @@ function(req, res) {
 
         console.log(`${customerName} ${customerEmail} ${customerPassword}`);
         
-        bcrypt.hash(customerPassword, saltRounds, function (err, hash) 
-        {
-            //Check if user already exists
-            const selectuser = new PS(
-            {
-                name: 'retrieve-user-same-email',
-                text: 'SELECT email FROM users WHERE email = $1;',
-                values: [customerEmail]
-            });
-
-            //Update User
-            const updateuser = new PS(
-            {
-                name: 'update-user',
-                
-                text: 'UPDATE users SET password = $1, name = $2 WHERE email = $3;',
-                values: [hash, customerName, customerEmail]
-            });
-
-
-            db.one(selectuser)
-            .then(function(rows) 
-            {
-                db.none(updateuser)
-                .then(function(rows) 
-                {
-                    res.status(200).json(data);
-                    console.log(rows);
-                });
-                
-            })
-            .catch(function(errors) 
-            {
-                console.log("errors");
-                res.status(400).json(errors)
-            });
-
+        
+        //Check if user already exists
+        const selectuser = new PS({
+            name: 'retrieve-user-same-email',
+            text: 'SELECT email FROM users WHERE email = $1;',
+            values: [customerEmail]
         });
 
+        //Update User
+        const updateuser = new PS({
+            name: 'update-user',
+            
+            text: 'UPDATE users password = $1, name = $2 WHERE email = $3;',
+            values: [customerPassword, customerName, customerEmail]
+        });
+
+
+        db.one(selectuser)
+        .then(function(rows) {
+            db.none(updateuser)
+            .then(function(rows) {
+                res.status(200).json(data);
+                console.log(rows);
+            });
+            
+        })
+        .catch(function(errors) {
+            console.log(errors);
+            res.status(400).json(errors)
+        });
+
+
     }
-});    
 
-
+});
 
 
 //Create Booking Form Posted
@@ -518,6 +375,28 @@ function(req, res) {
         app.get("/select-seat", function(req, res) {	//make conditional to post booking
             res.sendFile(__dirname + "/select-seat.html")
         });
+        //res.sendFile(__dirname + "/select-seat.html");
+
+        //const insert = db.prepare('INSERT INTO users (customerName, customerEmail, customerPassword, CustomerPhone) VALUES ($1, $2, $3,$4);');
+        //insert.run(customerName, customerEmail, customerPassword, customerPhone);
+        //insert.finalize();
+
+        //const query = db.prepare('SELECT id, fName, lName, email FROM subscribers ORDER BY id DESC LIMIT 5;');
+        // query.all - will return all rows, expects at least 1 or more
+        // query.any - will return all rows, expects 0 or more
+        // query.get - will return the first row only, expects a single row
+        
+        //Check if user already exists
+        
+        /*query.any(function(error, rows) {
+            if (error) {
+                console.log(error);
+                res.status(400).json(error);
+            } else {
+                console.log(rows);
+                res.status(200).json(rows);
+            }
+        });*/
     }
 
 });
@@ -540,7 +419,6 @@ app.post('/my-profile', (req, res) =>   //new profile pic
     let fileUpload;
 
     fileUpload = req.files.profilepic;
-  
     const uploadPath = __dirname +  "/public/pictures/profilepictures/" + fileUpload.name;
 
     //Put file on server
@@ -567,7 +445,7 @@ app.post('/my-profile', (req, res) =>   //new profile pic
         //Delay redirect to allow database to react in time for refresh
         setTimeout(function()
         {
-            res.status(400).redirect('my-profile')
+            res.status(200).redirect('my-profile')
         },1000);
         //console.log(rows);
     })

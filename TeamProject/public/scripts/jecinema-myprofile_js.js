@@ -1,13 +1,10 @@
 $(document).ready(function() {
-    getDatabase();
-    $("#logout_button").click(function()
-    {
-        logout();
-    });
     //Store Database values to session
     const userEmail = sessionStorage.getItem("user-email");
     let profilepic = sessionStorage.getItem("user-picture");
     const userFullName = sessionStorage.getItem("user-name");
+    getDatabase(userEmail);
+    setProfilePhoto();
     autofillForm(userEmail, userFullName);
 
     //Form Post and Validation
@@ -63,7 +60,7 @@ $(document).ready(function() {
     {
         const data = {
             customerName: $("#name")[0].value,
-            customerEmail: $("#email")[0].value,
+            customerEmail: $("#email").text(),
             customerPassword: $("#password")[0].value
         }
 
@@ -102,17 +99,16 @@ $(document).ready(function() {
 
 
 let editedFullName = $("#name").val();
-let editedEmail = $("#email").val();
 
 //Populate all values with values from the DB for logged in user
-function getDatabase() {
+function getDatabase(userEmail) {
     const xhttp = new XMLHttpRequest();
-    xhttp.open("GET", "/getuser/" + sessionStorage.getItem("user-email"));
+    xhttp.open("GET", "/getuser/"  + userEmail); //+ sessionStorage.getItem("user-email"));
     xhttp.send();
     xhttp.onload = function() {  //when response received
     /*change elements to db values, using session variables to carry across pages such as profile picture*/
         const response = JSON.parse(xhttp.response);  //response as JSON obj
-
+        console.log(response.customerName);
         //Set session variables - Elements will be set to these values using functions
         if(response.customerProfilePic !== null)
         {
@@ -122,7 +118,6 @@ function getDatabase() {
         sessionStorage.setItem("user-email", response.customerEmail);
 
         //Password only needed for this page and may be dangerous to store in session
-        $("#password").val(response.customerPassword);
         setProfilePhoto();  //Set profile picture from db
     }
 
@@ -140,7 +135,6 @@ function uploadFile(){
             //Set Picture to user's profile picture 
             sessionStorage.setItem("user-picture", reader.result);
             setProfilePhoto();
-            //Post image to db
         }
 
         reader.readAsDataURL(image);
@@ -169,57 +163,11 @@ function autofillForm(userEmail, userFullName)
     if(userEmail !== null)  //set email field
     {
         $("#email").text(userEmail);
-        $("#userEmail").text(userEmail);  //hidden field to make sure right account's profile image is changed
+        $("#userEmail").text(userEmail).val(userEmail);  //hidden field to make sure right account's profile image is changed
+        $("#deactivateEmail").text(userEmail).val(userEmail);  //hidden field to make sure right account's profile is deativated
     }
     if(userFullName !== null)  //set name field
     {   
         $("#name").val(userFullName);
     }
-}
-
-
-function checkLogin()
-{
-	if(sessionStorage.getItem("user-email") !== null)  //if user logged in
-	{
-		//Change Login Option to Log out
-		$("#sign-in").text("Log Out").attr("href", "javascript:void(0);").attr("id","logout_button"); //javascript void prevents redirect on link press (handled in function instead ) 
-
-		//Change Register Option to My profile
-		$("#register").text("My Profile").attr("id","my_profile").attr("href", "my-profile");
-		
-		//Set Profile Picture if logged in
-		setProfilePhoto();
-	}
-	else  //if user is not logged in
-	{
-		//Reverse changes to options above  if needed
-		if( $("#logout_button").text() === "" || $("#logout_button").text() === null)  //revert to guest view
-		{
-			//Change Log out to Login
-			$("#logout-button").text("Sign In").attr("id", "sign-in").attr("href", "login");
-
-			//Change My Profile Option to Register
-			$("#my-profile").text("Register").attr("id", "register").attr("href", "register");
-					
-			//Set Profile Picture to default
-			setProfilePhoto();
-		}
-
-	}
-}
-
-
-function logout()
-{
-	if(sessionStorage.getItem('user-email') === null)  //if not logged in - impossible case unless jquery function fails to changed from logged in to guest
-	{
-		//Give feedback operation not allowed
-		alert("You must be signed in to logout");
-	}
-	else
-	{
-		sessionStorage.clear();
-		window.location.href = "/";  //redirect to home / refresh page
-	}  
 }

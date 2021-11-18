@@ -1,12 +1,10 @@
+setProfilePhoto();
+
 const container = document.querySelector('.container');
 const seats = document.querySelectorAll('.row .seat:not(.occupied)');
 const count = $('#count');
 const total = $('#total');
 
-$("#logout_button").click(function()
-{
-  logout();
-});
 
 FillInfo();
 
@@ -141,26 +139,14 @@ function checkLogin()
 			$("#my-profile").text("Register").attr("id", "register").attr("href", "register");
 					
 			//Set Profile Picture to default
-			setProfilePhoto();
+			
 		}
 
 	}
 }
 
 
-function logout()
-{
-	if(sessionStorage.getItem('user-email') === null)  //if not logged in - impossible case unless jquery function fails to changed from logged in to guest
-	{
-		//Give feedback operation not allowed
-		alert("You must be signed in to logout");
-	}
-	else
-	{
-		sessionStorage.clear();
-		window.location.href = "/";  //redirect to home / refresh page
-	}  
-}
+
 
 
 

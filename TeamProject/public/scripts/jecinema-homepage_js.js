@@ -112,48 +112,33 @@ function setProfilePhoto()
 
 function checkLogin()
 {
-	if(sessionStorage.getItem("user-email") !== null)  //if user logged in
-	{
-		//Change Login Option to Log out
-		$("#sign-in").text("Log Out").attr("href", "javascript:void(0);").attr("id","logout_button"); //javascript void prevents redirect on link press (handled in function instead ) 
+    if(sessionStorage.getItem("user-email") !== null)  //if user logged in
+    {
+        //Change Register Option to My profile
+        $("#sign-in").text("My Profile").attr("id","my_profile").attr("href", "my-profile");
 
-		//Change Register Option to My profile
-		$("#register").text("My Profile").attr("id","my_profile").attr("href", "my-profile");
-		
-		//Set Profile Picture if logged in
-		setProfilePhoto();
-	}
-	else  //if user is not logged in
-	{
-		//Reverse changes to options above  if needed
-		if( $("#logout_button").text() === "" || $("#logout_button").text() === null)  //revert to guest view
-		{
-			//Change Log out to Login
-			$("#logout-button").text("Sign In").attr("id", "sign-in").attr("href", "login");
+        //Change Login Option to Log out
+        $("#register").text("Log Out").attr("href", "logout").attr("id","logout_button"); //javascript void prevents redirect on link press (handled in function instead ) 
+        
+        //Set Profile Picture if logged in
+        setProfilePhoto();
+    }
+    else  //if user is not logged in
+    {
+        //Reverse changes to options above  if needed
+        if( $("#logout_button").text() === "" || $("#logout_button").text() === null)  //revert to guest view
+        {
+            //Change Log out to Login
+            $("#my-profile").text("Sign In").attr("id", "sign-in").attr("href", "login");
 
-			//Change My Profile Option to Register
-			$("#my-profile").text("Register").attr("id", "register").attr("href", "register");
-					
-			//Set Profile Picture to default
-			setProfilePhoto();
-		}
+            //Change My Profile Option to Register
+            $("#logout-button").text("Register").attr("id", "register").attr("href", "register");
+                    
+            //Set Profile Picture to default
+            setProfilePhoto();
+        }
 
-	}
-}
-
-
-function logout()
-{
-	if(sessionStorage.getItem('user-email') === null)  //if not logged in - impossible case unless jquery function fails to changed from logged in to guest
-	{
-		//Give feedback operation not allowed
-		alert("You must be signed in to logout");
-	}
-	else
-	{
-		sessionStorage.clear();
-		window.location.href = "/";  //redirect to home / refresh page
-	}  
+    }
 }
 
 

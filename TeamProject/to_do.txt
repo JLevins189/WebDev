@@ -3,9 +3,6 @@ To do list
 Jack 
 
 -----------
-
-Login tokens - hash passwords
-Remove ability to change email
 Deactivate account (enter password to confirm) - db 
 Wishlist functioning
 Finish select seat
@@ -16,7 +13,12 @@ Ethan
 
 -----------
 Animations
+Style alreadyloggedin.html
 Readme.txt
 Searchpage
+make manage booking form (Table populated by db) - just create table
+ - cancel/delete booking option
+ - edit time option
+
 video on carousel(trailer)
 Deactivate account (enter password to confirm) - button

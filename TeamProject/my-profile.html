@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<html lang="en">
 <head>
   <link rel="icon" type="image/x-icon" href="pictures/favicon.ico">
   <title>JE Cinema | My Profile</title>
@@ -82,8 +83,8 @@
           <img id="user-picture" src="pictures/profilepic.jpg" width="35px" height="35px" class="profile">
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" id="sign-in" href="login">Sign in</a>
-          <a class="dropdown-item" id="register" href="register">Register</a>
+          <a class="dropdown-item" id="myprofile" href="my-profile">My Profile</a>
+          <a class="dropdown-item" id="logout" href="logout">Log Out</a>
         </div>
       </li>
     </ul>
@@ -166,13 +167,22 @@
 
 
         <label for="password" style="color:white;">Password: </label>
-        <input type="password" id="password" name="fullpassword" value="Whatever"><br>
+        <input type="password" id="password" name="fullpassword" placeholder="Password"><br>
+        <p style="color: blue; text-align: center;">Enter old password to change name or new password to change</p>
       </form>
 
       <hr style="border: 1px solid orange;">
       <div id="savebutton">
-        <br><button class="btn btn-outline-warning" id="SaveBttn">Save Changes</button><br>
+        <br>
+        <button class="btn btn-outline-warning" id="SaveBttn">Save Changes</button><br>
       </form>
+
+
+      <form method="post" action="/deactivate-account">
+        <input type="email" id="deactivateEmail" name="deactivateEmail" value="" hidden><br>
+        <button type="submit" class="btn btn-outline-warning" id="DeactivateBttn">Deactivate Account</button><br>
+      </form>
+
       </div>
     </div>
   </div>   
