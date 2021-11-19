@@ -4,7 +4,7 @@ Jack
 
 -----------
 Deactivate account (need to remove session variables and confirm dialog) 
-Wishlist functioning
+Wishlist functioning (half done)
 Finish select seat with db
 
 -------------------
@@ -12,13 +12,13 @@ Finish select seat with db
 Ethan
 
 -----------
-Animations
-Style alreadyloggedin.html
+Animations ( drop downs or something)
+Style alreadyloggedin.html (not a lot to do)
 Readme.txt
 Searchpage
 make manage booking form (Table populated by db) - just create table
  - cancel/delete booking option
  - edit time option
 
-video on carousel(trailer)
-Deactivate account (enter password to confirm) - button
+video on carousel(trailer) - try stop carosel on video playing if possible
+Deactivate account (make confirmation dialog on submit (before submitting) - 
