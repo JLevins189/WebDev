@@ -182,8 +182,7 @@ function handleRemoveWishlistDone(data)
 	console.log(movieNumber);  //remove after testing
 	let elementToEdit = "#favourite" + movieNumber;
 	console.log(elementToEdit);  //remove after testing
-	$(elementToEdit).attr('src', 'pictures/full_heart.png');
-	$('#favourite1').attr('src', 'pictures/empty_heart.png');
+	$(elementToEdit).attr('src', 'pictures/empty_heart.png');
 	alert("DONE!");  //remove after testing
 
 }
