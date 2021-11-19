@@ -65,9 +65,10 @@ passport.use(new LocalStrategy({
                 bcrypt.compare(password, row.password,
                     function (err, result) {
                         if (result == true) {
+                            console.log("Correct password");
                             done(null, { id: row.email });
                         } else {
-
+                            console.log("Incorrect password");
                             return done(null, false, {
                                 message: "Incorrect password",
                             });
@@ -111,7 +112,7 @@ passport.deserializeUser(function (id, done) {
 
 function isAuthenticated() {
     return function (req, res, next) {
-        return next();
+        //return next();
         if (req.isAuthenticated()) {
             //console.log("NO");
             return next();
@@ -168,14 +169,14 @@ app.get("/alreadyloggedin", function(req,res)  {
 
 app.get("/register", function(req, res) {	//only if not already logged in
     
-    if(!isAuthenticated)
-    {
+    // if(!isAuthenticated)
+    // {
         res.sendFile(__dirname + "/register.html");  //not logged in yet
-    }
-    else
-    {
-        res.redirect("/alreadyloggedin");  //already logged in
-    }
+    // }
+    // else
+    // {
+    //     res.redirect("/alreadyloggedin");  //already logged in
+    // }
       
 });
 
