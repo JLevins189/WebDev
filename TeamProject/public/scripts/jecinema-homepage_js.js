@@ -33,15 +33,40 @@ $(document).ready(function()
 		{
 			whatsOnMovie6();
 		});
-		$("#logout_button").click(function()
+		//On Click functions for wishlist if logged in
+		if(sessionStorage.getItem("user-email") !== null)  //if user logged in allow wishlist buttons and populate them
 		{
-			logout();
-		});
-		
+			getWishlistFromDatabase();
+			$("#favourite1").click(function() {  
+				favourite1();
+			});
+			$("#favourite2").click(function() {  
+				favourite2();
+			});
+			$("#favourite3").click(function() {  
+				favourite3();
+			});
+			$("#favourite4").click(function() {  
+				favourite4();
+			});
+			$("#favourite5").click(function() {  
+				favourite5();
+			});
+			$("#favourite6").click(function() {  
+				favourite6();
+			});															
+
+		}
+		else  // if not logged in
+		{
+			//Use classes to remove all love hearts	
+			$(".favourites").hide();
+			//Add text to say it availible to logged in users
+		}
 
 	});
 
-});
+});	
 
 
 /*  Get movie name from the click of their poster in the what's on page
@@ -93,6 +118,8 @@ function whatsOnMovie6()
 	sessionStorage.setItem("movie-selected", movie6);
 	window.location.href = "create-booking";	
 }	
+
+
 
 
 function setProfilePhoto()
@@ -151,14 +178,9 @@ function checkLogin()
 function handleAddWishlistDone(data)  
 {
 	const movieWishlist = data.movie;
-	console.log(movieWishlist);  //test
-	console.log("Added to wishlist");
 	let movieNumber = movieWishlist.replace('movie','');
-	console.log(movieNumber);
 	let elementToEdit = "#favourite" + movieNumber;
-	console.log(elementToEdit);
 	$(elementToEdit).attr('src', 'pictures/full_heart.png');
-	alert("DONE!");  //remove after testing
 }
 
 function handleAddWishlistFail()
@@ -176,15 +198,10 @@ function handleAddWishlistFail()
 function handleRemoveWishlistDone(data)
 {
 	const movieWishlist = data.movie;
-	console.log(movieWishlist);  //remove after testing
-	console.log("Added to wishlist");
 	let movieNumber = movieWishlist.replace('movie','');
 	console.log(movieNumber);  //remove after testing
 	let elementToEdit = "#favourite" + movieNumber;
-	console.log(elementToEdit);  //remove after testing
 	$(elementToEdit).attr('src', 'pictures/empty_heart.png');
-	alert("DONE!");  //remove after testing
-
 }
 
 
@@ -195,37 +212,37 @@ function handleRemoveWishlistFail()
 }
 
 
-//On Click functions for wishlist if logged in
-if(sessionStorage.getItem("user-email") !== null)  //if user logged in
+function favourite1()
 {
-		$("#favourite1").click(function() { 
-		if($('#favourite1').attr('src') === 'pictures/empty_heart.png') 
-		{
-			const data = {
-				email: sessionStorage.getItem("user-email"),
-				movie: "movie1"
-			};
-			console.log(data);
-			const post = $.post("http://localhost:3000/addwishlist", data);
-			post.done(handleAddWishlistDone(data));
-			post.fail(handleAddWishlistFail);
+	if($('#favourite1').attr('src') === 'pictures/empty_heart.png') 
+	{
+		const data = {
+			email: sessionStorage.getItem("user-email"),
+			movie: "movie1"
+		};
+		console.log(data);
+		const post = $.post("http://localhost:3000/addwishlist", data);
+		post.done(handleAddWishlistDone(data));
+		post.fail(handleAddWishlistFail);
 
-		}
-		else 
-		{
-			const data = {
-				email: sessionStorage.getItem("user-email"),
-				movie: "movie1"
-			};
-			console.log(data);
-			const post = $.post("http://localhost:3000/removewishlist", data);
-			post.done(handleRemoveWishlistDone(data));
-			post.fail(handleRemoveWishlistFail);
-			
-		}
-	});
+	}
+	else 
+	{
+		const data = {
+			email: sessionStorage.getItem("user-email"),
+			movie: "movie1"
+		};
+		console.log(data);
+		const post = $.post("http://localhost:3000/removewishlist", data);
+		post.done(handleRemoveWishlistDone(data));
+		post.fail(handleRemoveWishlistFail);
+		
+	}
+}
 
-	$("#favourite2").click(function() { 
+
+function favourite2() 
+{ 
 	if($('#favourite2').attr('src') === 'pictures/empty_heart.png') {
 		const data = {
 			email: sessionStorage.getItem("user-email"),
@@ -247,9 +264,11 @@ if(sessionStorage.getItem("user-email") !== null)  //if user logged in
 		post.done(handleRemoveWishlistDone(data));
 		post.fail(handleRemoveWishlistFail);
 	}
-	});
+}
 
-	$("#favourite3").click(function() { 
+
+function favourite3() 
+{
 	if($('#favourite3').attr('src') === 'pictures/empty_heart.png') {
 		const data = {
 			email: sessionStorage.getItem("user-email"),
@@ -271,9 +290,11 @@ if(sessionStorage.getItem("user-email") !== null)  //if user logged in
 		post.done(handleRemoveWishlistDone(data));
 		post.fail(handleRemoveWishlistFail);
 	}
-	});
+}
 
-	$("#favourite4").click(function() { 
+
+function favourite4() 
+{
 	if($('#favourite4').attr('src') === 'pictures/empty_heart.png') {
 		const data = {
 			email: sessionStorage.getItem("user-email"),
@@ -295,9 +316,11 @@ if(sessionStorage.getItem("user-email") !== null)  //if user logged in
 		post.done(handleRemoveWishlistDone(data));
 		post.fail(handleRemoveWishlistFail);
 	}
-	});
+}
 
-	$("#favourite5").click(function() {   
+
+function favourite5() 
+{ 
 	if($('#favourite5').attr('src') === 'pictures/empty_heart.png') {
 		const data = {
 			email: sessionStorage.getItem("user-email"),
@@ -319,9 +342,11 @@ if(sessionStorage.getItem("user-email") !== null)  //if user logged in
 		post.done(handleRemoveWishlistDone(data));
 		post.fail(handleRemoveWishlistFail);
 	}
-	});
+}
 
-	$("#favourite6").click(function() { 
+
+function favourite6()
+{ 
 	if($('#favourite6').attr('src') === 'pictures/empty_heart.png') 
 	{
 		const data = {
@@ -345,13 +370,49 @@ if(sessionStorage.getItem("user-email") !== null)  //if user logged in
 		post.done(handleRemoveWishlistDone(data));
 		post.fail(handleRemoveWishlistFail);
 	}
-	});
+}
+
+
+
+//Populate all values with values from the DB for logged in user
+function getWishlistFromDatabase() 
+{
+	const userEmail = sessionStorage.getItem("user-email");
+
+	if(userEmail !== undefined || userEmail !== null)
+	{
+		const xhttp = new XMLHttpRequest();
+		xhttp.open("GET", "/getwishlist/"  + userEmail); //+ sessionStorage.getItem("user-email"));
+		xhttp.send();
+		xhttp.onload = function() 
+		{  	//when response received
+			/*change wishlist pictures to db values, using session variables to carry across pages*/
+			const response = JSON.parse(xhttp.response);  //response as JSON obj
+			const wishlist = response.wishlist;
+			
+			sessionStorage.setItem("user-wishlist", JSON.stringify(wishlist));  //for use in my profile area
+			let elementToEdit;
+			
+			for (var i = 0; i < wishlist.length; i++) 
+			{
+				for(var j=1; j <= 6;  j++)
+				{
+					elementToEdit = "#movie" + j;
+					if(wishlist[i].movie_name === $(elementToEdit).text().trim() )
+					{
+						elementToEdit = "#favourite" + j;
+						$(elementToEdit).attr('src', 'pictures/full_heart.png');
+					}
+				}
+			}
+
+		}
+	}
 
 }
-else  // if not logged in
-{
-	alert("You must be logged in to add to wishlist!");
-}	
+
+
+
 
 
 let mvideo = document.getElementById("video-modal");
@@ -371,12 +432,12 @@ $("#film3").click(function() {
 
 
 window.onclick = function(event) {
-	if (event.target == mvideo2) {
-	  mvideo2.style.display = "none";
-	}
 	if (event.target == mvideo) {
 		mvideo.style.display = "none";
 	  }
+	if (event.target == mvideo2) {
+	  mvideo2.style.display = "none";
+	}
 	if (event.target == mvideo3) {
 		mvideo3.style.display = "none";
 	}

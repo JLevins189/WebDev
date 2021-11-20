@@ -29,6 +29,12 @@ const bcrypt = require("bcrypt");
 const app = express();
 
 
+//Movie Number -> Name Array (for easy changes in updates)
+const movieNames = ["Saving Private Ryan", "The Godfather", "Paw Patrol", "The Lion King", "007: No Time to Die", "Deadly Cuts" ];
+/*Use index +1 to map
+  e.g movie1 = Saving Private Ryan
+      movieNames[0+1] = Saving Private Ryan (movie1)
+*/      
 
 
 app.use(
@@ -125,6 +131,14 @@ function isAuthenticated() {
 }
 
 
+//Check if movie is in wishlist
+const alreadyInWishlist = new PS(
+    {
+        name: 'check-wishlist',
+        text: 'SELECT * FROM wishlist WHERE user_email = $1 AND movie_name = $2;',
+    });
+
+
 app.listen(3000, function() {
     console.log('Server running on port 3000');
 });
@@ -212,6 +226,35 @@ app.get("/getuser/:email", function(req, res) {	//send profile info back to user
         res.status(400).json(errors)
     });    
 });
+
+
+
+app.get("/getwishlist/:email", function(req, res) {	//send wishlist info back to user
+    const userEmail = req.params.email;
+    console.log(req.params);
+    
+    
+    const selectuserwishlist = new PS({
+        name: 'retrieve-user-wishlist',
+        text: 'SELECT movie_name FROM wishlist WHERE user_email = $1;',
+        values: [userEmail]
+    });
+
+    //Select to make sure email and password match to db
+    db.many(selectuserwishlist)
+    .then(function(rows) {
+        //Save rows to array and send them in JSON object
+        const data = {
+            wishlist: rows
+        };
+        res.status(200).json(data);
+    })
+    .catch(function(errors) {
+        console.log(errors);
+         res.status(400).json(errors)
+    });    
+});
+
 
 app.get("/my-profile", isAuthenticated(), function(req, res) {	//make conditional to login
     res.sendFile(__dirname + "/my-profile.html");
@@ -580,6 +623,8 @@ app.post('/my-profile', (req, res) =>   //new profile pic
 
 });
 
+
+//Deactivate account requested
 app.post('/deactivate-account', function(req,res)
 {
     const customerEmail = req.body.deactivateEmail;
@@ -614,4 +659,139 @@ app.post('/deactivate-account', function(req,res)
     }
 
 
+    //         db.none(deleteuser)
+    //         .then(function(rows) 
+    //         {
+    //             console.log("User " + customerEmail + " deleted");
+    //             res.status(200).redirect("/logout");  //to properly delete user from sesssions
+    //         })
+    //         .catch(function(errors) 
+    //         {
+    //             console.log("errors");
+    //             res.status(400).json(errors)
+    //         });
+    // }
+    // else
+    // {
+    //     console.log("User undefined/null trying to delete");
+    // }
+
+
+
+
+
+
+});
+
+
+//Add to Wishlist Posted
+app.post('/addwishlist', function(req,res)
+{
+    const customerEmail = req.body.email;
+    let movie = req.body.movie;  //  "movie(num)"
+    let movieNumberStr = movie.replace('movie','');  //just leave number without string
+    
+    movieNumber = parseInt(movieNumberStr);
+    movieNumber = movieNumber - 1 //to suit 0-indexed array
+    movie = movieNames[movieNumber];
+
+    if(customerEmail !== null || customerEmail !== undefined)
+    {
+        //Check if already in wishlist
+        alreadyInWishlist.values = [customerEmail, movie];  //Already declared statement at start of program... adding values
+
+        //Insert item to wishlist
+        const addwishlist = new PS({
+            name: "add-wishlist",
+            text:'INSERT INTO wishlist (movie_name, user_email) VALUES ($1, $2);',
+            values: [movie ,customerEmail]
+        });   
+
+
+        db.none(alreadyInWishlist)  //expect movie to not be in wishlist and send an error it if it is
+        .then(function(rows) 
+        {
+            db.none(addwishlist)
+            .then (function(rows) {
+                const message = {
+                    message: "Add to wishlist successful"
+                };
+                console.log(message);
+            })  //end inner then
+            .catch(function(rows)  {
+                const message = {
+                    message: "Error adding movie to wishlist"
+                };
+                console.log(message);
+            })  //end inner catch
+
+        })  //end outer then
+        .catch(function(errors)  //if it is the wishlist -> send error
+        {
+            console.log(errors);
+            const message = {
+                message: "Item already in Wishlist!"
+            }
+            console.log(message);
+        });
+        
+
+    }  //end if
+});
+
+
+//Remove from wishlist posted
+app.post('/removewishlist', function(req,res)
+{
+    const customerEmail = req.body.email;
+    let movie = req.body.movie;  //  "movie(num)"
+    let movieNumberStr = movie.replace('movie','');  //just leave number without string
+    
+    movieNumber = parseInt(movieNumberStr);
+    movieNumber = movieNumber - 1 //to suit 0-indexed array
+    movie = movieNames[movieNumber];
+
+    if(customerEmail !== null || customerEmail !== undefined)
+    {
+        //Check if already in wishlist
+        alreadyInWishlist.values = [customerEmail, movie];  //Already declared statement at start of program... adding values
+
+        //Delete item from wishlist
+        const removewishlist = new PS(
+            {
+                name: 'remove-wishlist',
+                text: 'DELETE FROM wishlist WHERE user_email = $1 AND movie_name = $2;',
+                values: [customerEmail, movie]
+            });
+
+
+
+        db.one(alreadyInWishlist)  //expect movie to be in wishlist and try remove it if it is
+        .then(function(rows) 
+        {
+            db.none(removewishlist)
+            .then (function(rows) {
+                const message = {
+                    message: "Remove from wishlist successful"
+                };
+                console.log(message);
+            })  //end inner then
+            .catch(function(rows)  {
+                const message = {
+                    message: "Error Removing movie from wishlist"
+                };
+                console.log(message);
+            })  //end inner catch
+
+        })  //end outer then
+        .catch(function(errors)  //if it isn't the wishlist -> send error
+        {
+            const message = {
+                message: "Item not already in Wishlist!"
+            }
+            console.log(message);
+        });
+        
+
+    }  //end if
 });

@@ -1,11 +1,13 @@
 $(document).ready(function() {
     //Store Database values to session
+    getWishlistFromDatabase();
     const userEmail = sessionStorage.getItem("user-email");
     let profilepic = sessionStorage.getItem("user-picture");
     const userFullName = sessionStorage.getItem("user-name");
     getDatabase(userEmail);
     setProfilePhoto();
     autofillForm(userEmail, userFullName);
+  
 
     //Form Post and Validation
     $('#changeDetails').validate({
@@ -171,3 +173,65 @@ function autofillForm(userEmail, userFullName)
         $("#name").val(userFullName);
     }
 }
+
+
+function setWishlist()
+{
+    const wishlist = JSON.parse(sessionStorage.getItem("user-wishlist"));//no brackets
+    let stringToMatch;  //match image source of image with specifically formatted version of movie name that would match
+    
+    var i,j;
+    for (i = 0; i < wishlist.length; i++) 
+    {
+        stringToMatch = "pictures/"; 
+        stringToMatch += wishlist[i].movie_name.split(" ").join("").toLowerCase().replace(/[^a-zA-Z0-9]/g, '')+ "_poster.jpg"; 
+        
+        //Hide All Movies
+        $("#movie1").hide();
+        $("#movie2").hide();
+        $("#movie3").hide();
+        $("#movie4").hide();
+        $("#movie5").hide();
+        $("#movie6").hide();
+
+        //Show movies matching db
+        for(j=1; j < 7;  j++)
+        {
+            elementToEdit = "#movie" + j;
+
+            // $(elementToEdit).hide();
+            if(stringToMatch === $(elementToEdit).attr('src') ) 
+            {
+                console.log("Match");
+                $(elementToEdit).show();
+            }
+            
+            
+        }
+    }
+    console.log("done");
+}
+
+
+//Populate all values with values from the DB for logged in user
+function getWishlistFromDatabase() 
+{
+	const userEmail = sessionStorage.getItem("user-email");
+
+	if(userEmail !== undefined || userEmail !== null)
+	{
+		const xhttp = new XMLHttpRequest();
+		xhttp.open("GET", "/getwishlist/"  + userEmail); //+ sessionStorage.getItem("user-email"));
+		xhttp.send();
+		xhttp.onload = function() 
+		{  	//when response received
+			/*change wishlist pictures to db values, using session variables to carry across pages*/
+			const response = JSON.parse(xhttp.response);  //response as JSON obj
+			const wishlist = response.wishlist;
+			
+			sessionStorage.setItem("user-wishlist", JSON.stringify(wishlist));  //for use in my profile area
+            setWishlist();
+        }
+    }
+}            
+			
