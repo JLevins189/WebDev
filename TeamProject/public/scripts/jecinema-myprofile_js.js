@@ -234,4 +234,18 @@ function getWishlistFromDatabase()
         }
     }
 }            
-			
+
+
+
+//deactivate account popup dialog
+
+$('#DeactivateBttn').click(function()
+{    
+   let answer = prompt("Enter 'delete' to deactivate this account");
+   if(answer !== "delete") {
+        let newprompt = prompt("Enter 'delete' to deactivate this account");
+   }    
+   else {
+       //delete account here - drop from table
+   }
+});

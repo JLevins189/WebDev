@@ -13,12 +13,12 @@ Ethan
 
 -----------
 Animations ( drop downs or something)
-Style alreadyloggedin.html (not a lot to do)
+Style alreadyloggedin.html (not a lot to do) - done
 Readme.txt
-Searchpage
+Searchpage - working on it
 make manage booking form (Table populated by db) - just create table
  - cancel/delete booking option
- - edit time option
+ - edit time option -> will work on when i get access to the database
 
-video on carousel(trailer) - try stop carosel on video playing if possible
-Deactivate account (make confirmation dialog on submit (before submitting) - 
+video on carousel(trailer) - try stop carosel on video playing if possible -- cannot find solution at minute
+Deactivate account (make confirmation dialog on submit (before submitting) - done(just check if works jack)

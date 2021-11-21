@@ -430,7 +430,6 @@ $("#film3").click(function() {
 	mvideo3.style.display = "block";
   });
 
-
 window.onclick = function(event) {
 	if (event.target == mvideo) {
 		mvideo.style.display = "none";
@@ -440,6 +439,7 @@ window.onclick = function(event) {
 	}
 	if (event.target == mvideo3) {
 		mvideo3.style.display = "none";
+		
 	}
 
 } 
