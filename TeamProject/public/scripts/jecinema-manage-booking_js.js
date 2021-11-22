@@ -18,4 +18,14 @@ function setProfilePhoto()
 
 }
 
+function clickCancel()
+{
+	if(confirm("Do you want to cancel your booking?")) {
+		//drop booking here
+	}
+	else {
+		//just exit.
+	}
+};
+
 

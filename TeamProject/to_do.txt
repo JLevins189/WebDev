@@ -21,4 +21,4 @@ make manage booking form (Table populated by db) - just create table
  - edit time option -> will work on when i get access to the database
 
 video on carousel(trailer) - try stop carosel on video playing if possible -- cannot find solution at minute
-Deactivate account (make confirmation dialog on submit (before submitting) - done(just check if works jack)
+Deactivate account (make confirmation dialog on submit (before submitting) -> done(just check if works jack)

@@ -243,7 +243,7 @@ $('#DeactivateBttn').click(function()
 {    
    let answer = prompt("Enter 'delete' to deactivate this account");
    if(answer !== "delete") {
-        let newprompt = prompt("Enter 'delete' to deactivate this account");
+        let newprompt = alert("You did not enter delete. This account will not be deleted");
    }    
    else {
        //delete account here - drop from table

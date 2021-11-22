@@ -156,11 +156,11 @@ app.get("/about", function(req, res) {
 });
 
 
-app.get("/create-booking", isAuthenticated(), function(req, res) {
+app.get("/create-booking", /*isAuthenticated(),*/ function(req, res) {
     res.sendFile(__dirname + "/create-booking.html");
 });
 
-app.get("/manage-booking", isAuthenticated(), function(req, res) {	
+app.get("/manage-booking", /*isAuthenticated(),*/ function(req, res) {	
     res.sendFile(__dirname + "/manage-booking.html");
 });
 
@@ -256,7 +256,7 @@ app.get("/getwishlist/:email", function(req, res) {	//send wishlist info back to
 });
 
 
-app.get("/my-profile", isAuthenticated(), function(req, res) {	//make conditional to login
+app.get("/my-profile", /*isAuthenticated(),*/ function(req, res) {	//make conditional to login
     res.sendFile(__dirname + "/my-profile.html");
 });
 
