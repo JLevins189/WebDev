@@ -7,7 +7,49 @@ $(document).ready(function() {
     getDatabase(userEmail);
     setProfilePhoto();
     autofillForm(userEmail, userFullName);
-  
+
+    $( "#DeactivateForm" ).submit(function( event ) 
+    {
+        event.preventDefault();
+        let answer = prompt("Enter 'delete' to deactivate this account");
+        if(answer !== "delete") {
+            alert("You did not enter delete. This account will not be deleted");
+            return false; // cancel submit
+        }    
+        else 
+        {
+            $("#DeactivateBttn").attr("disabled", true);
+            createAjaxPostDeactivate();
+            // sessionStorage.clear();
+        }
+    });
+
+    //Deactivate Account Form 
+    function createAjaxPostDeactivate() 
+    {
+        const data = {
+            deactivateEmail: $("#deactivateEmail").val()
+        }
+
+        const deactivatepost = $.post('http://localhost:3000/deactivate-account', data);
+        deactivatepost.done(processDeactivateSuccess);
+        deactivatepost.fail(processDeactivateError);
+        deactivatepost.always(processDeactivateSuccess);
+    }
+
+    function processDeactivateError(xhr, textStatus, errorThrown) 
+    {
+        console.log("ohiehiew");
+    }
+
+    function processDeactivateSuccess(response, status, xhr) 
+    {
+        alert("HHH");
+        // window.location.href = "/logout";
+        // $("#DeactivateBttn").prop("disabled", false);  //re-enable for re-use
+
+    }
+
 
     //Form Post and Validation
     $('#changeDetails').validate({
@@ -179,37 +221,44 @@ function setWishlist()
 {
     const wishlist = JSON.parse(sessionStorage.getItem("user-wishlist"));//no brackets
     let stringToMatch;  //match image source of image with specifically formatted version of movie name that would match
-    
+    const matchingElements = [];
+
     var i,j;
     for (i = 0; i < wishlist.length; i++) 
     {
         stringToMatch = "pictures/"; 
         stringToMatch += wishlist[i].movie_name.split(" ").join("").toLowerCase().replace(/[^a-zA-Z0-9]/g, '')+ "_poster.jpg"; 
         
-        //Hide All Movies
-        $("#movie1").hide();
-        $("#movie2").hide();
-        $("#movie3").hide();
-        $("#movie4").hide();
-        $("#movie5").hide();
-        $("#movie6").hide();
+        // //Hide All Movies
+        // $("#movie1").hide();
+        // $("#movie2").hide();
+        // $("#movie3").hide();
+        // $("#movie4").hide();
+        // $("#movie5").hide();
+        // $("#movie6").hide();
 
         //Show movies matching db
         for(j=1; j < 7;  j++)
         {
             elementToEdit = "#movie" + j;
 
-            // $(elementToEdit).hide();
+            $(elementToEdit).hide();
             if(stringToMatch === $(elementToEdit).attr('src') ) 
             {
                 console.log("Match");
-                $(elementToEdit).show();
+                matchingElements.push(elementToEdit);
             }
             
             
         }
     }
-    console.log("done");
+
+    for (i = 0; i < matchingElements.length; i++)
+    {
+        $(matchingElements[i]).show();
+        console.log(matchingElements[i]);
+    } 
+//console.log(matchingElements);
 }
 
 
@@ -237,15 +286,5 @@ function getWishlistFromDatabase()
 
 
 
-//deactivate account popup dialog
 
-$('#DeactivateBttn').click(function()
-{    
-   let answer = prompt("Enter 'delete' to deactivate this account");
-   if(answer !== "delete") {
-        let newprompt = alert("You did not enter delete. This account will not be deleted");
-   }    
-   else {
-       //delete account here - drop from table
-   }
-});
+        
