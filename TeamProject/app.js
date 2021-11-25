@@ -110,8 +110,8 @@ passport.deserializeUser(function (id, done) {
         })
         .catch(function (err) {
             error = err;
-            console.log("Error happened!");
-            //console.log(err, row);
+            // console.log("Error happened!");
+            console.log(err, row);
         });
 
 });
@@ -120,11 +120,9 @@ function isAuthenticated() {
     return function (req, res, next) {
         //return next();
         if (req.isAuthenticated()) {
-            //console.log("NO");
             return next();
             
         }
-        console.log("NO");
         res.redirect("/");
 
     };
@@ -231,7 +229,6 @@ app.get("/getuser/:email", function(req, res) {	//send profile info back to user
 
 app.get("/getwishlist/:email", function(req, res) {	//send wishlist info back to user
     const userEmail = req.params.email;
-    console.log(req.params);
     
     
     const selectuserwishlist = new PS({
@@ -251,9 +248,52 @@ app.get("/getwishlist/:email", function(req, res) {	//send wishlist info back to
     })
     .catch(function(errors) {
         console.log(errors);
-         res.status(400).json(errors)
+         res.status(204).json(errors)
     });    
 });
+
+
+
+
+
+
+
+app.get("/getBookedMovies/:email", function(req, res) {	//send wishlist info back to user
+    const userEmail = req.params.email;
+    
+    
+    const selectbookedmovies = new PS({
+        name: 'retrieve-booked-movies',
+        text: 'SELECT movie_name FROM bookinginfo WHERE email = $1;',  //change table to booking table
+        values: [userEmail]
+    });
+
+    //Select to make sure email and password match to db
+    db.many(selectbookedmovies)
+    .then(function(rows) {
+        //Save rows to array and send them in JSON object
+        const data = {
+            bookedMovies: rows
+        };
+        res.status(200).json(data);
+    })
+    .catch(function(errors) {
+        console.log("No Movies Booked for this user!");
+         res.status(204).json(errors)
+    });    
+});
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 app.get("/my-profile", /*isAuthenticated(),*/ function(req, res) {	//make conditional to login
@@ -416,29 +456,6 @@ function(req, res, next) {
       
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
-   
-
-
 //My Profile Form Posted
 app.post('/changeuser', [
     body('customerName')
@@ -569,13 +586,29 @@ function(req, res) {
 
 app.post("/seatselect", function(req, res) {
     ///Data already validated from last form
-
-    const seatsBooked = myArray = JSON.Parse(req.body.seatsBooked);
+    const seatsBooked = req.body.seatsBooked;
     const movieName = req.body.movieName;
     const loginEmail = req.body.loginEmail;
     const customerPhone = req.body.customerPhone;
-
+    
     //Insert Booking to DB
+    const insertbooking = new PS({
+        name: "insert-booking",
+        text:'INSERT INTO bookinginfo (email, movie_name) VALUES ($1, $2) RETURNING seat_bookingid;',  //return the id for use with seat booking
+        values: [loginEmail, movieName]
+    });   
+    
+//Take row retuned from insert for use with value in book seats
+
+    const bookseats = new PS({
+        name: "book-seats",
+        text:'INSERT INTO seat_booking (seat_bookingid, email, seat_no) VALUES ($1, $2, $3);',
+    }); 
+    
+    
+    
+    
+    
     res.json({});
 });
 
@@ -643,7 +676,7 @@ app.post('/deactivate-account', function(req,res)
             db.none(deleteuser)
             .then(function(rows) 
             {
-                res.status(200);  //to properly delete user from sesssions
+                res.status(200).json({});;  //to properly delete user from sesssions
                 console.log("User " + customerEmail + " deleted");
             })
             .catch(function(errors) 

@@ -220,7 +220,6 @@ function favourite1()
 			email: sessionStorage.getItem("user-email"),
 			movie: "movie1"
 		};
-		console.log(data);
 		const post = $.post("http://localhost:3000/addwishlist", data);
 		post.done(handleAddWishlistDone(data));
 		post.fail(handleAddWishlistFail);
@@ -232,7 +231,6 @@ function favourite1()
 			email: sessionStorage.getItem("user-email"),
 			movie: "movie1"
 		};
-		console.log(data);
 		const post = $.post("http://localhost:3000/removewishlist", data);
 		post.done(handleRemoveWishlistDone(data));
 		post.fail(handleRemoveWishlistFail);
@@ -248,7 +246,6 @@ function favourite2()
 			email: sessionStorage.getItem("user-email"),
 			movie: "movie2"
 		};
-		console.log(data);
 		const post = $.post("http://localhost:3000/addwishlist", data);
 		post.done(handleAddWishlistDone(data));
 		post.fail(handleAddWishlistFail);
@@ -259,7 +256,6 @@ function favourite2()
 			email: sessionStorage.getItem("user-email"),
 			movie: "movie2"
 		};
-		console.log(data);
 		const post = $.post("http://localhost:3000/removewishlist", data);
 		post.done(handleRemoveWishlistDone(data));
 		post.fail(handleRemoveWishlistFail);
@@ -274,7 +270,6 @@ function favourite3()
 			email: sessionStorage.getItem("user-email"),
 			movie: "movie3"
 		};
-		console.log(data);
 		const post = $.post("http://localhost:3000/addwishlist", data);
 		post.done(handleAddWishlistDone(data));
 		post.fail(handleAddWishlistFail);
@@ -285,7 +280,6 @@ function favourite3()
 			email: sessionStorage.getItem("user-email"),
 			movie: "movie3"
 		};
-		console.log(data);
 		const post = $.post("http://localhost:3000/removewishlist", data);
 		post.done(handleRemoveWishlistDone(data));
 		post.fail(handleRemoveWishlistFail);
@@ -300,7 +294,6 @@ function favourite4()
 			email: sessionStorage.getItem("user-email"),
 			movie: "movie4"
 		};
-		console.log(data);
 		const post = $.post("http://localhost:3000/addwishlist", data);
 		post.done(handleAddWishlistDone(data));
 		post.fail(handleAddWishlistFail);
@@ -311,7 +304,6 @@ function favourite4()
 			email: sessionStorage.getItem("user-email"),
 			movie: "movie4"
 		};
-		console.log(data);
 		const post = $.post("http://localhost:3000/removewishlist", data);
 		post.done(handleRemoveWishlistDone(data));
 		post.fail(handleRemoveWishlistFail);
@@ -326,7 +318,6 @@ function favourite5()
 			email: sessionStorage.getItem("user-email"),
 			movie: "movie5"
 		};
-		console.log(data);
 		const post = $.post("http://localhost:3000/addwishlist", data);
 		post.done(handleAddWishlistDone(data));
 		post.fail(handleAddWishlistFail);
@@ -337,7 +328,6 @@ function favourite5()
 			email: sessionStorage.getItem("user-email"),
 			movie: "movie5"
 		};
-		console.log(data);
 		const post = $.post("http://localhost:3000/removewishlist", data);
 		post.done(handleRemoveWishlistDone(data));
 		post.fail(handleRemoveWishlistFail);
@@ -353,7 +343,6 @@ function favourite6()
 			email: sessionStorage.getItem("user-email"),
 			movie: "movie6"
 		};
-		console.log(data);
 		const post = $.post("http://localhost:3000/addwishlist", data);
 		post.done(handleAddWishlistDone(data));
 		post.fail(handleAddWishlistFail);
@@ -365,7 +354,6 @@ function favourite6()
 			email: sessionStorage.getItem("user-email"),
 			movie: "movie6"
 		};
-		console.log(data);
 		const post = $.post("http://localhost:3000/removewishlist", data);
 		post.done(handleRemoveWishlistDone(data));
 		post.fail(handleRemoveWishlistFail);

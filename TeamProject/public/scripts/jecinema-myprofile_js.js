@@ -7,6 +7,13 @@ $(document).ready(function() {
     getDatabase(userEmail);
     setProfilePhoto();
     autofillForm(userEmail, userFullName);
+    getWishlistFromDatabase();
+
+    
+    $("#addwishlist").click(function() 
+    {
+        window.location.href = "/"; //redirect to homepage to add movies to wishlist
+    });
 
     $( "#DeactivateForm" ).submit(function( event ) 
     {
@@ -37,17 +44,15 @@ $(document).ready(function() {
         deactivatepost.always(processDeactivateSuccess);
     }
 
-    function processDeactivateError(xhr, textStatus, errorThrown) 
-    {
-        console.log("ohiehiew");
-    }
-
     function processDeactivateSuccess(response, status, xhr) 
     {
-        alert("HHH");
-        // window.location.href = "/logout";
-        // $("#DeactivateBttn").prop("disabled", false);  //re-enable for re-use
+        sessionStorage.clear();
+        window.location.href = "/logout";
+    }
 
+    function processDeactivateError(xhr, textStatus, errorThrown) 
+    {
+        alert("An Error occured deactivating your profile. Please try again later");
     }
 
 
@@ -152,7 +157,6 @@ function getDatabase(userEmail) {
     xhttp.onload = function() {  //when response received
     /*change elements to db values, using session variables to carry across pages such as profile picture*/
         const response = JSON.parse(xhttp.response);  //response as JSON obj
-        console.log(response.customerName);
         //Set session variables - Elements will be set to these values using functions
         if(response.customerProfilePic !== null)
         {
@@ -219,46 +223,58 @@ function autofillForm(userEmail, userFullName)
 
 function setWishlist()
 {
-    const wishlist = JSON.parse(sessionStorage.getItem("user-wishlist"));//no brackets
-    let stringToMatch;  //match image source of image with specifically formatted version of movie name that would match
-    const matchingElements = [];
-
-    var i,j;
-    for (i = 0; i < wishlist.length; i++) 
+    //hide all elements before checking match
+    $("#movie1").hide();
+    $("#movie2").hide();
+    $("#movie3").hide();
+    $("#movie4").hide();
+    $("#movie5").hide();
+    $("#movie6").hide();``
+    if(sessionStorage.getItem("user-wishlist") !== null && sessionStorage.getItem("user-wishlist") !== undefined)  //Only if wishlist is not empty
     {
-        stringToMatch = "pictures/"; 
-        stringToMatch += wishlist[i].movie_name.split(" ").join("").toLowerCase().replace(/[^a-zA-Z0-9]/g, '')+ "_poster.jpg"; 
+        console.log(sessionStorage.getItem("user-wishlist"));
+        const wishlist = JSON.parse(sessionStorage.getItem("user-wishlist"));  //no brackets
+        let stringToMatch;  //match image source of image with specifically formatted version of movie name that would match
+        const matchingElements = [];
         
-        // //Hide All Movies
-        // $("#movie1").hide();
-        // $("#movie2").hide();
-        // $("#movie3").hide();
-        // $("#movie4").hide();
-        // $("#movie5").hide();
-        // $("#movie6").hide();
 
-        //Show movies matching db
-        for(j=1; j < 7;  j++)
+        var i,j;
+        for (i = 0; i < wishlist.length; i++) 
         {
-            elementToEdit = "#movie" + j;
+            //Format string of movie to match the name of its image
+            stringToMatch = "pictures/"; 
+            stringToMatch += wishlist[i].movie_name.split(" ").join("").toLowerCase().replace(/[^a-zA-Z0-9]/g, '')+ "_poster.jpg"; 
 
-            $(elementToEdit).hide();
-            if(stringToMatch === $(elementToEdit).attr('src') ) 
+            //Show movies matching db
+            for(j=1; j <= 6;  j++)
             {
-                console.log("Match");
-                matchingElements.push(elementToEdit);
+                elementToEdit = "#movie" + j;  //the id of the current movie being checked ( #movie(number) ) 
+    
+                if(stringToMatch === $(elementToEdit).attr('src') )   //if movie is in wishlist
+                {
+                    console.log("match");
+                    matchingElements.push(elementToEdit);  //all wishlist movies ids put into array
+                }
+                
+                /*Matching elements are pushed into an array then hidden as a result of a rendering issue when they were
+                hidden on the spot in the loop */
+
             }
-            
-            
+        }
+        //Workaround - use matching elements array and show them after everything else is hidden
+        for (i = 0; i < matchingElements.length; i++)
+        {
+            $(matchingElements[i]).show();
         }
     }
-
-    for (i = 0; i < matchingElements.length; i++)
+    else
     {
-        $(matchingElements[i]).show();
-        console.log(matchingElements[i]);
-    } 
-//console.log(matchingElements);
+        if($("#errortext").length == 0)
+        {
+            $("<br><p id='errortext' style='color:red; text-align:center;'>No movies found in WIshlist!<br></p>").appendTo("#errorspace");
+            $("<button id='addwishlist' style='align-items: center;justify-content: center;' class='btn btn-outline-warning'>Add Movies to Wishlist</button>").appendTo("#errorspace");
+        }
+    }    
 }
 
 
@@ -275,12 +291,19 @@ function getWishlistFromDatabase()
 		xhttp.onload = function() 
 		{  	//when response received
 			/*change wishlist pictures to db values, using session variables to carry across pages*/
-			const response = JSON.parse(xhttp.response);  //response as JSON obj
-			const wishlist = response.wishlist;
+            if(xhttp.status !== 204)
+            {
+			    const response = JSON.parse(xhttp.response);  //response as JSON obj
+			    const wishlist = response.wishlist;
 			
-			sessionStorage.setItem("user-wishlist", JSON.stringify(wishlist));  //for use in my profile area
-            setWishlist();
+			    sessionStorage.setItem("user-wishlist", JSON.stringify(wishlist));  //for use in my profile area
+            }
+            else
+            {
+                sessionStorage.removeItem('user-wishlist');  //clear the wishlist if none is found
+            }    
         }
+        setWishlist();  //Set wishlist view
     }
 }            
 

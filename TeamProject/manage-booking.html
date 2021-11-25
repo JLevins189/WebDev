@@ -63,8 +63,8 @@
           <img id="user-picture" src="pictures/profilepic.jpg" width="35px" height="35px" class="profile">
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" id="sign-in" href="login">Sign in</a>
-          <a class="dropdown-item" id="register" href="register">Register</a>
+          <a class="dropdown-item" id="sign-in" href="my-profile">My Profile</a>
+          <a class="dropdown-item" id="register" href="logout">Logout</a>
         </div>
       </li>
     </ul>
@@ -81,16 +81,26 @@
     <img class="navbar-brand" src="pictures/je-logo3.png" height="50px" width="50px" alt="logo">
     <form id="booking-form">
       <h4 id="registerheader" style="color:silver"><b>Manage Booking</b></h4><br><br>
-      <label for="name" style="color:white;">Film: </label>
-	    <p id="filmname" name="filmname" value="DefaultValue"></p><br>
-      <label for="name" style="color:white;">Time: </label>
-	    <input type="text" id="film_time" name="film_time" style="border-radius: 5px;" placeholder="Film Time">br><br>
+      <label for="name" style="color:white;">Current Movie: </label><br>
+	    <!-- <p id="moviename" name="moviename" style="color:orange" value="DefaultValue"></p> -->
+      <select name="bookedMoviesSelect"  id="bookedMoviesSelect"> </select><br><br>
+      <!-- Insert current movie with jQuery -->
+      <label for="name" style="color:white;">New Movie: </label><br>
+      <select name="movielist"  id="movielist">
+        <option value="movie1" id="movie1">javascript takes care of this</option>
+        <option value="movie2" id="movie2">javascript takes care of this</option>
+        <option value="movie3" id="movie3">javascript takes care of this</option>
+        <option value="movie4" id="movie4">javascript takes care of this</option>
+        <option value="movie5" id="movie5">javascript takes care of this</option>
+        <option value="movie6" id="movie6">javascript takes care of this</option>
+      </select><br><br><br><br>
       <button class="btn btn-outline-warning" id="cancelBook" type="submit" onclick="clickCancel()">Cancel Booking</button>
 	    <button class="btn btn-outline-warning" id="saveChanges" type="submit">Save Changes</button><br><br>
 
 	  </form>
   </div>
 </div>
+
 
 
 <script src="scripts/jecinema-manage-booking_js.js"></script>

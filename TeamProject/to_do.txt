@@ -4,7 +4,8 @@ Jack
 
 -----------
 Finish select seat with db
-Deactivate account (remove session variables / redirect to logout)
+Manage Booking (get post of save changes/cancel done)
+Deactivate account (fix logout deserialize error)
 
 
 Password change
@@ -22,8 +23,8 @@ Readme.txt
 Searchpage - working on it
 
 Password change add link to login screen
-html page for entering a form (answers) of 2 PRESET security questions with button to confirm
-Very simple password change card (just enter new password and confirm button)
+html page 1 for entering a form (answers) of 2 PRESET security questions with button to confirm
+html page 2 Very simple password change card (just enter new password and confirm button)
 ***Use exisitng cards and change text to save yourself*****
 
 
