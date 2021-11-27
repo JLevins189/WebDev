@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-//Set Initial View
-=======
 $(document).ready(function() {
 
   $('#search').click(function() { 
@@ -29,8 +26,7 @@ $(document).ready(function() {
 
 });
 
-
->>>>>>> d11d8a0d458589fa8f67c7c7f614f1d0ac41b5e0
+//Set Initial View
 setProfilePhoto();
 const movieName = sessionStorage.getItem("movie-selected");
 $('<br><h3 style="text-align:center;">' + movieName + '</h3><br>').appendTo('#movie-name');
@@ -52,7 +48,6 @@ function updateSelectedCount()
   const selectedSeats = $('.row .seat.selected').toArray();  //seat selected counter
   const seatsIndex = [...selectedSeats].map(seat => [...seats].indexOf(seat));
   localStorage.setItem('selectedSeats', JSON.stringify(seatsIndex));
-  // console.log(localStorage.getItem('selectedSeats'));  //matches index of seats
 
   const selectedSeatsAmnt = selectedSeats.length;
 
@@ -95,9 +90,7 @@ function setOccupiedSeats(movieName)  {
   xhttp.onload = function() {  //when response received
   /*change elements to db values, using session variables to carry across pages such as profile picture*/
       const response = JSON.parse(xhttp.response);  //response as JSON obj
-      // console.log(response.rows);
       const occupiedSeats = response.rows;
-      // console.log(occupiedSeats[0].seat_no);
 
       if(occupiedSeats.length > 0)
       {
@@ -105,7 +98,6 @@ function setOccupiedSeats(movieName)  {
         for(let i=0; i<occupiedSeats.length; i++)
         {
           currentSeat = occupiedSeats[i].seat_no;
-          console.log(seats[currentSeat]);
           seats[currentSeat].classList.add('occupied');
         }
         
