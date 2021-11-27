@@ -1,13 +1,13 @@
 $(document).ready(function() {
-    //Store Database values to session
-    getWishlistFromDatabase();
+
     const userEmail = sessionStorage.getItem("user-email");
     let profilepic = sessionStorage.getItem("user-picture");
     const userFullName = sessionStorage.getItem("user-name");
     getDatabase(userEmail);
+    getWishlistFromDatabase();
     setProfilePhoto();
     autofillForm(userEmail, userFullName);
-    getWishlistFromDatabase();
+
 
     
     $("#addwishlist").click(function() 
@@ -122,14 +122,12 @@ $(document).ready(function() {
     $('#SaveBttn').click(function() 
     {
         $('#changeDetails').submit();
-        $("#SaveBttn").prop("disabled", true);  //prevent double posts
     });
     
 
     function processErrors(xhr, textStatus, errorThrown) 
     {
-        console.log('Validation errors');
-        $("#SaveBttn").prop("disabled", false);  //re-enable for re-use 
+        console.log('Validation errors'); 
     }
 
         

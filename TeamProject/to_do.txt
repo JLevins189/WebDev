@@ -3,13 +3,14 @@ To do list
 Jack 
 
 -----------
-Finish select seat with db
+
+add contactno to booking table and update post
 Manage Booking (get post of save changes/cancel done)
 Deactivate account (fix logout deserialize error)
 
 
 Password change
- - Set up 3 questions on registration
+ - Set up 2 questions on registration
  - Forgot password option checks the 2 questions answers
  - if successful it allows a new password and updates password
 

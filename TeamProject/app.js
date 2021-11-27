@@ -123,7 +123,7 @@ function isAuthenticated() {
             return next();
             
         }
-        res.redirect("/");
+        res.redirect("/login");
 
     };
 }
@@ -286,8 +286,30 @@ app.get("/getBookedMovies/:email", function(req, res) {	//send wishlist info bac
 
 
 
+// "GET", "/getSeats/"  + movieName
+app.get("/getSeats/:movieName", function(req, res) {	//send wishlist info back to user
+    const movieName = req.params.movieName;
+    
+    const selectbookedseats = new PS({
+        name: 'retrieve-booked-seats',
+        text: 'select seat_no from seat_booking s INNER JOIN bookinginfo b ON b.seat_bookingid = s.seat_booking_id WHERE b.movie_name = $1;',  //get all seats booked for current movie
+        values: [movieName]
+    });
 
-
+    // //Select to make sure email and password match to db
+    db.any(selectbookedseats)
+    .then(function(rows) {
+        //Save rows to array and send them in JSON object
+        const data = {
+            rows
+        };
+        res.status(200).json(data);
+    })
+    .catch(function(errors) {
+        console.log(errors);
+         res.status(204).json(errors)
+    });    
+});
 
 
 
@@ -573,6 +595,7 @@ function(req, res) {
         }
 
         console.log(` ${movieName} ${loginEmail} ${customerPhone}`);
+        console.log(data);
         res.json(data);
         
         
@@ -589,7 +612,7 @@ app.post("/seatselect", function(req, res) {
     const seatsBooked = req.body.seatsBooked;
     const movieName = req.body.movieName;
     const loginEmail = req.body.loginEmail;
-    const customerPhone = req.body.customerPhone;
+    // const customerPhone = req.body.customerPhone;
     
     //Insert Booking to DB
     const insertbooking = new PS({
@@ -598,18 +621,71 @@ app.post("/seatselect", function(req, res) {
         values: [loginEmail, movieName]
     });   
     
-//Take row retuned from insert for use with value in book seats
+    //Take row retuned from insert for use with value in book seats
 
     const bookseats = new PS({
         name: "book-seats",
-        text:'INSERT INTO seat_booking (seat_bookingid, email, seat_no) VALUES ($1, $2, $3);',
-    }); 
+        text:'INSERT INTO seat_booking (seat_booking_id, email, seat_no) VALUES ($1,$2,$3);'
+    }); //value of ID returned to be entered
+    
+
+    /* Inserting aysncronusly causes errors such as the same seat to be entered twice while some missed
+       inserting all the seats with thei respective email and ID allow them all to be inserted once instead of in a loop error-free 
+    */
+    db.one(insertbooking)
+    .then(function(rows)
+    {
+        const seatBookingID = rows.seat_bookingid;  //Create an array of seats booked
+        var values = [];  //create an array...each element is used as the values to be put in the insertion statement
+        
+        for(let i=0; i<seatsBooked.length;i++)
+        {
+            values.push( [ seatBookingID, loginEmail, seatsBooked[i] ] );  //add elements into the value array
+        }
+
+
+        /* Updating the values for each insert in a loop caused an error of duplicate and missing values
+           making this a function offsets this issue (workaround for async problem)  */
+        for(let i=0; i<values.length;i++)
+        {
+            insertMultipleSeats(values[i]);  //call the insert seat function as it avoids errors
+        } 
+
+        function insertMultipleSeats(values)
+        {
+            db.none(bookseats , values)
+            .then(function(rows)
+            {
+                console.log("Seat Booked Successfully");
+                
+            })
+            .catch(function(errors)
+            {
+                res.status(400).json({});
+                console.log(errors);
+            });
+        }
+
+        
+    })
+    .catch(function(errors)
+    {
+        res.status(400).json({});
+        console.log(errors);
+    });
+
+    res.status(200).json({});
+
+    //Redirect to Success Page
+    app.get("/booking-success", function(req,res)  {
+        res.sendFile(__dirname + "/booking-success.html");  //already logged in
+    });  //only allow this page after success
+
     
     
-    
-    
-    
-    res.json({});
+
+
+
 });
 
 app.post('/my-profile', (req, res) =>   //new profile pic
@@ -664,6 +740,9 @@ app.post('/deactivate-account', function(req,res)
 
     if(customerEmail !== null || customerEmail !== undefined)
     {
+        
+        req.logout();  //Logout User before it is impossible to de-authenticate
+        console.log("TEST"+req.isAuthenticated());
         //Delete user from database
         const deleteuser = new PS(
             {
@@ -672,18 +751,33 @@ app.post('/deactivate-account', function(req,res)
                 values: [customerEmail]
             });
 
-
-            db.none(deleteuser)
-            .then(function(rows) 
-            {
-                res.status(200).json({});;  //to properly delete user from sesssions
-                console.log("User " + customerEmail + " deleted");
+            //Release foreign key constraint of wishlist to avoid errors
+            const deletewishlist = new PS(
+                {
+                    name: 'delete-user-wishlist',
+                    text: 'DELETE FROM wishlist WHERE user_email = $1;',
+                    values: [customerEmail]
+                });
+            
+            db.none(deletewishlist)
+            .then(function(rows)
+            {    
+                db.none(deleteuser)
+                .then(function(rows) 
+                {
+                    res.status(200).json({});  //to properly delete user from sesssions
+                    console.log("User " + customerEmail + " deleted");
+                })
+                .catch(function(errors) 
+                {
+                    console.log(errors);
+                    res.status(400).json(errors)
+                });
             })
-            .catch(function(errors) 
+            .catch(function(errors)
             {
-                console.log("errors");
-                res.status(400).json(errors)
-            });
+                console.log(errors);
+            });        
     }
     else
     {

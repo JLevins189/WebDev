@@ -95,9 +95,9 @@ $(document).ready(function() {
 
 
     function processResults(response, status, xhr) {    //send get request to book a seat
-        sessionStorage.setItem("user-email", response.customerEmail);
+		sessionStorage.setItem("user-email", response.customerEmail);
         sessionStorage.setItem("user-phone", response.customerPhone);
-		sessionStorage.setItem("movie-selected", response.MovieName);
+		sessionStorage.setItem("movie-selected", response.movieName);
 		window.location.href = "/select-seat";
     }
 
