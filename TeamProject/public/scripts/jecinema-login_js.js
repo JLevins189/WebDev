@@ -71,7 +71,6 @@ $(document).ready(function() {
         $("#loginbttn").prop("disabled", false);  //re-enable button after post
         sessionStorage.setItem("user-email", response.customerEmail);
         sessionStorage.setItem("user-name", response.customerName);
-        sessionStorage.setItem("user-phone", response.customerPhone);
         window.location.href = "/my-profile";
     }
 

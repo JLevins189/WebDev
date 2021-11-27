@@ -26,6 +26,17 @@ $(document).ready(function() {
 		}
 
 	});
+
+	$('#cancelBook').click(function() 
+	{
+		clickCancel();
+	}); 
+
+	$('#saveChanges').click(function() 
+	{
+		clickSave();
+	}); 
+	
 });
 
 
@@ -46,13 +57,89 @@ function setProfilePhoto()
 
 function clickCancel()
 {
-	if(confirm("Do you want to cancel your booking?")) {
-		//drop booking here
+	if(confirm("Do you want to cancel your booking?")) 
+	{
+		createAjaxPostCancel();
 	}
-	else {
-		//just exit.
+	else 
+	{
+		alert("Operation Cancelled!");
 	}
 };
+
+
+function clickSave()
+{
+	if( $("#movielist").val() === $("#bookedMoviesSelect").val() )  //Prevent movie from being the same as selected
+	{
+		alert("Cannot change movie to same movie");
+	}
+	else
+	{
+		if(confirm("Do you want to change your booking?")) 
+		{
+			createAjaxPostChange();
+		}
+		else 
+		{
+			alert("Operation Cancelled!");
+		}
+	}
+
+
+};
+
+
+/*Change Bookings*/
+function createAjaxPostCancel() 
+{
+	const data = {
+		movieName: $("#bookedMoviesSelect").val(),
+		loginEmail: sessionStorage.getItem("user-email")
+	}
+	const post = $.post('http://localhost:3000/cancelbooking', data);
+	post.done(processCancelResults);
+	post.fail(processCancelErrors);
+}
+
+function processCancelResults()
+{
+	alert("Booking Cancelled Successfully");
+	window.location.reload();
+}
+
+function processCancelErrors()
+{
+	alert("Error in cancelling your booking.\n Please try again later!");
+}
+/*End Cancel Bookings*/
+
+
+/*Changing Booking Post */
+function createAjaxPostChange() 
+{
+	const data = {
+		oldMovie: $("#bookedMoviesSelect").val(),
+		newMovie: $("#movielist").val(),
+		loginEmail: sessionStorage.getItem("user-email"),
+	}
+	const post = $.post('http://localhost:3000/changebooking', data);
+	post.done(processChangeResults);
+	post.fail(processChangeErrors);
+}
+
+function processChangeResults()
+{
+	alert("Booking Changed Successfully");
+	//window.location.reload();
+}
+
+function processChangeErrors()
+{
+	alert("Error in changing your booking.\n Please try again later!");
+}
+/*End Change Bookings*/
+
 
 
 function setMovieNames()  //To Make the movie names dynamic for future updates
@@ -89,18 +176,30 @@ function getBookedMoviesFromDatabase()
 	if(userEmail !== undefined || userEmail !== null)
 	{
 		const xhttp = new XMLHttpRequest();
-		xhttp.open("GET", "/getBookedMovies/"  + userEmail); //+ sessionStorage.getItem("user-email"));
+		xhttp.open("GET", "/getBookedMovies/"  + userEmail);
 		xhttp.send();
 		xhttp.onload = function() 
 		{  	//when response received
-			/*change wishlist pictures to db values, using session variables to carry across pages*/
+			/*Load booked movies from database into dropdown or give error if none*/
             if(xhttp.status !== 204)
             {
 			    const response = JSON.parse(xhttp.response);  //response as JSON obj
-				// console.log(response.bookedMovies);
+				console.log(response.body);
 			    const bookedMovies = response.bookedMovies;
 				setCurrentMovie(bookedMovies);
             }
+			else  //error handling
+			{
+				$("#booking-form").hide();
+				$( "<br>" ).appendTo("#errordiv");
+				$( "<h3 style='color:orange; text-align:center;'>No Bookings Made Yet</h3>" ).appendTo("#errordiv");
+				$( "<br><br>" ).appendTo("#errordiv");
+				$( "<button class='btn btn-outline-warning' id='bookNow'>Book Now</button>" ).appendTo("#errordiv");
+				$("#bookNow").click(function()  //add create booking link to button
+				{
+					window.location.href = 'create-booking';
+				}); 
+			}
   
         }
     }

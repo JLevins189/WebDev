@@ -8,8 +8,6 @@ $(document).ready(function() {
 		sessionStorage.setItem("movie-selected", movieSelected);
 		let customerEmail = $( "#booking_email" ).val();
 		sessionStorage.setItem("user-email", customerEmail);  //Catch email entered and save it to session variable for next step
-		let customerPhone = $( "#cust_contactphone" ).val();
-		sessionStorage.setItem("user-phone", customerPhone);  //Catch phone and save it to session variable for next step
 	})
 	$('#createBookingForm').validate({
         errorElement: "div",
@@ -29,11 +27,6 @@ $(document).ready(function() {
                 maxlength: 50,
 				equalTo: "sessionStorage.getItem(user-email)"
             },
-			contactPhone:  {
-                required: true,
-                minlength: 6,
-                maxlength: 14            
-            },
 
 
         },
@@ -48,12 +41,7 @@ $(document).ready(function() {
                 minlength: 'Your email should contain at least 5 chars.',
                 email: 'Email address format not valid',
 				equalTo: 'Email address does not match your own'
-            },
-            contactPhone:  {
-                required: 'Please enter your phone number',
-                minlength: 'Your phone number should contain at least 6 chars.',
-                maxlength: 'Your phone number should only contain max 14 characters'
-            },    
+            },   
         },
         onfocusout: validateFiels,
         submitHandler: createAjaxPost
@@ -68,7 +56,6 @@ $(document).ready(function() {
         const data = {
             movieName: $("#movielist").val(),
 			loginEmail: $("#loginEmail")[0].value,
-			customerPhone: $("#contactPhone")[0].value
         }
         const post = $.post('http://localhost:3000/newbooking', data);
         post.done(processResults);
@@ -94,9 +81,9 @@ $(document).ready(function() {
     }
 
 
-    function processResults(response, status, xhr) {    //send get request to book a seat
+    function processResults(response, status, xhr) 
+	{    //send get request to book a seat
 		sessionStorage.setItem("user-email", response.customerEmail);
-        sessionStorage.setItem("user-phone", response.customerPhone);
 		sessionStorage.setItem("movie-selected", response.movieName);
 		window.location.href = "/select-seat";
     }
@@ -132,7 +119,6 @@ function autofillForm()
 {
 	let movieSelected = sessionStorage.getItem('movie-selected');
 	let userEmail = sessionStorage.getItem('user-email');
-	let userPhone = sessionStorage.getItem("user-phone");
 
 
 	if(sessionStorage.getItem('movie-selected') !== null)
@@ -144,16 +130,7 @@ function autofillForm()
 	{
 		//Fill into form
 		$("#loginEmail").val(userEmail);
-	}
-	if(sessionStorage.getItem('user-phone') !== null)
-	{
-		//Fill into form
-		$("#contactPhone").val(userPhone);
-	}
-	if(sessionStorage.getItem('user-phone') !== null)
-	{
-		$("contactPhone").val(userPhone);
-	}			
+	}		
 	
 }
 

@@ -59,7 +59,7 @@ passport.use(new LocalStrategy({
         {
             const selectUserLogin = new PS({
                 name: 'retrieve-user-same-email',
-                text: 'SELECT email, password, phonenumber, name FROM users WHERE email = $1;',
+                text: 'SELECT email, password, name FROM users WHERE email = $1;',
                 values: [username]
             });
 
@@ -281,7 +281,7 @@ app.get("/getBookedMovies/:email", function(req, res) {	//send wishlist info bac
     
     const selectbookedmovies = new PS({
         name: 'retrieve-booked-movies',
-        text: 'SELECT movie_name FROM bookinginfo WHERE email = $1;',  //change table to booking table
+        text: 'SELECT DISTINCT movie_name FROM bookinginfo WHERE email = $1;',  //change table to booking table
         values: [userEmail]
     });
 
@@ -296,7 +296,7 @@ app.get("/getBookedMovies/:email", function(req, res) {	//send wishlist info bac
     })
     .catch(function(errors) {
         console.log("No Movies Booked for this user!");
-         res.status(204).json(errors)
+         res.status(204).json(errors);
     });    
 });
 
@@ -357,11 +357,7 @@ app.post('/newuser', [
         .normalizeEmail(),
 
     body('customerPassword')
-        .isLength({ min: 5, max: 50 }),
-
-    body('customerPhone')
-        .isLength({ min: 6, max: 14 })
-        .isMobilePhone()
+        .isLength({ min: 5, max: 50 })
 ],
 function(req, res) {
     const validErrors = validationResult(req);
@@ -375,17 +371,15 @@ function(req, res) {
         const customerName = req.body.customerName;
         const customerEmail = req.body.customerEmail;
         const customerPassword = req.body.customerPassword;
-        const customerPhone = req.body.customerPhone;
 		
 
         const data = {
             customerName: customerName,
             customerEmail: customerEmail,
-            customerPassword: customerPassword,
-            customerPhone: customerPhone
+            customerPassword: customerPassword
         }
 
-        console.log(`${customerName} ${customerEmail} ${customerPassword} ${customerPhone}`);
+        console.log(`${customerName} ${customerEmail} ${customerPassword}`);
         
         
         //Check if user already exists
@@ -400,8 +394,8 @@ function(req, res) {
         // Now we can store the password hash in db.
         const insertuser = new PS({
             name: "new-user",
-            text:'INSERT INTO users (email, password, name, phonenumber) VALUES ($1, $2, $3, $4);',
-            values: [customerEmail, hash, customerName, customerPhone]
+            text:'INSERT INTO users (email, password, name) VALUES ($1, $2, $3);',
+            values: [customerEmail, hash, customerName]
         });    
 
 
@@ -450,7 +444,7 @@ function(req, res, next) {
         //Take user details to display user details in my profile using session varibales
         const selectUserLogin = new PS({
             name: 'retrieve-user-same-email-password',
-            text: 'SELECT email, phonenumber, name, profilepicture FROM users WHERE email = $1;',
+            text: 'SELECT email, name, profilepicture FROM users WHERE email = $1;',
             values: [customerEmail]
         });
 
@@ -459,7 +453,6 @@ function(req, res, next) {
         .then(function(rows) {
              data = {
                 customerEmail: customerEmail,
-                customerPhone: rows.phonenumber,
                 customerName: rows.name,
                 customerProfilePic: rows.profilepicture
             }
@@ -585,10 +578,6 @@ app.post('/newbooking', [
         .isEmail()
         .normalizeEmail(),
 
-        body('customerPhone')
-        .isLength({ min: 6, max: 14 })
-        .isMobilePhone(),
-
         body('movieName')
         .isLength({ min: 5, max: 50 })
 ],
@@ -602,16 +591,14 @@ function(req, res) {
     {
         const movieName = req.body.movieName;
         const loginEmail = req.body.loginEmail;
-        const customerPhone = req.body.customerPhone
 		
 
         const data = {
             movieName: movieName,
             customerEmail: loginEmail,
-            customerPhone: customerPhone
         }
 
-        console.log(` ${movieName} ${loginEmail} ${customerPhone}`);
+        console.log(` ${movieName} ${loginEmail}`);
         console.log(data);
         res.json(data);
         
@@ -629,7 +616,6 @@ app.post("/seatselect", function(req, res) {
     const seatsBooked = req.body.seatsBooked;
     const movieName = req.body.movieName;
     const loginEmail = req.body.loginEmail;
-    // const customerPhone = req.body.customerPhone;
     
     //Insert Booking to DB
     const insertbooking = new PS({
@@ -705,6 +691,130 @@ app.post("/seatselect", function(req, res) {
 
 });
 
+app.post("/cancelbooking", function(req, res) 
+{
+    console.log(req.body);
+    const movieName = req.body.movieName;
+    const loginEmail = req.body.loginEmail;
+    const values = [];
+
+    //Find Seat booking ID(s) of booking(s) for this movie
+    const selectseatsid = new PS
+    ({
+        name: 'retrieve-booked-seatsid',
+        text: 'SELECT DISTINCT seat_booking_id from seat_booking s INNER JOIN bookinginfo b ON b.seat_bookingid = s.seat_booking_id WHERE b.movie_name = $1 AND s.email = $2;',  //get all seats booked for current movie
+        values: [movieName, loginEmail]
+    });
+
+
+    const cancelbookedseats  = new PS
+    ({
+        name: 'delete-booked-seats',
+        text: 'DELETE FROM seat_booking WHERE seat_booking_id = $1;'
+    });
+
+
+    const cancelbooking  = new PS
+    ({
+        name: 'delete-booking',
+        text: 'DELETE FROM bookinginfo WHERE email = $1 AND movie_name = $2;',
+        values: [loginEmail, movieName]
+    });
+    
+   
+
+    db.any(selectseatsid)
+    .then(function(rows)
+    {
+        //Create an array of seat booking IDS to cancel and passed them to be deleted in a loop
+        for(let i=0; i<rows.length; i++)
+        {
+            values.push(rows[i].seat_booking_id);
+        }
+        // console.log(values);
+        for(let i=0; i<values.length;i++)
+        {
+            deleteBookedSeats(values[i]);  //call the delete booked seat database statements one by one
+        }   
+    })
+    .catch(function(errors)
+    {
+        console.log(errors);
+        res.status(204).json({});
+    });
+   
+    
+    function deleteBookedSeats(values)
+    {
+        db.none(cancelbookedseats, values)
+        .then(function(rows)
+        {
+            console.log("Seat Booking Cancelled Successfully")
+        })
+        .catch(function(errors)
+        {
+            console.log(errors);
+            res.status(204).json(errors);
+        });
+
+    }
+    
+    db.none(cancelbooking)
+    .then(function(rows)
+    {
+        console.log("Booking Successfully Cancelled");
+    })
+    .catch(function(errors)
+    {
+        res.status(204).json(errors);
+        console.log(errors);
+    });
+
+
+
+
+    res.status(200).json({})
+
+    
+});     
+
+
+
+//If booking is changed
+
+app.post("/changebooking", function(req, res) 
+{
+    console.log(req.body);
+    const oldMovie = req.body.oldMovie;
+    const newMovie = req.body.newMovie;
+    const loginEmail = req.body.loginEmail;
+   
+   
+    const updatemovie = new PS
+    ({
+        name: 'change-booked-movie',
+        text: 'UPDATE public.bookinginfo SET movie_name = $1 WHERE email = $2 AND movie_name = $3;',
+        values: [newMovie, loginEmail, oldMovie]
+    });
+
+    db.none(updatemovie)
+    .then(function(rows)
+    {
+        console.log("Successfully Changed Movies");
+        res.status(200).json({});
+    })
+    .catch(function(errors)
+    {
+        console.log(errors);
+        res.status(204).json(errors);
+    });
+   
+
+    
+});         
+
+
+        
 app.post('/my-profile', (req, res) =>   //new profile pic
 {
     let fileUpload;
@@ -759,42 +869,76 @@ app.post('/deactivate-account', function(req,res)
     {
         
         req.logout();  //Logout User before it is impossible to de-authenticate
-        console.log("TEST"+req.isAuthenticated());
         //Delete user from database
         const deleteuser = new PS(
-            {
-                name: 'delete-user',
-                text: 'DELETE FROM users WHERE email = $1;',
-                values: [customerEmail]
-            });
+        {
+            name: 'delete-user',
+            text: 'DELETE FROM users WHERE email = $1;',
+            values: [customerEmail]
+        });
 
-            //Release foreign key constraint of wishlist to avoid errors
-            const deletewishlist = new PS(
-                {
-                    name: 'delete-user-wishlist',
-                    text: 'DELETE FROM wishlist WHERE user_email = $1;',
-                    values: [customerEmail]
-                });
-            
-            db.none(deletewishlist)
+        //Release foreign key constraint of wishlist to avoid errors
+        const deletewishlist = new PS(
+        {
+            name: 'delete-user-wishlist',
+            text: 'DELETE FROM wishlist WHERE user_email = $1;',
+            values: [customerEmail]
+        });
+
+        //Release Bookings & Seats
+        const deletebookings = new PS(
+        {
+            name: 'delete-user-bookings',
+            text: 'DELETE FROM bookinginfo WHERE email = $1;',
+            values: [customerEmail]
+        });
+
+        const deleteseats = new PS(
+        {
+            name: 'delete-user-seats',
+            text: 'DELETE FROM seat_booking WHERE email = $1;',
+            values: [customerEmail]
+        });
+
+        //Delete user and all their data
+        db.none(deletewishlist)
+        .then(function(rows)
+        {
+            db.none(deleteseats)
             .then(function(rows)
-            {    
-                db.none(deleteuser)
-                .then(function(rows) 
+            {
+                db.none(deletebookings)
+                .then(function(rows)
                 {
-                    res.status(200).json({});  //to properly delete user from sesssions
-                    console.log("User " + customerEmail + " deleted");
-                })
-                .catch(function(errors) 
+                    db.none(deleteuser)
+                    .then(function(rows) 
+                    {
+                        res.status(200).json({});  //to properly delete user from sesssions
+                        console.log("User " + customerEmail + " deleted");
+                    })
+                    .catch(function(errors) 
+                    {
+                        console.log(errors);
+                        res.status(400).json(errors)
+                    });
+                }) 
+                .catch(function(errors)
                 {
                     console.log(errors);
-                    res.status(400).json(errors)
-                });
+                    res.status(400).json(errors);
+                });   
             })
             .catch(function(errors)
             {
                 console.log(errors);
-            });        
+                res.status(400).json(errors);
+            });
+        })
+        .catch(function(errors)
+        {
+            console.log(errors);
+            res.status(400).json(errors);
+        });        
     }
     else
     {

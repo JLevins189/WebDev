@@ -3,10 +3,7 @@ To do list
 Jack 
 
 -----------
-
-add contactno to booking table and update post
-Manage Booking (get post of save changes/cancel done)
-Deactivate account (fix logout deserialize error)
+Forgot password
 
 
 Password change

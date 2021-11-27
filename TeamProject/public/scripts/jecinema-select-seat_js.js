@@ -122,7 +122,6 @@ $("#BookingBttn").click(function()
     {
       movieName: sessionStorage.getItem("movie-selected"),
       loginEmail: sessionStorage.getItem("user-email"),
-      customerPhone: sessionStorage.getItem("user-phone"),
       seatsBooked: JSON.parse(localStorage.getItem('selectedSeats'))  //seat numbers in array
     }
 

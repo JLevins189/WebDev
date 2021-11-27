@@ -34,11 +34,6 @@ $(document).ready(function() {
                 maxlength: 50 ,
                 equalTo: "#customer_password"           
             },
-            customer_contactphone:  {
-                required: true,
-                minlength: 6,
-                maxlength: 14            
-            },
         },
         messages: {
             customer_name: {
@@ -64,13 +59,7 @@ $(document).ready(function() {
                 required: 'Please enter a password',
                 minlength: 'Your password should contain at least 5 chars.',
                 equalTo: 'Confirm Password should match Password.'
-            },
-            customer_contactphone:  {
-                required: 'Please enter your phone number',
-                minlength: 'Your phone number should contain at least 6 chars.',
-                maxlength: 'Your phone number should only contain max 14 characters'
-            }                
-    
+            },             
         },
         onfocusout: validateFiels,
         submitHandler: createAjaxPost
@@ -86,7 +75,6 @@ $(document).ready(function() {
             customerName: $("#customer_name")[0].value,
             customerEmail: $("#customer_email")[0].value,
             customerPassword: $("#customer_password")[0].value,
-            customerPhone: $("#customer_contactphone")[0].value
         }
 
         const post = $.post('http://localhost:3000/newuser', data);
@@ -117,7 +105,6 @@ $(document).ready(function() {
         $("#RegisterBttn").prop("disabled", false);  //re-enable button after post
         sessionStorage.setItem("user-name", response.customerName);
         sessionStorage.setItem("user-email", response.customerEmail);
-        sessionStorage.setItem("user-phone", response.customerPhone);
         window.location.href = "/login";
     }
 
