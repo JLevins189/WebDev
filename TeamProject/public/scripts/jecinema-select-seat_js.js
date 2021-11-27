@@ -1,3 +1,26 @@
+/*Reference note
+Investigation into exitsing solutions on irish websites were inspected
+using inspect element
+we noticed the div class changes on selection and occupation (from seat -> seat.selected/seat.occupied)
+and CSS was used with JS to affect the seats
+
+Actually pulling this off required help from various sources
+https://stackoverflow.com/questions/43109676/submit-form-with-selected-concert-seats-with-javascript-and-html
+https://codepen.io/Norbert-V/pen/KdXjgK
+https://diyifang.medium.com/movie-seat-booking-with-javascript-e140d6f5efd2
+
+The difference with ours is seats are occupied based on a database booking system that checks
+if the seat has been booked for that movie
+Bookings go directly into the database
+JQuery is used in addition to plain JS
+
+Despite a lot of code being used from an online source, 
+the feautures added or changed required a lot of thought & work
+We do not take any credit for any code from these listed sources
+*/
+
+
+
 $(document).ready(function() {
 
   $('#search').click(function() { 

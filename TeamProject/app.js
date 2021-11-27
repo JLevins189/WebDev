@@ -17,8 +17,8 @@ const dbPort = process.env.DB_PORT;
 const dbName = process.env.DB_NAME;
 
 // connection = protocol://userName:password@host:port/databaseName
-//const db = pgp(`postgres://${dbUser}:${dbPass}@${dbHost}:${dbPort}/${dbName}`);
-const db = pgp('postgres://webdevassignment:assignmentpassword@localhost:5432/webdevassignment');
+const db = pgp(`postgres://${dbUser}:${dbPass}@${dbHost}:${dbPort}/${dbName}`);
+
 
 const session = require("express-session");
 const passport = require("passport");
