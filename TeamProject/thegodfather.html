@@ -1,0 +1,123 @@
+<html lang="en">
+<head>
+
+  <link rel="icon" type="image/x-icon" href="pictures/favicon.ico">
+  <title>JE Cinema | The Godfather</title>
+  
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="css/jecinema.css">
+
+
+
+  <style>
+
+  html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+    color: white;
+  }
+
+  
+ 
+  hr {
+      border: 5px solid orange;
+      width: 20%;
+      margin-left: 2.3%;
+    }
+
+  .imdb-rating {
+    position: relative;
+    top: 50px; 
+    left: 130px;
+
+  }
+  
+  .youtube-trailer {
+    position: relative;
+    top: 30px; 
+    left: 90px;
+  }
+
+  .booking-btn {
+    position: relative;
+    top: 11px; 
+    left: 300px;
+  }
+	
+  </style>
+</head>
+
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="#"><img src="pictures/je-logo3.png"></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="about">About</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Booking
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="create-booking">Make booking</a>
+          <a class="dropdown-item" href="manage-booking">Manage/Cancel Booking</a>
+        </div>
+      </li>
+    </ul>
+      <ul class="navbar-nav ml-auto">
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle ml-auto" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <img id="user-picture" src="pictures/profilepic.jpg" width="35px" height="35px" class="profile">
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" id="sign-in" href="login">Sign in</a>
+          <a class="dropdown-item" id="register" href="register">Register</a>
+        </div>
+      </li>
+    </ul>
+    </ul>
+    <form class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" id="searchIn">
+        <button class="btn btn-outline-warning my-2 my-sm-0" type="button" id="search">Search</button>
+    </form>
+  </div>
+</nav>
+<br>
+<br>
+<br>
+<div id="movie-poster">
+    <img src="pictures/thegodfather_poster.jpg" style="width: 375px;height: 500px;float: left;">
+</div>
+<div id="about-movie">
+<h3>&thinsp;&thinsp;&thinsp;&thinsp;&thinsp;&thinsp;The Godfather</h3>
+<hr>
+
+<br>
+<p>&thinsp;&thinsp;&thinsp;&thinsp;&thinsp;&thinsp;&thinsp;&thinsp;&thinsp;&thinsp;The Godfather follows Vito Corleone Don of the Corleone family as he<br> 
+    &thinsp;&thinsp;&thinsp;&thinsp;&thinsp;&thinsp;&thinsp;&thinsp;&thinsp;&thinsp;passes the mantel to his son Michael<br></p>
+</div>
+</div>
+<div class="youtube-trailer">
+<iframe width="400" height="200" src="https://www.youtube.com/embed/kTlhEX0kmL8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+<div class="imdb-rating">
+    <span class="imdbRatingPlugin" data-user="ur145341452" data-title="tt0068646" data-style="p1"><a href="https://www.imdb.com/title/tt0068646/?ref_=plg_rt_1"><img src="https://ia.media-imdb.com/images/G/01/imdb/plugins/rating/images/imdb_46x22.png" alt=" The Godfather
+        (1972) on IMDb" />
+        </a></span><script>(function(d,s,id){var js,stags=d.getElementsByTagName(s)[0];if(d.getElementById(id)){return;}js=d.createElement(s);js.id=id;js.src="https://ia.media-imdb.com/images/G/01/imdb/plugins/rating/js/rating.js";stags.parentNode.insertBefore(js,stags);})(document,"script","imdb-rating-api");</script>
+</div>
+<div class="booking-btn">
+    <button class="btn btn-outline-warning">Make Booking</button><br>
+</div>
+</body>
+</html>

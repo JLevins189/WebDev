@@ -153,6 +153,23 @@ app.get("/about", function(req, res) {
     res.sendFile(__dirname + "/about.html");
 });
 
+app.get("/notimetodie", function(req, res) {
+    res.sendFile(__dirname + "/notimetodie.html");
+});
+app.get("/savingprivateryan", function(req, res) {
+    res.sendFile(__dirname + "/savingprivateryan.html");
+});
+app.get("/thelionking", function(req, res) {
+    res.sendFile(__dirname + "/thelionking.html");
+});
+app.get("/pawpatrol", function(req, res) {
+    res.sendFile(__dirname + "/pawpatrol.html");
+});
+app.get("/thegodfather", function(req, res) {
+    res.sendFile(__dirname + "/thegodfather.html");
+});app.get("/deadlycuts", function(req, res) {
+    res.sendFile(__dirname + "/deadlycuts.html");
+});
 
 app.get("/create-booking", /*isAuthenticated(),*/ function(req, res) {
     res.sendFile(__dirname + "/create-booking.html");
