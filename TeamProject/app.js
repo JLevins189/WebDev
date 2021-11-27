@@ -170,6 +170,13 @@ app.get("/thegodfather", function(req, res) {
 });app.get("/deadlycuts", function(req, res) {
     res.sendFile(__dirname + "/deadlycuts.html");
 });
+app.get("/forgotpassword", function(req, res) {
+    res.sendFile(__dirname + "/forgotpassword.html");
+});
+app.get("/changepassword", function(req, res) {
+    res.sendFile(__dirname + "/changepassword.html");
+});
+
 
 app.get("/create-booking", /*isAuthenticated(),*/ function(req, res) {
     res.sendFile(__dirname + "/create-booking.html");
