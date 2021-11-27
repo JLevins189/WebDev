@@ -1,4 +1,36 @@
+<<<<<<< HEAD
 //Set Initial View
+=======
+$(document).ready(function() {
+
+  $('#search').click(function() { 
+		let searchInput = $('#searchIn').val();
+		let movieArray = [];
+		movieArray.push('savingprivateryan');
+		movieArray.push('thegodfather');
+		movieArray.push('pawpatrol');
+		movieArray.push('thelionking');
+		movieArray.push('notimetodie');
+		movieArray.push('deadlycuts');
+		console.log('hello');
+		console.log(searchInput);
+		let searchInputCleaned = searchInput.replace(/[^A-Z0-9]/ig, '').toLowerCase();
+		console.log(searchInputCleaned);
+
+		if(jQuery.inArray(searchInputCleaned, movieArray) !== -1) {
+			console.log("is in array");
+			window.open("http://localhost:3000/" + searchInputCleaned, '_self');
+		} else {
+			console.log("is not in array");
+		}
+
+	});
+
+
+});
+
+
+>>>>>>> d11d8a0d458589fa8f67c7c7f614f1d0ac41b5e0
 setProfilePhoto();
 const movieName = sessionStorage.getItem("movie-selected");
 $('<br><h3 style="text-align:center;">' + movieName + '</h3><br>').appendTo('#movie-name');
