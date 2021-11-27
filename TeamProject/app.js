@@ -173,9 +173,7 @@ app.get("/thegodfather", function(req, res) {
 app.get("/forgotpassword", function(req, res) {
     res.sendFile(__dirname + "/forgotpassword.html");
 });
-app.get("/changepassword", function(req, res) {
-    res.sendFile(__dirname + "/changepassword.html");
-});
+
 
 
 app.get("/create-booking", /*isAuthenticated(),*/ function(req, res) {
@@ -271,7 +269,7 @@ app.get("/getwishlist/:email", function(req, res) {	//send wishlist info back to
         res.status(200).json(data);
     })
     .catch(function(errors) {
-        console.log(errors);
+        console.log("Wishlist is empty!");
          res.status(204).json(errors)
     });    
 });
@@ -320,7 +318,6 @@ app.get("/getSeats/:movieName", function(req, res) {	//send wishlist info back t
         values: [movieName]
     });
 
-    // //Select to make sure email and password match to db
     db.any(selectbookedseats)
     .then(function(rows) {
         //Save rows to array and send them in JSON object
@@ -330,7 +327,7 @@ app.get("/getSeats/:movieName", function(req, res) {	//send wishlist info back t
         res.status(200).json(data);
     })
     .catch(function(errors) {
-        console.log(errors);
+        console.log("NO seats booked for this movie");
          res.status(204).json(errors)
     });    
 });
@@ -364,7 +361,13 @@ app.post('/newuser', [
         .normalizeEmail(),
 
     body('customerPassword')
-        .isLength({ min: 5, max: 50 })
+        .isLength({ min: 5, max: 50 }),
+
+    body('securityAnswer1')
+    .isLength({ min: 5, max: 50 }),
+
+    body('securityAnswer2')
+    .isLength({ min: 5, max: 50 }),  
 ],
 function(req, res) {
     const validErrors = validationResult(req);
@@ -378,6 +381,8 @@ function(req, res) {
         const customerName = req.body.customerName;
         const customerEmail = req.body.customerEmail;
         const customerPassword = req.body.customerPassword;
+        const securityAnswer1 = req.body.securityAnswer1;
+        const securityAnswer2 = req.body.securityAnswer2;
 		
 
         const data = {
@@ -386,7 +391,7 @@ function(req, res) {
             customerPassword: customerPassword
         }
 
-        console.log(`${customerName} ${customerEmail} ${customerPassword}`);
+        console.log(data);
         
         
         //Check if user already exists
@@ -401,8 +406,8 @@ function(req, res) {
         // Now we can store the password hash in db.
         const insertuser = new PS({
             name: "new-user",
-            text:'INSERT INTO users (email, password, name) VALUES ($1, $2, $3);',
-            values: [customerEmail, hash, customerName]
+            text:'INSERT INTO users (email, password, name, answer1, answer2) VALUES ($1, $2, $3, $4, $5);',
+            values: [customerEmail, hash, customerName, securityAnswer1, securityAnswer2]
         });    
 
 
@@ -416,7 +421,7 @@ function(req, res) {
                 res.status(200).json(data);
             })
             .catch(function(errors) {
-                console.log(errors);
+                console.log("User already exists!");
                 res.status(400).json(errors);
             })
         });
@@ -575,6 +580,92 @@ function(req, res) {
 });    
 
 
+//Forgot Password Security Check Form Posted
+app.post('/securityquestions',[
+    body('customerEmail')
+        .isLength({ min: 5, max: 50 })
+        .isEmail()
+        .normalizeEmail(),
+
+    body('securityAnswer1')
+    .isLength({ min: 5, max: 50 }),
+      
+    body('securityAnswer2')
+    .isLength({ min: 5, max: 50 }),  
+],
+function(req, res) 
+{
+    const email = req.body.customerEmail;
+    const answer1 = req.body.securityAnswer1;
+    const answer2 = req.body.securityAnswer2;
+
+    //Retrieve security answers to check against form
+    const selectSecurityQuestions = new PS(
+    {
+        name: 'retrieve-user-securityquestions',
+        text: 'SELECT email, answer1, answer2 FROM users WHERE email = $1 AND answer1 = $2 AND answer2 = $3;',
+        values: [email, answer1, answer2]
+    });
+
+
+    db.one(selectSecurityQuestions)
+    .then(function(rows)
+    {
+        res.status(200).json({customerEmail: email});
+    })
+    .catch(function(errors)
+    {
+        console.log("Invalid email and/or answers");
+        res.status(401).json(errors);
+    });
+
+    app.get("/changepassword", function(req, res) {
+        res.sendFile(__dirname + "/changepassword.html");
+    });
+
+});
+
+
+//Reset Lost Password
+app.post('/changepassword',[
+    body('customerEmail')
+        .isLength({ min: 5, max: 50 })
+        .isEmail()
+        .normalizeEmail(),
+
+    body('password')
+    .isLength({ min: 5, max: 50 }), 
+],
+function(req, res) 
+{
+    const newPassword = req.body.newPassword;
+    const customerEmail = req.body.customerEmail;
+
+    bcrypt.hash(newPassword, saltRounds, function (err, hash) 
+    {
+        //Update User
+        const updatepassword = new PS(
+        {
+            name: 'update-password',
+            text: 'UPDATE users SET password = $1 WHERE email = $2;',
+            values: [hash, customerEmail]
+        });
+
+        db.none(updatepassword)
+        .then(function(rows)
+        {
+            console.log("Password reset successfully");
+            res.status(200).json({});
+        })
+        .catch(function(errors)
+        {
+            console.log(errors);
+            res.status(400).json(errors);
+        });
+
+    });
+
+});
 
 
 //Create Booking Form Posted
@@ -760,7 +851,7 @@ app.post("/cancelbooking", function(req, res)
         })
         .catch(function(errors)
         {
-            console.log(errors);
+            console.log("Couldn't cancel seats");
             res.status(204).json(errors);
         });
 
@@ -774,7 +865,7 @@ app.post("/cancelbooking", function(req, res)
     .catch(function(errors)
     {
         res.status(204).json(errors);
-        console.log(errors);
+        console.log("Couldn't cancel booking");
     });
 
 
@@ -812,7 +903,7 @@ app.post("/changebooking", function(req, res)
     })
     .catch(function(errors)
     {
-        console.log(errors);
+        console.log("Couldn't change movies");
         res.status(204).json(errors);
     });
    
@@ -859,7 +950,7 @@ app.post('/my-profile', (req, res) =>   //new profile pic
         //console.log(rows);
     })
     .catch(function(errors) {
-        console.log(errors);
+        console.log("Couldn't update profile picture");
         res.status(400).json(errors)
     });
 
@@ -999,7 +1090,7 @@ app.post('/addwishlist', function(req,res)
         })  //end outer then
         .catch(function(errors)  //if it is the wishlist -> send error
         {
-            console.log(errors);
+            // console.log(errors);
             const message = {
                 message: "Item already in Wishlist!"
             }

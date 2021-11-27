@@ -34,6 +34,17 @@ $(document).ready(function() {
                 maxlength: 50 ,
                 equalTo: "#customer_password"           
             },
+            security_answer1:  {
+                required: true,
+                minlength: 5,
+                maxlength: 50 ,           
+            },
+            security_answer2:  {
+                required: true,
+                minlength: 5,
+                maxlength: 50 ,           
+            },
+            
         },
         messages: {
             customer_name: {
@@ -59,7 +70,15 @@ $(document).ready(function() {
                 required: 'Please enter a password',
                 minlength: 'Your password should contain at least 5 chars.',
                 equalTo: 'Confirm Password should match Password.'
-            },             
+            },
+            security_answer1:  {
+                required: 'Please enter an answer',
+                minlength: 'Your answer should contain at least 5 chars.'
+            },
+            security_answer2:  {
+                required: 'Please enter an answer',
+                minlength: 'Your answer should contain at least 5 chars.'
+            },          
         },
         onfocusout: validateFiels,
         submitHandler: createAjaxPost
@@ -75,6 +94,8 @@ $(document).ready(function() {
             customerName: $("#customer_name")[0].value,
             customerEmail: $("#customer_email")[0].value,
             customerPassword: $("#customer_password")[0].value,
+            securityAnswer1: $("#security_question1")[0].value,
+            securityAnswer2: $("#security_question2")[0].value
         }
 
         const post = $.post('http://localhost:3000/newuser', data);
