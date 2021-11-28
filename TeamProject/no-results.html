@@ -1,44 +1,62 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="icon" type="image/x-icon" href="pictures/favicon.ico">
-  <title>JE Cinema | Already logged in</title>
 
+  <link rel="icon" type="image/x-icon" href="pictures/favicon.ico">
+  <title>JE Cinema | No Results</title>
+  
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
-  <link rel="stylesheet" href="css/jecinema.css">  
+  <link rel="stylesheet" href="css/jecinema.css">
+
+
   <style>
-    .card {
-      box-shadow: 0 4px 8px 0 rgba(240, 166, 7, 0.2);
-      transition: 0.3s;
-      width: 30%;
-      margin: 0 auto;
-        float: none;
-        margin-bottom: 10px; 
-      position: relative;
-      top: 12.5rem;
-      background-color: rgba(39, 38, 38, 0.87);
+
+  html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+    color: white;
+  }
+  
+  /* This controls the horizontal line. It shortens it and changes it to orange */
+  hr {
+      border: 5px solid orange;
+      width: 20%;
+      margin-left: 2.3%;
     }
 
-    .card:hover {
-      box-shadow: 0 12px 16px 0 rgba(230, 190, 12, 0.2);
-    }
+  /* positions the imdb rating */
+  .imdb-rating {
+    position: relative;
+    top: 50px; 
+    left: 130px;
 
-    .container {
-      padding: 10px 16px;
-      text-align: center
-    }
+  }
+  
+  /* positions the youtube trailer */
+  .youtube-trailer {
+    position: relative;
+    top: 30px; 
+    left: 90px;
+  }
 
-    .blank_space  {
-      margin-top: 250px;
-      vertical-align: middle;
-    }
-
-
+  /* positions the booking button */
+  .booking-btn {
+    position: relative;
+    top: 11px; 
+    left: 300px;
+  }
+	
+  .no-results {
+    color:silver;
+    position: absolute;
+    top: 50%;
+    left: 35%;
+  }
   </style>
+</head>
+
 <body>
 <!-- creates a navbar using bootstrap ensuring it is dark themed -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark"> 
@@ -86,32 +104,36 @@
     </form>
   </div>
 </nav>
-
-
-<div class="card">
-  <div class="container">
-    <img class="navbar-brand" src="pictures/je-logo3.png" height="50px" width="50px" alt="logo">
-    <h4 id="loginheader" style="color:silver"><b>You are already logged in!</b></h4> 
-    <br><br>
-    <div id="buttonsdiv">
-      <button style="margin-right: 1em;" class="btn btn-outline-warning my-2 my-sm-0" onclick="window.history.back();">Go Back</button>
-      <button style="margin-left: 1em;" class="btn btn-outline-warning" onclick="window.location.href='/logout'">Logout</button>
-  </div>
-  
-  </div>
+<br>
+<br>
+<br>
+<div class="no-results">
+    <h4>There are no results. Please try a new search</h4>
 </div>
-
-
-
-
-
-
-
-<div class="blank_space">
-  <br>
-</div>
-
-
-
 </body>
+<script>
+
+  // searches for matching strings when the search button is clicked
+  $('#search').click(function() { 
+		let searchInput = $('#searchIn').val();
+		let movieArray = [];
+    //pushes movies to the array
+		movieArray.push('savingprivateryan');
+		movieArray.push('thegodfather');
+		movieArray.push('pawpatrol');
+		movieArray.push('thelionking');
+		movieArray.push('notimetodie');
+		movieArray.push('deadlycuts');
+    //cleans the search entry and ensures it is lowercase and without special characters
+		let searchInputCleaned = searchInput.replace(/[^A-Z0-9]/ig, '').toLowerCase();
+
+    //opens up a new page with the film information
+		if(jQuery.inArray(searchInputCleaned, movieArray) !== -1) {
+			window.open("http://localhost:3000/" + searchInputCleaned, '_self');
+		} else {
+			window.open("http://localhost:3000/no-results",'_self');
+		}
+
+	});
+</script>
 </html>

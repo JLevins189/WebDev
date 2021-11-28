@@ -20,24 +20,27 @@
     overflow-x: hidden;
     color: white;
   }
+
+  /* sets carousel img measurements */
 	.carousel-inner img {
       width: 100%;
       height: 85%;
     }
-
+  
     hr {
       border: 5px solid orange;
       width: 20%;
       margin-right: 100%;
     }
 
+    
     .movies {
       margin: auto;
       width: 60%;
       padding: 10px;
     }
 
-  
+    /* sets poster positions and measurements along with their animations on hover */
     .poster1 {
       width: 100%;
       height: auto;
@@ -49,8 +52,8 @@
     }
 
     .poster1:hover {
-      -ms-transform: scale(1.2); /* IE 9 */
-      -webkit-transform: scale(1.2); /* Safari 3-8 */
+      -ms-transform: scale(1.2); 
+      -webkit-transform: scale(1.2); 
       transform: scale(1.2);    
      }
 
@@ -65,8 +68,8 @@
     }
 
     .poster2:hover {
-      -ms-transform: scale(1.2); /* IE 9 */
-      -webkit-transform: scale(1.2); /* Safari 3-8 */
+      -ms-transform: scale(1.2); 
+      -webkit-transform: scale(1.2); 
       transform: scale(1.2);    
     }
 
@@ -86,8 +89,8 @@
     }
 
     .poster3:hover {
-      -ms-transform: scale(1.2); /* IE 9 */
-      -webkit-transform: scale(1.2); /* Safari 3-8 */
+      -ms-transform: scale(1.2); 
+      -webkit-transform: scale(1.2); 
       transform: scale(1.2);    
     }
 
@@ -109,8 +112,8 @@
     }
 
     .poster4:hover {
-      -ms-transform: scale(1.2); /* IE 9 */
-      -webkit-transform: scale(1.2); /* Safari 3-8 */
+      -ms-transform: scale(1.2); 
+      -webkit-transform: scale(1.2); 
       transform: scale(1.2);    
      }
 
@@ -131,8 +134,8 @@
     }
 
     .poster5:hover {
-      -ms-transform: scale(1.2); /* IE 9 */
-      -webkit-transform: scale(1.2); /* Safari 3-8 */
+      -ms-transform: scale(1.2); 
+      -webkit-transform: scale(1.2); 
       transform: scale(1.2);    
     }
 
@@ -154,8 +157,8 @@
     }
 
     .poster6:hover {
-      -ms-transform: scale(1.2); /* IE 9 */
-      -webkit-transform: scale(1.2); /* Safari 3-8 */
+      -ms-transform: scale(1.2); 
+      -webkit-transform: scale(1.2); 
       transform: scale(1.2);    
     }
 
@@ -172,6 +175,8 @@
       top: -1220px;
     }
 
+
+    /*sets modal box and its content */
     .modal-box {
       display: none;
       position: fixed; 
@@ -199,12 +204,14 @@
 </head>
 
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<!-- creates a navbar using bootstrap ensuring it is dark themed -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark"> 
+  <!-- adds the logo to the navbar -->
   <a class="navbar-brand" href="#"><img src="pictures/je-logo3.png"></a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-
+  <!-- adds links to the navbar -->
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
@@ -213,6 +220,7 @@
       <li class="nav-item">
         <a class="nav-link" href="about">About</a>
       </li>
+      <!-- creates dropdowns for the navbar -->
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Booking
@@ -225,6 +233,7 @@
     </ul>
       <ul class="navbar-nav ml-auto">
       <li class="nav-item dropdown">
+        <!-- creates a profile picture with the navbar -->
         <a class="nav-link dropdown-toggle ml-auto" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <img id="user-picture" src="pictures/profilepic.jpg" width="35px" height="35px" class="profile">
         </a>
@@ -236,13 +245,13 @@
     </ul>
     </ul>
     <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" id="searchIn">
-      <button class="btn btn-outline-warning my-2 my-sm-0" type="button" id="search">Search</button>
+        <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" id="searchIn">
+        <button class="btn btn-outline-warning my-2 my-sm-0" type="button" id="search">Search</button>
     </form>
   </div>
 </nav>
 
-
+<!-- sets a div for a  box to show video. -->
 <div class="modal-box" id="video-modal">
 <div class="content-modal">
   <video src="pictures/007.mp4" controls>
@@ -250,6 +259,7 @@
 </div>
 </div>
 
+<!-- sets a div for a  box to show video. -->
 
 <div class="modal-box" id="video-modal2">
   <div class="content-modal">
@@ -258,6 +268,7 @@
   </div>
   </div>
 
+<!-- sets a div for a  box to show video. -->
 
 <div class="modal-box" id="video-modal3">
   <div class="content-modal">
@@ -266,12 +277,12 @@
   </div>
 </div>
 
-<div id="demo" class="carousel slide" data-ride="carousel" data-interval="2000"> 
+<div id="carousel-movies" class="carousel slide" data-ride="carousel" data-interval="2000"> 
   <!-- Indicators -->
   <ul class="carousel-indicators">
-    <li data-target="#demo" data-slide-to="0" class="active"></li>
-    <li data-target="#demo" data-slide-to="1"></li>
-    <li data-target="#demo" data-slide-to="2"></li>
+    <li data-target="#carousel-movies" data-slide-to="0" class="active"></li>
+    <li data-target="#carousel-movies" data-slide-to="1"></li>
+    <li data-target="#carousel-movies" data-slide-to="2"></li>
   </ul>
   
   <!-- The slideshow -->
@@ -288,15 +299,13 @@
   </div>
   
   <!-- Left and right controls -->
-  <a class="carousel-control-prev" href="#demo" data-slide="prev">
+  <a class="carousel-control-prev" href="#carousel-movies" data-slide="prev">
     <span class="carousel-control-prev-icon"></span>
   </a>
-  <a class="carousel-control-next" href="#demo" data-slide="next">
+  <a class="carousel-control-next" href="#carousel-movies" data-slide="next">
     <span class="carousel-control-next-icon"></span>
   </a>
 </div>
-
-
 
 
 <div class="movies">
@@ -305,6 +314,8 @@
 <hr>
 <br>
 
+
+<!-- sets movies along with their posters -->
 <div class="movie1">
   <img class="poster1" src="pictures/savingprivateryan_poster.jpg" width="120" height="200"><h3 id="movie1">Saving Private Ryan
     <img class="favourites" id ="favourite1" onClick="changeHeart1()" style="width: 20px; height:20px"src="pictures/empty_heart.png"></h3>

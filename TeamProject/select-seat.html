@@ -119,12 +119,14 @@ p.text span {
 
 
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<!-- creates a navbar using bootstrap ensuring it is dark themed -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark"> 
+  <!-- adds the logo to the navbar -->
   <a class="navbar-brand" href="#"><img src="pictures/je-logo3.png"></a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-
+  <!-- adds links to the navbar -->
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
@@ -133,6 +135,7 @@ p.text span {
       <li class="nav-item">
         <a class="nav-link" href="about">About</a>
       </li>
+      <!-- creates dropdowns for the navbar -->
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Booking
@@ -145,6 +148,7 @@ p.text span {
     </ul>
       <ul class="navbar-nav ml-auto">
       <li class="nav-item dropdown">
+        <!-- creates a profile picture with the navbar -->
         <a class="nav-link dropdown-toggle ml-auto" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <img id="user-picture" src="pictures/profilepic.jpg" width="35px" height="35px" class="profile">
         </a>
@@ -156,8 +160,8 @@ p.text span {
     </ul>
     </ul>
     <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" id="searchIn">
-      <button class="btn btn-outline-warning my-2 my-sm-0" type="button" id="search">Search</button>
+        <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" id="searchIn">
+        <button class="btn btn-outline-warning my-2 my-sm-0" type="button" id="search">Search</button>
     </form>
   </div>
 </nav>
@@ -177,6 +181,7 @@ p.text span {
     </li>
   </ul>
 
+  <!-- all seats placed in a container div -->
   <div class="container">
     <div class="screen"></div>
     <br><br><br><br>

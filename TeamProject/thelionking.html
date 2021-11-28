@@ -11,7 +11,6 @@
   <link rel="stylesheet" href="css/jecinema.css">
 
 
-
   <style>
 
   html, body {
@@ -19,15 +18,15 @@
     overflow-x: hidden;
     color: white;
   }
-
   
- 
+  /* This controls the horizontal line. It shortens it and changes it to orange */
   hr {
       border: 5px solid orange;
       width: 20%;
       margin-left: 2.3%;
     }
 
+  /* positions the imdb rating */
   .imdb-rating {
     position: relative;
     top: 50px; 
@@ -35,12 +34,14 @@
 
   }
   
+  /* positions the youtube trailer */
   .youtube-trailer {
     position: relative;
     top: 30px; 
     left: 90px;
   }
 
+  /* positions the booking button */
   .booking-btn {
     position: relative;
     top: 11px; 
@@ -51,12 +52,14 @@
 </head>
 
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<!-- creates a navbar using bootstrap ensuring it is dark themed -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark"> 
+  <!-- adds the logo to the navbar -->
   <a class="navbar-brand" href="#"><img src="pictures/je-logo3.png"></a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-
+  <!-- adds links to the navbar -->
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
@@ -65,6 +68,7 @@
       <li class="nav-item">
         <a class="nav-link" href="about">About</a>
       </li>
+      <!-- creates dropdowns for the navbar -->
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Booking
@@ -77,6 +81,7 @@
     </ul>
       <ul class="navbar-nav ml-auto">
       <li class="nav-item dropdown">
+        <!-- creates a profile picture with the navbar -->
         <a class="nav-link dropdown-toggle ml-auto" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <img id="user-picture" src="pictures/profilepic.jpg" width="35px" height="35px" class="profile">
         </a>
@@ -100,18 +105,23 @@
     <img src="pictures/thelionking_poster.jpg" style="width: 375px;height: 500px;float: left;">
 </div>
 <div id="about-movie">
+<!-- adds spaces before the title of the film -->
 <h3>&thinsp;&thinsp;&thinsp;&thinsp;&thinsp;&thinsp;The Lion King</h3>
 <hr>
 
 <br>
+<!-- formats the summary with spaces and breaks -->
 <p>&thinsp;&thinsp;&thinsp;&thinsp;&thinsp;&thinsp;&thinsp;&thinsp;&thinsp;&thinsp;After the murder of his father, a young lion prince flees his kingdom<br> 
     &thinsp;&thinsp;&thinsp;&thinsp;&thinsp;&thinsp;&thinsp;&thinsp;&thinsp;&thinsp;only to learn the true meaning of responsibility and bravery.<br> 
 </p>
 </div>
 </div>
+<!-- div to control the youtube embed link -->
 <div class="youtube-trailer">
 <iframe width="400" height="200" src="https://www.youtube.com/embed/7TavVZMewpY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
+
+<!-- div from https://www.imdb.com/plugins -->
 <div class="imdb-rating">
     <span class="imdbRatingPlugin" data-user="ur145341452" data-title="tt6105098" data-style="p1"><a href="https://www.imdb.com/title/tt6105098/?ref_=plg_rt_1"><img src="https://ia.media-imdb.com/images/G/01/imdb/plugins/rating/images/imdb_46x22.png" alt=" The Lion King
         (2019) on IMDb" />
@@ -122,25 +132,26 @@
 </div>
 </body>
 <script>
+
+  // searches for matching strings when the search button is clicked
   $('#search').click(function() { 
 		let searchInput = $('#searchIn').val();
 		let movieArray = [];
+    //pushes movies to the array
 		movieArray.push('savingprivateryan');
 		movieArray.push('thegodfather');
 		movieArray.push('pawpatrol');
 		movieArray.push('thelionking');
 		movieArray.push('notimetodie');
 		movieArray.push('deadlycuts');
-		console.log('hello');
-		console.log(searchInput);
+    //cleans the search entry and ensures it is lowercase and without special characters
 		let searchInputCleaned = searchInput.replace(/[^A-Z0-9]/ig, '').toLowerCase();
-		console.log(searchInputCleaned);
 
+    //opens up a new page with the film information
 		if(jQuery.inArray(searchInputCleaned, movieArray) !== -1) {
-			console.log("is in array");
 			window.open("http://localhost:3000/" + searchInputCleaned, '_self');
 		} else {
-			console.log("is not in array");
+			window.open("http://localhost:3000/no-results",'_self');
 		}
 
 	});

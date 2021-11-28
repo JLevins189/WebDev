@@ -10,8 +10,5 @@ destroy session on logout
 Ethan
 Animations ( drop downs or something)
 Readme.txt
-Searchpage - working on it
-HTML TITLES (check each page individually and make sure all titles are correct)
-- Some copy & pasted from other pages may be wrong
 
 

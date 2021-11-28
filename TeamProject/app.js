@@ -173,6 +173,9 @@ app.get("/thegodfather", function(req, res) {
 app.get("/forgotpassword", function(req, res) {
     res.sendFile(__dirname + "/forgotpassword.html");
 });
+app.get("/no-results", function(req, res) {
+    res.sendFile(__dirname + "/no-results.html");
+});
 
 
 
