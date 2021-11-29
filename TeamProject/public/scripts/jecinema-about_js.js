@@ -59,7 +59,7 @@ function checkLogin()
         $("#sign-in").text("My Profile").attr("id","my_profile").attr("href", "my-profile");
 
         //Change Login Option to Log out
-        $("#register").text("Log Out").attr("href", "logout").attr("id","logout_button"); //javascript void prevents redirect on link press (handled in function instead ) 
+        $("#register").text("Log Out").attr("href", "logout").attr("id","logout_button").attr("onclick","sessionStorage.clear();"); //javascript void prevents redirect on link press (handled in function instead ) 
         
         //Set Profile Picture if logged in
         setProfilePhoto();
@@ -74,7 +74,7 @@ function checkLogin()
 
             //Change My Profile Option to Register
             $("#logout-button").text("Register").attr("id", "register").attr("href", "register");
-                    
+
             //Set Profile Picture to default
             setProfilePhoto();
         }

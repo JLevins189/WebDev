@@ -163,7 +163,7 @@ $(document).ready(function() {
 		movieArray.push('notimetodie');
 		movieArray.push('deadlycuts');
 		console.log('hello');
-		console.log(searchInput);
+		console.log(scheckearchInput);
 		let searchInputCleaned = searchInput.replace(/[^A-Z0-9]/ig, '').toLowerCase();
 		console.log(searchInputCleaned);
 
