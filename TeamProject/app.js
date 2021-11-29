@@ -193,7 +193,8 @@ app.get("/manage-booking", isAuthenticated(), function(req, res) {
 
 //Profile Sections
 app.get("/login", function(req, res) {	//only if not already logged in
-    if(!req.isAuthenticated())
+
+    if(req.isAuthenticated()  === false)
     {
         res.sendFile(__dirname + "/login.html");  //not logged in yet
     }
@@ -218,7 +219,7 @@ app.get("/select-seat", isAuthenticated(), function(req, res) {
 
 app.get("/register", function(req, res) {	//only if not already logged in
     
-    if(!req.isAuthenticated())
+    if(req.isAuthenticated() === false)
     {
         res.sendFile(__dirname + "/register.html");  //not logged in yet
     }
@@ -230,7 +231,7 @@ app.get("/register", function(req, res) {	//only if not already logged in
 });
 
 app.get("/forgotpassword", function(req, res) {
-    if(!req.isAuthenticated())
+    if(req.isAuthenticated()   == false)
     {
         res.sendFile(__dirname + "/forgotpassword.html");
     }

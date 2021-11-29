@@ -1,7 +1,5 @@
 $(document).ready(function() 
 {
-    checkLogin();
-
     //searches when enter is pressed in the textfield    
     $('#searchIn').keypress(function (e) {
         if(e.which == 13)
@@ -31,7 +29,7 @@ $(document).ready(function()
         window.open("http://localhost:3000/no-results",'_self');
     }
 
-});
+    });
 });    
 
 

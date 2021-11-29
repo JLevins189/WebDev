@@ -19,7 +19,7 @@ function checkLogin()
         $("#sign-in").text("My Profile").attr("id","my_profile").attr("href", "my-profile");
 
         //Change Login Option to Log out
-        $("#register").text("Log Out").attr("id","logoutBttn");  
+        $("#register").text("Log Out").attr("id","logoutBttn").removeAttr("href");  
         
         //Set Profile Picture if logged in
         setProfilePhoto();
