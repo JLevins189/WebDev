@@ -2,7 +2,14 @@ $(document).ready(function()
 {
     checkLogin();
 
-
+    //searches when enter is pressed in the textfield    
+    $('#searchIn').keypress(function (e) {
+        if(e.which == 13)
+        {
+            $('#search').click();
+            return false; 
+        }
+    });  
     $('#search').click(function() { 
 		let searchInput = $('#searchIn').val();
 		let movieArray = [];
@@ -21,7 +28,7 @@ $(document).ready(function()
 			console.log("is in array");
 			window.open("http://localhost:3000/" + searchInputCleaned, '_self');
 		} else {
-			console.log("is not in array");
+            window.open("http://localhost:3000/no-results",'_self');
 		}
 
 	});

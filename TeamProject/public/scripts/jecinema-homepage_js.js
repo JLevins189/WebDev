@@ -66,6 +66,21 @@ $(document).ready(function()
 
 	});
 
+	$('#favourite1').hover(zoomIn, zoomOut);
+	$('#favourite2').hover(zoomIn, zoomOut);
+	$('#favourite3').hover(zoomIn, zoomOut);
+	$('#favourite4').hover(zoomIn, zoomOut);
+	$('#favourite5').hover(zoomIn, zoomOut);
+	$('#favourite6').hover(zoomIn, zoomOut);
+
+	$('#searchIn').keypress(function (e) {
+        if(e.which == 13)
+        {
+            $('#search').click();
+            return false; 
+        }
+    });  
+
 	
 	$('#search').click(function() { 
 		let searchInput = $('#searchIn').val();
@@ -85,13 +100,21 @@ $(document).ready(function()
 			console.log("is in array");
 			window.open("http://localhost:3000/" + searchInputCleaned, '_self');
 		} else {
-			console.log("is not in array");
+			window.open("http://localhost:3000/no-results",'_self');
 		}
 
 	});
 
 });	
 
+
+function zoomIn() {
+	$(this).css({height: '+=10%', width: '+=10%'});
+}
+
+function zoomOut() {
+	$(this).css({height: "", width: ""});
+}
 
 /*  Get movie name from the click of their poster in the what's on page
 	Bring the user to the booking page with that movie pre selected	*/

@@ -8,7 +8,5 @@ destroy session on logout
 
 
 Ethan
-Animations ( drop downs or something)
-Readme.txt
 
 
