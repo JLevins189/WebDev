@@ -29,7 +29,7 @@ $(document).ready(function() {
         $('#search').click();
         return false; 
     }
-  });  
+  }); 
 
   $('#search').click(function() { 
 		let searchInput = $('#searchIn').val();

@@ -1,6 +1,5 @@
 $(document).ready(function() {
 	setMovieNames();
-	checkLogin();
 	autofillForm();
 	setProfilePhoto();
 	

@@ -1,5 +1,4 @@
 $(document).ready(function() {
-
     const userEmail = sessionStorage.getItem("user-email");
     let profilepic = sessionStorage.getItem("user-picture");
     const userFullName = sessionStorage.getItem("user-name");
@@ -265,7 +264,6 @@ function setWishlist()
     $("#movie6").hide();``
     if(sessionStorage.getItem("user-wishlist") !== null && sessionStorage.getItem("user-wishlist") !== undefined)  //Only if wishlist is not empty
     {
-        console.log(sessionStorage.getItem("user-wishlist"));
         const wishlist = JSON.parse(sessionStorage.getItem("user-wishlist"));  //no brackets
         let stringToMatch;  //match image source of image with specifically formatted version of movie name that would match
         const matchingElements = [];
@@ -285,7 +283,6 @@ function setWishlist()
     
                 if(stringToMatch === $(elementToEdit).attr('src') )   //if movie is in wishlist
                 {
-                    console.log("match");
                     matchingElements.push(elementToEdit);  //all wishlist movies ids put into array
                 }
                 

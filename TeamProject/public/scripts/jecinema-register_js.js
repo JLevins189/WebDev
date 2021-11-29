@@ -34,12 +34,12 @@ $(document).ready(function() {
                 maxlength: 50 ,
                 equalTo: "#customer_password"           
             },
-            security_answer1:  {
+            security_question1:  {
                 required: true,
                 minlength: 5,
                 maxlength: 50 ,           
             },
-            security_answer2:  {
+            security_question2:  {
                 required: true,
                 minlength: 5,
                 maxlength: 50 ,           

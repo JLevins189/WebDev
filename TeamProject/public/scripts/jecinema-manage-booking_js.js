@@ -2,7 +2,9 @@ $(document).ready(function() {
 	setProfilePhoto();
 	setMovieNames();
 	getBookedMoviesFromDatabase();
-
+	$( "#logoutBttn" ).click(function() {
+		logout();
+	});
 	$('#searchIn').keypress(function (e) {
         if(e.which == 13)
         {

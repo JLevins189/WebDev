@@ -12,7 +12,7 @@ function checkLogin()
         $("#sign-in").text("My Profile").attr("id","my_profile").attr("href", "my-profile");
 
         //Change Login Option to Log out
-        $("#register").text("Log Out").attr("href", "logout").attr("id","logout_button").attr("onclick","sessionStorage.clear();");  
+        $("#register").text("Log Out").attr("id","logoutBttn");  
         
         //Set Profile Picture if logged in
         setProfilePhoto();
@@ -20,13 +20,13 @@ function checkLogin()
     else  //if user is not logged in
     {
         //Reverse changes to options above  if needed
-        if( $("#logout_button").text() === "" || $("#logout_button").text() === null)  //revert to guest view
+        if( $("#logoutBttn").text() === "" || $("#logoutBttn").text() === null)  //revert to guest view
         {
             //Change Log out to Login
             $("#my-profile").text("Sign In").attr("id", "sign-in").attr("href", "login");
 
             //Change My Profile Option to Register
-            $("#logout-button").text("Register").attr("id", "register").attr("href", "register");
+            $("#logoutBttn").text("Register").attr("id", "register").attr("href", "register");
 
             //Set Profile Picture to default
             setProfilePhoto();
