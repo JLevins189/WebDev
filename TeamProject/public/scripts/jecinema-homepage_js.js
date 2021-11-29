@@ -109,11 +109,11 @@ $(document).ready(function()
 
 
 function zoomIn() {
-	$(this).css({height: '+=10%', width: '+=10%'});
+	$(this).css({height: '+=1%', width: '+=1%'});
 }
 
 function zoomOut() {
-	$(this).css({height: "", width: ""});
+	$(this).css({height: "-=1%", width: "-=1%"});
 }
 
 /*  Get movie name from the click of their poster in the what's on page
