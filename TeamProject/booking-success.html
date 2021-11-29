@@ -74,8 +74,8 @@
           <img id="user-picture" src="pictures/profilepic.jpg" width="35px" height="35px" class="profile">
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" id="sign-in" href="login">Sign in</a>
-          <a class="dropdown-item" id="register" href="register">Register</a>
+          <a class="dropdown-item" href="my-profile">My Profile</a>
+          <a class="dropdown-item" onclick="sessionStorage.clear();" id="register" href="logout">Logout</a>
         </div>
       </li>
     </ul>
@@ -114,4 +114,7 @@
 
 </body>
 <script src="scripts/jecinema-search_js.js"></script>
+<script type="text/javascript" src="scripts/jecinema-checklogin_js.js"></script>
+<!-- for setting profile picture ^ -->
+
 </html>

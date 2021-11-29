@@ -116,12 +116,12 @@ passport.deserializeUser(function (id, done) {
 
 });
 
-function isAuthenticated() {
+function isAuthenticated() 
+{
     return function (req, res, next) {
-        //return next();
-        if (req.isAuthenticated()) {
+        if (req.isAuthenticated()) 
+        {
             return next();
-            
         }
         res.redirect("/login");
 
@@ -131,10 +131,10 @@ function isAuthenticated() {
 
 //Check if movie is in wishlist
 const alreadyInWishlist = new PS(
-    {
-        name: 'check-wishlist',
-        text: 'SELECT * FROM wishlist WHERE user_email = $1 AND movie_name = $2;',
-    });
+{
+    name: 'check-wishlist',
+    text: 'SELECT * FROM wishlist WHERE user_email = $1 AND movie_name = $2;',
+});
 
 
 app.listen(3000, function() {
@@ -153,68 +153,92 @@ app.get("/about", function(req, res) {
     res.sendFile(__dirname + "/about.html");
 });
 
+//Search Result Pages
 app.get("/notimetodie", function(req, res) {
     res.sendFile(__dirname + "/notimetodie.html");
 });
+
 app.get("/savingprivateryan", function(req, res) {
     res.sendFile(__dirname + "/savingprivateryan.html");
 });
+
 app.get("/thelionking", function(req, res) {
     res.sendFile(__dirname + "/thelionking.html");
 });
+
 app.get("/pawpatrol", function(req, res) {
     res.sendFile(__dirname + "/pawpatrol.html");
 });
+
 app.get("/thegodfather", function(req, res) {
     res.sendFile(__dirname + "/thegodfather.html");
-});app.get("/deadlycuts", function(req, res) {
+});
+
+app.get("/deadlycuts", function(req, res) {
     res.sendFile(__dirname + "/deadlycuts.html");
 });
-app.get("/forgotpassword", function(req, res) {
-    res.sendFile(__dirname + "/forgotpassword.html");
-});
+
 app.get("/no-results", function(req, res) {
     res.sendFile(__dirname + "/no-results.html");
 });
 
-
-
-app.get("/create-booking", /*isAuthenticated(),*/ function(req, res) {
+//Booking Sections
+app.get("/create-booking", isAuthenticated(), function(req, res) {
     res.sendFile(__dirname + "/create-booking.html");
 });
 
-app.get("/manage-booking", /*isAuthenticated(),*/ function(req, res) {	
+app.get("/manage-booking", isAuthenticated(), function(req, res) {	
     res.sendFile(__dirname + "/manage-booking.html");
 });
 
+//Profile Sections
 app.get("/login", function(req, res) {	//only if not already logged in
-    
-    // if(!isAuthenticated)
-    // {
+    if(!req.isAuthenticated())
+    {
         res.sendFile(__dirname + "/login.html");  //not logged in yet
-    // }
-    // else
-    // {
-    //     res.redirect("/alreadyloggedin");  //already logged in
-    // }
+    }
+    else
+    {
+        res.redirect("/alreadyloggedin");  //already logged in
+    }
     
 });
 
-app.get("/alreadyloggedin", function(req,res)  {
+app.get("/alreadyloggedin", isAuthenticated(), function(req,res)  {
     res.sendFile(__dirname + "/alreadyloggedin.html");  //already logged in
 });
 
+app.get("/my-profile", isAuthenticated(), function(req, res) {	//make conditional to login
+    res.sendFile(__dirname + "/my-profile.html");
+});
+
+app.get("/select-seat", isAuthenticated(), function(req, res) {	
+    res.sendFile(__dirname + "/select-seat.html")
+});  
+
 app.get("/register", function(req, res) {	//only if not already logged in
     
-    // if(!isAuthenticated)
-    // {
+    if(!req.isAuthenticated())
+    {
         res.sendFile(__dirname + "/register.html");  //not logged in yet
-    // }
-    // else
-    // {
-    //     res.redirect("/alreadyloggedin");  //already logged in
-    // }
+    }
+    else
+    {
+        res.redirect("/alreadyloggedin");  //already logged in
+    }
       
+});
+
+app.get("/forgotpassword", function(req, res) {
+    if(!req.isAuthenticated())
+    {
+        res.sendFile(__dirname + "/forgotpassword.html");
+    }
+    else
+    {
+        res.redirect("/alreadyloggedin");  //already logged in
+    }
+    
 });
 
 app.get("/logout", function (req, res) {
@@ -222,6 +246,9 @@ app.get("/logout", function (req, res) {
     res.redirect("/");
 });
 
+
+//GETS
+//Get My Profile information
 app.get("/getuser/:email", function(req, res) {	//send profile info back to user
     const userEmail = req.params.email;
     console.log(req.params);
@@ -237,7 +264,8 @@ app.get("/getuser/:email", function(req, res) {	//send profile info back to user
     db.one(selectuserdetails)
     .then(function(rows) {
         //console.log(rows);
-        const data = {
+        const data = 
+        {
             customerName: rows.name,
             customerProfilePic: rows.profilepicture,
             customerEmail: userEmail
@@ -251,7 +279,7 @@ app.get("/getuser/:email", function(req, res) {	//send profile info back to user
 });
 
 
-
+//Get Wshlist for user
 app.get("/getwishlist/:email", function(req, res) {	//send wishlist info back to user
     const userEmail = req.params.email;
     
@@ -278,11 +306,7 @@ app.get("/getwishlist/:email", function(req, res) {	//send wishlist info back to
 });
 
 
-
-
-
-
-
+//Get Movies booked for this user
 app.get("/getBookedMovies/:email", function(req, res) {	//send wishlist info back to user
     const userEmail = req.params.email;
     
@@ -309,9 +333,7 @@ app.get("/getBookedMovies/:email", function(req, res) {	//send wishlist info bac
 });
 
 
-
-
-// "GET", "/getSeats/"  + movieName
+//Get Seats already booked for this movie
 app.get("/getSeats/:movieName", function(req, res) {	//send wishlist info back to user
     const movieName = req.params.movieName;
     
@@ -336,21 +358,7 @@ app.get("/getSeats/:movieName", function(req, res) {	//send wishlist info back t
 });
 
 
-
-
-
-
-
-
-app.get("/my-profile", /*isAuthenticated(),*/ function(req, res) {	//make conditional to login
-    res.sendFile(__dirname + "/my-profile.html");
-});
-
-app.get("/select-seat", isAuthenticated(), function(req, res) {	
-    res.sendFile(__dirname + "/select-seat.html")
-});  
-
-
+//POSTS
 //Register Form Posted
 app.post('/newuser', [
     body('customerName')
@@ -882,7 +890,6 @@ app.post("/cancelbooking", function(req, res)
 
 
 //If booking is changed
-
 app.post("/changebooking", function(req, res) 
 {
     console.log(req.body);
@@ -915,7 +922,7 @@ app.post("/changebooking", function(req, res)
 });         
 
 
-        
+//Profile Picture change        
 app.post('/my-profile', (req, res) =>   //new profile pic
 {
     let fileUpload;

@@ -155,26 +155,27 @@ $(document).ready(function() {
 
     // searches for matching strings when the search button is clicked
     $('#search').click(function() { 
-    let searchInput = $('#searchIn').val();
-    let movieArray = [];
-    //pushes movies to the array
-    movieArray.push('savingprivateryan');
-    movieArray.push('thegodfather');
-    movieArray.push('pawpatrol');
-    movieArray.push('thelionking');
-    movieArray.push('notimetodie');
-    movieArray.push('deadlycuts');
-    //cleans the search entry and ensures it is lowercase and without special characters
-    let searchInputCleaned = searchInput.replace(/[^A-Z0-9]/ig, '').toLowerCase();
+		let searchInput = $('#searchIn').val();
+		let movieArray = [];
+		movieArray.push('savingprivateryan');
+		movieArray.push('thegodfather');
+		movieArray.push('pawpatrol');
+		movieArray.push('thelionking');
+		movieArray.push('notimetodie');
+		movieArray.push('deadlycuts');
+		console.log('hello');
+		console.log(scheckearchInput);
+		let searchInputCleaned = searchInput.replace(/[^A-Z0-9]/ig, '').toLowerCase();
+		console.log(searchInputCleaned);
 
-    //opens up a new page with the film information
-    if(jQuery.inArray(searchInputCleaned, movieArray) !== -1) {
-        window.open("http://localhost:3000/" + searchInputCleaned, '_self');
-    } else {
-        window.open("http://localhost:3000/no-results",'_self');
-    }
+		if(jQuery.inArray(searchInputCleaned, movieArray) !== -1) {
+			console.log("is in array");
+			window.open("http://localhost:3000/" + searchInputCleaned, '_self');
+		} else {
+            window.open("http://localhost:3000/no-results",'_self');
+		}
 
-    });
+	});
 
 });
 
