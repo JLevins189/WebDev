@@ -1,9 +1,0 @@
-To do list
-------------------
-Jack 
-Login/Logout links   ****Let me change in navbar****
-destroy session on logout
-
-
-
-

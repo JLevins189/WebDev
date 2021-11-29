@@ -42,14 +42,6 @@ The Postgres database should be set up with the SQL file given to create all tab
 The file is in the Databases folder
 Using pgAdmin run this script
 
-AS per the .env file details ( these should obviously be kept secret )
-The password should match the .env file - assignmentpassword
-The port should be 5432
-The host is localhost
-The dbname and username is webdevassignment
-
-
-
 
 To run this project you will need to access the node server first. This is done by downloading the project file,
 accessing its path and changing to the project file's directory on your machine. Then to run the server type 
