@@ -1,3 +1,4 @@
+/* To destroy both sessionStorage & express session together */
 $(document).ready(function()
 {
     $("#logoutBttn").click(function() 

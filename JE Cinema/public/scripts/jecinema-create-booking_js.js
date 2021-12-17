@@ -3,6 +3,7 @@ $(document).ready(function() {
 	autofillForm();
 	setProfilePhoto();
 	
+	//On change of drop down selection
 	$("#movielist").change(function(){
 		let movieSelected = $( "#movielist" ).val();  //Catch Option Selected on drop-down and save it to session variable for next step
 		sessionStorage.setItem("movie-selected", movieSelected);

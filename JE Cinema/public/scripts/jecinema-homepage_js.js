@@ -399,7 +399,7 @@ function getWishlistFromDatabase()
 
 
 
-
+//Video Play on click of carousel
 let mvideo = document.getElementById("video-modal");
 $("#film1").click(function() { 
 	mvideo.style.display = "block";

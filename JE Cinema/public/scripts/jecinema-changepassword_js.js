@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).ready(function() {  //Validate form input
     //Set hidden password variable from session
     $('#email').val(sessionStorage.getItem("user-email"));
     $('#changepassword-form').validate({
@@ -39,6 +39,7 @@ $(document).ready(function() {
         $(element).valid();
     }
     
+    //Submit Form
     function createAjaxPost() {
         const data = {
             customerEmail: $("#email")[0].value,

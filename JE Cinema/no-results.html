@@ -2,14 +2,59 @@
 <head>
 
   <link rel="icon" type="image/x-icon" href="pictures/favicon.ico">
-  <title>JE Cinema | The Lion King</title>
+  <title>JE Cinema | No Results</title>
   
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="css/jecinema.css">
-  <link rel="stylesheet" href="css/film-pages.css">
+
+
+  <style>
+
+  html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+    color: white;
+  }
+  
+  /* This controls the horizontal line. It shortens it and changes it to orange */
+  hr {
+      border: 5px solid orange;
+      width: 20%;
+      margin-left: 2.3%;
+    }
+
+  /* positions the imdb rating */
+  .imdb-rating {
+    position: relative;
+    top: 50px; 
+    left: 130px;
+
+  }
+  
+  /* positions the youtube trailer */
+  .youtube-trailer {
+    position: relative;
+    top: 30px; 
+    left: 90px;
+  }
+
+  /* positions the booking button */
+  .booking-btn {
+    position: relative;
+    top: 11px; 
+    left: 300px;
+  }
+	
+  .no-results {
+    color:silver;
+    position: absolute;
+    top: 50%;
+    left: 35%;
+  }
+  </style>
 </head>
 
 <body>
@@ -62,38 +107,13 @@
 <br>
 <br>
 <br>
-<div id="movie-poster">
-    <img src="pictures/thelionking_poster.jpg" style="width: 375px;height: 500px;float: left;">
-</div>
-<div id="about-movie">
-<!-- adds spaces before the title of the film -->
-<h3 id="MovieTitle">&thinsp;&thinsp;&thinsp;&thinsp;&thinsp;&thinsp;The Lion King</h3>
-<hr>
 
-<br>
-<!-- formats the summary with spaces and breaks -->
-<p>&thinsp;&thinsp;&thinsp;&thinsp;&thinsp;&thinsp;&thinsp;&thinsp;&thinsp;&thinsp;After the murder of his father, a young lion prince flees his kingdom<br> 
-    &thinsp;&thinsp;&thinsp;&thinsp;&thinsp;&thinsp;&thinsp;&thinsp;&thinsp;&thinsp;only to learn the true meaning of responsibility and bravery.<br> 
-</p>
+<div class="no-results">
+    <h4>There are no results. Please try a new search</h4>
 </div>
-</div>
-<!-- div to control the youtube embed link -->
-<div class="youtube-trailer">
-<iframe width="400" height="200" src="https://www.youtube.com/embed/7TavVZMewpY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-</div>
-
-<!-- div from https://www.imdb.com/plugins -->
-<div class="imdb-rating">
-    <span class="imdbRatingPlugin" data-user="ur145341452" data-title="tt6105098" data-style="p1"><a href="https://www.imdb.com/title/tt6105098/?ref_=plg_rt_1"><img src="https://ia.media-imdb.com/images/G/01/imdb/plugins/rating/images/imdb_46x22.png" alt=" The Lion King
-        (2019) on IMDb" />
-        </a></span><script>(function(d,s,id){var js,stags=d.getElementsByTagName(s)[0];if(d.getElementById(id)){return;}js=d.createElement(s);js.id=id;js.src="https://ia.media-imdb.com/images/G/01/imdb/plugins/rating/js/rating.js";stags.parentNode.insertBefore(js,stags);})(document,"script","imdb-rating-api");</script>
-</div>
-        <div class="booking-btn">
-    <button id="BookingButton" class="btn btn-outline-warning">Make Booking</button><br>
-</div>
-
-<script src="scripts/jecinema-search_js.js"></script>
-<script src="scripts/jecinema-searchresults_js.js"></script>
 
 </body>
+<script src="scripts/jecinema-search_js.js"></script>
+<script src="scripts/jecinema-checklogin_js.js"></script>
+<script src="scripts/jecinema-logout_js.js"></script>
 </html>

@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    $('#register-form').validate({
+    $('#register-form').validate({  //Validate input
         errorElement: "div",
         errorPlacement: function(error, element) {
             element.after(error);
@@ -89,6 +89,7 @@ $(document).ready(function() {
         $(element).valid();
     }
     
+    //Submit Form
     function createAjaxPost() {
         const data = {
             customerName: $("#customer_name")[0].value,

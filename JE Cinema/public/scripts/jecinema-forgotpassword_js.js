@@ -1,32 +1,41 @@
-$(document).ready(function() {
-    $('#login-form').validate({
+$(document).ready(function() {  //Validate Form Input
+    $('#password-form').validate({
         errorElement: "div",
         errorPlacement: function(error, element) {
             element.after(error);
         },
         rules: {
-            loginemail: {
+            email: {
                 required: true,
                 email: true,
                 minlength: 5,
                 maxlength: 50
             },
-            loginpassword:  {
+            loginquestion1:  {
                 required: true,
                 minlength: 5,
-                maxlength: 50            
+                maxlength: 50 ,           
+            },
+            loginquestion2:  {
+                required: true,
+                minlength: 5,
+                maxlength: 50 ,           
             },
 
         },
         messages: {
-            loginemail: {
+            email: {
                 required: 'Please enter your email',
                 minlength: 'Your email should contain at least 5 chars.',
                 email: 'Email address format not valid'
             },
-            loginpassword:  {
-                required: 'Please enter a password',
-                minlength: 'Your password should contain at least 5 chars.'
+            loginquestion1:  {
+                required: 'Please enter an answer',
+                minlength: 'Your answer should contain at least 5 chars.'
+            },
+            loginquestion2:  {
+                required: 'Please enter an answer',
+                minlength: 'Your answer should contain at least 5 chars.'
             },    
         },
         onfocusout: validateFiels,
@@ -38,19 +47,21 @@ $(document).ready(function() {
         $(element).valid();
     }
     
+    //Submit data
     function createAjaxPost() {
         const data = {
-            customerEmail: $("#loginemail")[0].value,
-            customerPassword: $("#loginpassword")[0].value
+            customerEmail: $("#email")[0].value,
+            securityAnswer1: $("#loginquestion1")[0].value,
+            securityAnswer2: $("#loginquestion2")[0].value
         }
-        const post = $.post('http://localhost:3000/existinguser', data);
+        const post = $.post('http://localhost:3000/securityquestions', data);
         post.done(processResults);
         post.fail(processErrors);
     }
     
 
-    $('#loginbttn').click(function() {
-        $('#login-form').submit();
+    $('#ForgotBttn').click(function() {
+        $('#password-form').submit();
     });
     
 
@@ -58,7 +69,7 @@ $(document).ready(function() {
         console.log(xhr.status);
         if ( xhr.status == 401  &&  $("#errortext").length == 0 )   //incorrect login
         {
-            $("<p id='errortext' style='color:red;''>You have entered an invalid email or password</p>").insertAfter("#loginheader");
+            $("<p id='errortext' style='color:red;''>You have entered an invalid email or your answers are incorrect</p>").insertAfter("#errorspace");
         }
         else if (xhr.status !== 401)
         {
@@ -67,14 +78,11 @@ $(document).ready(function() {
     }
 
     function processResults(response, status, xhr) {    //set session variables and redirect to my profile immediately if successful
-        console.log("Success");
-        $("#loginbttn").prop("disabled", false);  //re-enable button after post
-        sessionStorage.setItem("user-email", response.customerEmail);
-        sessionStorage.setItem("user-name", response.customerName);
-        window.location.href = "/my-profile";
+        sessionStorage.setItem("user-email", response.customerEmail);  //to change the password for this email in the next page
+        $("#ForgotBttn").prop("disabled", false);  //re-enable button after post
+        window.location.href = "/changepassword";
     }
 
-    autofillForm();
 
     $('#searchIn').keypress(function (e) {
         if(e.which == 13)
@@ -84,7 +92,7 @@ $(document).ready(function() {
         }
     });  
 
-    // searches for matching strings when the search button is clicked  
+    // searches for matching strings when the search button is clicked
     $('#search').click(function() { 
     let searchInput = $('#searchIn').val();
     let movieArray = [];
@@ -105,33 +113,11 @@ $(document).ready(function() {
         window.open("http://localhost:3000/no-results",'_self');
     }
 
-    });
+});
     
 });
 
-function setProfilePhoto()
-{
-    if(sessionStorage.getItem("user-picture") !== null)
-    {
-        //Set Picture to user's profile picture 
-        const profilePicture = sessionStorage.getItem("user-picture");
-        $("#user-picture").attr("src",profilePicture);
-    }
-    else
-    {
-        $("#user-picture").attr("src", "pictures/profilepic.jpg");  //Revert to default image
-    }
-
-}
 
 
-function autofillForm()
-{
-	let userEmail = sessionStorage.getItem('user-email');
-	
-	if(sessionStorage.getItem('user-email') !== null)
-	{
-		//Fill into form
-		$("#loginemail").val(userEmail);
-	}
-}
+
+
